@@ -20,7 +20,7 @@ export default function FAQs() {
         <div className="lg:grid lg:grid-cols-3 lg:gap-8">
           <div>
             <h2 className="text-3xl font-extrabold text-gray-900">
-              Frequently asked questions
+              FAQ&apos;s
             </h2>
             <p className="mt-4 text-lg text-gray-500">
               Can’t find the answer you’re looking for? Reach out to us on our{" "}

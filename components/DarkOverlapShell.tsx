@@ -1,18 +1,18 @@
 import React, { ReactNode } from "react";
 
-import Navbar from "../components/DarkNavbar";
-
-type Props = {
+export interface DarkOverlapProps {
   children: ReactNode;
   className?: string;
   title?: string;
-};
+}
 
-export default function DarkOverlapShell({ children, title }: Props) {
+export default function DarkOverlapShell({
+  children,
+  title,
+}: DarkOverlapProps) {
   return (
     <>
-      <div className="bg-gray-800 pb-32">
-        <Navbar />
+      <div className="bg-gray-900 pb-32">
         {title && (
           <header className="py-10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -10,32 +10,22 @@ import {
 } from "@heroicons/react/outline";
 
 import heroImg from "../public/images/hero-img.png";
+import { NavLink, Person } from "../lib";
 
-const user = {
+const user: Person = {
   name: "Tom Cook",
   email: "tom@example.com",
   imageUrl: heroImg,
 };
 
-interface iNavLink {
-  name: string;
-  href: string;
-  current: boolean;
-}
-
-interface iUserNavLink {
-  name: string;
-  href: string;
-}
-
-const initialNavigation: iNavLink[] = [
+const initialNavigation: NavLink[] = [
   { name: "Home", href: "/", current: false },
   { name: "Collections", href: "/collections", current: false },
   { name: "Mint", href: "/mint", current: false },
   // { name: "News", href: "/news", current: false },
 ];
 
-const userNavigation: iUserNavLink[] = [
+const userNavigation: NavLink[] = [
   { name: "Your Profile", href: "#" },
   { name: "Settings", href: "#" },
   { name: "Sign out", href: "#" },
@@ -47,7 +37,7 @@ function classNames(...classes: string[]) {
 
 export default function Navbar() {
   const router = useRouter();
-  const [navigation, setNavigation] = useState<iNavLink[]>(initialNavigation);
+  const [navigation, setNavigation] = useState<NavLink[]>(initialNavigation);
 
   useEffect(() => {
     if (router.isReady) {
@@ -55,7 +45,7 @@ export default function Navbar() {
   }, [router]);
 
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure as="nav" className="bg-gray-900">
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -107,7 +97,7 @@ export default function Navbar() {
                     {/* Profile dropdown */}
                     <Menu as="div" className="ml-3 relative">
                       <div>
-                        <Menu.Button className="max-w-xs px-3 bg-gray-800 text-gray-400 hover:text-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <Menu.Button className="max-w-xs px-3 py-1 bg-gray-900 text-gray-400 hover:text-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                           <span className="sr-only">Open user menu</span>
                           {/* if user profile images get used, use the below */}
                           {/* <Image
@@ -155,7 +145,7 @@ export default function Navbar() {
                 </div>
                 <div className="-mr-2 flex md:hidden">
                   {/* Mobile menu button */}
-                  <Disclosure.Button className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                  <Disclosure.Button className="bg-gray-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                     <span className="sr-only">Open main menu</span>
                     {open ? (
                       <XIcon className="block h-6 w-6" aria-hidden="true" />
