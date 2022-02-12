@@ -1,19 +1,11 @@
-import React, { Fragment } from "react";
-import { Popover, Transition } from "@headlessui/react";
-import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import React from "react";
 import { ChevronRightIcon } from "@heroicons/react/solid";
 import Image from "next/image";
 
-import logoImg from "../public/images/workflow-mark-indigo-600.svg";
-import heroImg from "../public/images/cloud-illustration-indigo-400.svg";
+// import logoImg from "../public/images/workflow-mark-indigo-600.svg";
+// import heroImg from "../public/images/cloud-illustration-indigo-400.svg";
+import superheroImg from "../public/images/super-bunny-t.png";
 import Link from "next/link";
-
-const navigation = [
-  { name: "Product", href: "#" },
-  { name: "Features", href: "#" },
-  { name: "Marketplace", href: "#" },
-  { name: "Company", href: "#" },
-];
 
 export default function DarkHeroSectionClouds() {
   return (
@@ -28,10 +20,10 @@ export default function DarkHeroSectionClouds() {
                     <Link href="/mint" passHref>
                       <>
                         <span className="px-3 py-0.5 text-white text-xs font-semibold leading-5 uppercase tracking-wide bg-red-600 rounded-full">
-                          Minting still available
+                          Bunny minting available
                         </span>
                         <span className="ml-4 text-sm">
-                          Visit our Mint page
+                          Visit the Mint page
                         </span>
                         <ChevronRightIcon
                           className="ml-2 w-5 h-5 text-gray-500"
@@ -48,11 +40,12 @@ export default function DarkHeroSectionClouds() {
                     </span>
                   </h1>
                   <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                    Optiland is a community and a series of collections of Non
-                    Fungible Tokens as . Elit sunt amet fugiat veniam occaecat
-                    fugiat.
+                    Optiland is a series of collections of Non Fungible Tokens
+                    on Optimism - a community of hopeful citizens from around OP
+                    City who want to live in the world of low gas fees
+                    we&apos;ve gotten used to.
                   </p>
-                  <div className="mt-10 sm:mt-12">
+                  {/* <div className="mt-10 sm:mt-12">
                     <form action="#" className="sm:max-w-xl sm:mx-auto lg:mx-0">
                       <div className="sm:flex">
                         <div className="min-w-0 flex-1">
@@ -84,17 +77,20 @@ export default function DarkHeroSectionClouds() {
                         .
                       </p>
                     </form>
-                  </div>
+                  </div> */}
                 </div>
               </div>
-              <div className="mt-12 -mb-16 sm:-mb-48 lg:m-0 lg:relative">
+              <div className="mt-12 -mb-16 sm:-mb-28 lg:m-0 lg:relative">
                 <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0">
                   {/* Illustration taken from Lucid Illustrations: https://lucid.pixsellz.io/ */}
-                  {/* <Image
+                  <Image
                     className="w-full lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
-                    src={heroImg}
+                    src={superheroImg}
+                    width={660}
+                    height={660}
+                    layout="intrinsic"
                     alt=""
-                  /> */}
+                  />
                 </div>
               </div>
             </div>

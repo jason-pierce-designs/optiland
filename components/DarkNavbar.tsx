@@ -26,9 +26,9 @@ const initialNavigation: NavLink[] = [
 ];
 
 const userNavigation: NavLink[] = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
+  { name: "Your Optiland NFT's", href: "/view" },
+  { name: "Disconnect wallet", href: "#" },
+  // { name: "Sign out", href: "#" },
 ];
 
 function classNames(...classes: string[]) {
@@ -45,7 +45,7 @@ export default function Navbar() {
   }, [router]);
 
   return (
-    <Disclosure as="nav" className="bg-gray-900">
+    <Disclosure as="nav" className="bg-gray-900 z-10">
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
