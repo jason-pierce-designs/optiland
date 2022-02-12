@@ -26,7 +26,7 @@ export default function FAQs() {
               Can’t find the answer you’re looking for? Reach out to us on our{" "}
               <a
                 href="/discord"
-                className="font-medium text-red-600 hover:text-red-700"
+                className="font-medium text-indigo-600 hover:text-indigo-700"
               >
                 Discord
               </a>{" "}
@@ -57,13 +57,13 @@ export default function FAQs() {
                   Ethereum network to the Optimism network through either the
                   official{" "}
                   <Link passHref href="https://gateway.optimism.io/">
-                    <span className="text-red-600 hover:text-red-700 cursor-pointer">
+                    <span className="text-indigo-600 hover:text-indigo-700 cursor-pointer">
                       Optimism gateway
                     </span>
                   </Link>{" "}
                   or{" "}
                   <Link passHref href="https://app.hop.exchange/send">
-                    <span className="text-red-600 hover:text-red-700 cursor-pointer">
+                    <span className="text-indigo-600 hover:text-indigo-700 cursor-pointer">
                       {" "}
                       hop exchange.
                     </span>
@@ -86,7 +86,7 @@ export default function FAQs() {
                   MetaMask wallet, copy the contract address and take note of
                   the TokenID for your tokens on{" "}
                   <Link passHref href="https://optimistic.etherscan.io/">
-                    <span className="text-red-600 hover:text-red-500 cursor-pointer">
+                    <span className="text-indigo-600 hover:text-indigo-500 cursor-pointer">
                       Etherscan
                     </span>
                   </Link>
