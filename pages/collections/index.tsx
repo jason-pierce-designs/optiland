@@ -4,10 +4,10 @@ import Layout from "../../components/Layout";
 import DarkNavbar from "../../components/DarkNavbar";
 import DarkOverlapShell from "../../components/DarkOverlapShell";
 
-import NeonCity from "../../public/images/neon-city-bg.jpg";
-import PinkAlley from "../../public/images/pink-alley-bg.jpg";
-import AlleyCity from "../../public/images/apt-tower-bg.jpg";
-import AptMoonlight from "../../public/images/apt-moonlight.jpg";
+import NeonCity from "/public/images/neon-city-bg.jpg";
+import PinkAlley from "/public/images/pink-alley-bg.jpg";
+import AlleyCity from "/public/images/apt-tower-bg.jpg";
+import AptMoonlight from "/public/images/apt-moonlight.jpg";
 import Footer from "../../components/Footer";
 
 const collections = [
@@ -36,7 +36,7 @@ export default function Collections() {
     <>
       <Layout>
         <DarkNavbar />
-        <DarkOverlapShell title="Choose a Collection">
+        <DarkOverlapShell title="Optiland Collections">
           <div className="relative bg-white rounded-lg shadow">
             <div className="relative bg-white pb-24">
               {/* Background image and overlap */}
@@ -79,7 +79,7 @@ export default function Collections() {
                 </div>
                 <div className="relative py-32">
                   <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
-                    Optiland Collections
+                    choose a collection
                   </h1>
                   {/* <div className="mt-4 sm:mt-6">
                     <a

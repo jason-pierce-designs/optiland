@@ -2,6 +2,8 @@ import React, { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
+import useEagerConnect from "../lib/hooks/useEagerConnect";
+
 import {
   BellIcon,
   MenuIcon,
@@ -11,6 +13,7 @@ import {
 
 import heroImg from "../public/images/hero-img.png";
 import { NavLink, Person } from "../lib";
+import Account from "./Account";
 
 const user: Person = {
   name: "Tom Cook",
@@ -37,6 +40,7 @@ function classNames(...classes: string[]) {
 
 export default function Navbar() {
   const router = useRouter();
+  const triedToEagerConnect = useEagerConnect();
   const [navigation, setNavigation] = useState<NavLink[]>(initialNavigation);
 
   useEffect(() => {
@@ -106,11 +110,12 @@ export default function Navbar() {
                             alt=""
                           /> */}
                           {/* and remove the Connect and wallet icon below*/}
-                          <span className="pr-2">Connect</span>
+                          {/* <span className="pr-2">Connect</span>
                           <CreditCardIcon
                             className="h-6 w-6"
                             aria-hidden="true"
-                          />
+                          /> */}
+                          <Account triedToEagerConnect={triedToEagerConnect} />
                         </Menu.Button>
                       </div>
                       <Transition
@@ -179,7 +184,7 @@ export default function Navbar() {
             </div>
             <div className="pt-4 pb-3 border-t border-gray-700">
               {/**
-               * add the following back, when we get info about user
+               * add the following back, when we get info about user. goes in mobile version of navbar
                */}
               {/* <div className="flex items-center px-5">
                 <div className="flex-shrink-0">

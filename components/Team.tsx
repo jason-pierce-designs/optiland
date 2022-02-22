@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React from "react";
 
-import heroRed from "../public/images/hero-red.png";
-import chillBunny from "../public/images/chill-bunny.png";
+import heroRed from "/public/images/hero-red.png";
+import chillBunny from "/public/images/chill-bunny.png";
 import { Person } from "../lib";
 
 const people: Person[] = [
@@ -48,7 +48,7 @@ export default function Team() {
                 <li key={person.name}>
                   <div className="space-y-4">
                     {person.imageUrl && (
-                      <div className="aspect-w-3 aspect-h-2">
+                      <div className="aspect-w-3">
                         <Image
                           className="object-cover shadow-lg rounded-lg"
                           src={person.imageUrl}
