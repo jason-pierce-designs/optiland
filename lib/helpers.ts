@@ -14,7 +14,7 @@ export function classNames(...classes: string[]) {
 export const getLocalMetadata = async (token: string, tokenId: number) => {
   try {
     const res: Response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASEURL}/api/meta/${token}/${tokenId}`
+      `${window.location.origin}/api/meta/${token}/${tokenId}`
     );
     const data: BunnyMetadata = await res.json();
     return data;
