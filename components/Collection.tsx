@@ -12,15 +12,13 @@ export interface CollectionProps {
 
 export default function CollectionMainPage({ token }: CollectionProps) {
   return (
-    <div className="bg-white">
-      <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-        <h2 className="sr-only">Products</h2>
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+      <h2 className="sr-only">Non-Fungible Tokens</h2>
 
-        <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8">
-          {products.map((product, idx) => (
-            <NFTCard collection={token} id={product} key={idx} />
-          ))}
-        </div>
+      <div className="mt-6 grid grid-cols-1 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-2 lg:grid-cols-3 md:gap-y-0 lg:gap-x-8">
+        {products.map((product, idx) => (
+          <NFTCard collection={token} id={product} key={idx} />
+        ))}
       </div>
     </div>
   );
