@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 
 import NFTCard from "./NFTCard";
 
@@ -10,7 +9,7 @@ export interface CollectionProps {
   title?: string;
 }
 
-export default function CollectionMainPage({ token }: CollectionProps) {
+export default function Collection({ token }: CollectionProps) {
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
       <h2 className="sr-only">Non-Fungible Tokens</h2>
