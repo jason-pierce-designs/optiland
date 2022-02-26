@@ -11,14 +11,21 @@ export function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const getLocalMetadata = async (token: string, tokenId: number) => {
+export const getLocalMetadata = async (
+  token: string,
+  tokenId: number,
+  isSSR: boolean = false
+) => {
   const baseUrl =
-    window.location.origin ||
     process.env.VERCEL_URL ||
     process.env.NEXT_PUBLIC_VERCEL_URL ||
     process.env.NEXT_PUBLIC_BASEURL;
+
+  console.log("base is:", baseUrl);
   try {
-    const res: Response = await fetch(`/api/meta/${token}/${tokenId}`);
+    const res: Response = isSSR
+      ? await fetch(`/api/meta/${token}/${tokenId}`)
+      : await fetch(`${baseUrl}/api/meta/${token}/${tokenId}`);
     const data: BunnyMetadata = await res.json();
     return data;
   } catch (e) {

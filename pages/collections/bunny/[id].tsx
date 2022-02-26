@@ -13,7 +13,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const tokenId = context.params?.id as string;
   const metadata: BunnyMetadata | Error = await getLocalMetadata(
     "bunny",
-    Number(tokenId)
+    Number(tokenId),
+    true
   );
   return {
     props: removeUndefinedForNextJsSerializing({
