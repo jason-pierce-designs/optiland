@@ -17,9 +17,7 @@ export const getLocalMetadata = async (
   isSSR: boolean = false
 ) => {
   const baseUrl =
-    process.env.VERCEL_URL ||
-    process.env.NEXT_PUBLIC_VERCEL_URL ||
-    process.env.NEXT_PUBLIC_BASEURL;
+    process.env.NEXT_PUBLIC_BASEURL || process.env.NEXT_PUBLIC_VERCEL_URL;
 
   console.log("base is:", baseUrl);
   try {

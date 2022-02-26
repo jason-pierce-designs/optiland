@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { removeUndefinedForNextJsSerializing } from "../../../lib/utils";
-import { getLocalMetadata } from "../../../lib/helpers";
 import { BunnyMetadata } from "../../../lib";
 import DarkNavbar from "../../../components/DarkNavbar";
 import Layout from "../../../components/Layout";
@@ -11,11 +10,10 @@ import DarkOverlapShell from "../../../components/DarkOverlapShell";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const tokenId = context.params?.id as string;
-  const metadata: BunnyMetadata | Error = await getLocalMetadata(
-    "bunny",
-    Number(tokenId),
-    true
-  );
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASEURL || process.env.NEXT_PUBLIC_VERCEL_URL;
+  const res: Response = await fetch(`${baseUrl}/api/meta/bunny/${tokenId}`);
+  const metadata: BunnyMetadata = await res.json();
   return {
     props: removeUndefinedForNextJsSerializing({
       metadata,

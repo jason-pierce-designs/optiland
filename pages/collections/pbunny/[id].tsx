@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { removeUndefinedForNextJsSerializing } from "../../../lib/utils";
-import { getLocalMetadata } from "../../../lib/helpers";
 import { BunnyMetadata } from "../../../lib";
 import DarkNavbar from "../../../components/DarkNavbar";
 import Layout from "../../../components/Layout";
@@ -11,11 +10,10 @@ import DarkOverlapShell from "../../../components/DarkOverlapShell";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const tokenId = context.params?.id as string;
-  const metadata: BunnyMetadata | Error = await getLocalMetadata(
-    "pbunny",
-    Number(tokenId),
-    true
-  );
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASEURL || process.env.NEXT_PUBLIC_VERCEL_URL;
+  const res: Response = await fetch(`${baseUrl}/api/meta/pbunny/${tokenId}`);
+  const metadata: BunnyMetadata = await res.json();
   return {
     props: removeUndefinedForNextJsSerializing({
       metadata,
@@ -28,8 +26,6 @@ export default function PBunnyDetail({
   metadata,
   tokenId,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  console.log("metadata: ", metadata);
-  console.log("tokenId: ", tokenId);
   return (
     <>
       <Layout>
