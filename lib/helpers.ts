@@ -17,13 +17,12 @@ export const getLocalMetadata = async (
   isSSR: boolean = false
 ) => {
   const baseUrl =
-    process.env.NEXT_PUBLIC_BASEURL || process.env.NEXT_PUBLIC_VERCEL_URL;
+    process.env.NEXT_PUBLIC_BASEURL ||
+    `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
 
   console.log("base is:", baseUrl);
   try {
-    const res: Response = isSSR
-      ? await fetch(`/api/meta/${token}/${tokenId}`)
-      : await fetch(`${baseUrl}/api/meta/${token}/${tokenId}`);
+    const res: Response = await fetch(`/api/meta/${token}/${tokenId}`);
     const data: BunnyMetadata = await res.json();
     return data;
   } catch (e) {
