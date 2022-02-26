@@ -12,9 +12,10 @@ export function classNames(...classes: string[]) {
 }
 
 export const getLocalMetadata = async (token: string, tokenId: number) => {
+  const baseUrl = process.env.VERCEL_ENV || process.env.NEXT_PUBLIC_BASEURL;
   try {
     const res: Response = await fetch(
-      `${window.location.origin}/api/meta/${token}/${tokenId}`
+      `${baseUrl}/api/meta/${token}/${tokenId}`
     );
     const data: BunnyMetadata = await res.json();
     return data;

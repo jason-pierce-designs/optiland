@@ -27,6 +27,8 @@ export default function PBunnyDetail({
   metadata,
   tokenId,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  console.log("metadata: ", metadata);
+  console.log("tokenId: ", tokenId);
   return (
     <>
       <Layout>
@@ -36,7 +38,7 @@ export default function PBunnyDetail({
             <NFTDetailView
               metadata={metadata}
               collection="pbunny"
-              id={tokenId}
+              id={Number(tokenId)}
             />
           </div>
         </DarkOverlapShell>

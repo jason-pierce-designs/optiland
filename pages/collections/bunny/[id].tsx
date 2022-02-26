@@ -36,7 +36,7 @@ export default function BunnyDetail({
             <NFTDetailView
               metadata={metadata}
               collection="bunny"
-              id={tokenId}
+              id={Number(tokenId)}
             />
           </div>
         </DarkOverlapShell>
