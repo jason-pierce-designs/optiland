@@ -11,7 +11,9 @@ import DarkOverlapShell from "../../../components/DarkOverlapShell";
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const tokenId = context.params?.id as string;
   const baseUrl =
-    process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_BASEURL;
+    process.env.VERCEL_URL ||
+    process.env.NEXT_PUBLIC_VERCEL_URL ||
+    process.env.NEXT_PUBLIC_BASEURL;
   const res: Response = await fetch(`${baseUrl}/api/meta/bunny/${tokenId}`);
   const metadata: BunnyMetadata = await res.json();
   return {
