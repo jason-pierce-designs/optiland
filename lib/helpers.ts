@@ -12,7 +12,10 @@ export function classNames(...classes: string[]) {
 }
 
 export const getLocalMetadata = async (token: string, tokenId: number) => {
-  const baseUrl = process.env.VERCEL_ENV || process.env.NEXT_PUBLIC_BASEURL;
+  const baseUrl =
+    process.env.NEXT_PUBLIC_VERCEL_URL ||
+    process.env.VERCEL_URL ||
+    process.env.NEXT_PUBLIC_BASEURL;
   try {
     const res: Response = await fetch(
       `${baseUrl}/api/meta/${token}/${tokenId}`
