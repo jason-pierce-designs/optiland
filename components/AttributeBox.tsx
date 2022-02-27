@@ -34,12 +34,12 @@ export default function AttributeBox({
         </div>
 
         <div>
-          <div className="bg-green-100 text-green-800 inline-flex items-baseline px-2.5 py-0.5 rounded-full text-sm font-medium md:mt-2 lg:mt-0">
-            {percentage}%{" "}
-          </div>
           <span className="ml-2 text-sm font-medium text-gray-800">
-            have this trait
+            have this trait:{" "}
           </span>
+          <div className="bg-green-100 text-green-800 inline-flex items-baseline px-2.5 py-0.5 rounded-full text-sm font-medium md:mt-2 lg:mt-0">
+            {percentage}%
+          </div>
         </div>
       </dd>
     </div>

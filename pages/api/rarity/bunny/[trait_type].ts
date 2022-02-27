@@ -15,8 +15,8 @@ export default async function handler(
 ) {
   const { trait_type, value } = req.query;
   let metadata;
-  console.log("trait_type is:", trait_type);
-  console.log("value is:", value);
+  // console.log("trait_type is:", trait_type);
+  // console.log("value is:", value);
   switch (trait_type) {
     case "background":
       metadata = background.find(
@@ -78,5 +78,5 @@ export default async function handler(
       metadata = { "NONE FOUND": 0 };
       res.status(403).json("Error");
   }
-  console.log("meta is:", metadata);
+  // console.log("meta is:", metadata);
 }
