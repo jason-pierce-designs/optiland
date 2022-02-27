@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { removeUndefinedForNextJsSerializing } from "../../../lib/utils";
 import { BunnyMetadata } from "../../../lib";

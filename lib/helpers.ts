@@ -1,5 +1,5 @@
 import { Contract } from "web3-eth-contract";
-import { BunnyMetadata } from ".";
+import { Attribute, BunnyMetadata } from ".";
 
 export function getImgUrlForCollection(collection: string, tokenId: number) {
   const pngUrl = collection === "bunny" ? "bunny" : "pixel";
@@ -11,16 +11,22 @@ export function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const getLocalMetadata = async (
-  token: string,
-  tokenId: number,
-  isSSR: boolean = false
-) => {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_BASEURL ||
-    `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+//       `/api/rarity/bu?trait_type=${attribute.trait_type}&value=${attribute.value}`
 
-  console.log("base is:", baseUrl);
+export const getAttributePercentage = async (
+  collection: string,
+  attribute: Attribute
+) => {
+  const res: Response = await fetch(
+    `/api/rarity/${collection}/${attribute.trait_type.toLowerCase()}?value=${
+      attribute.value
+    }`
+  );
+  const data: { [key: string]: number } = await res.json();
+  return data;
+};
+
+export const getLocalMetadata = async (token: string, tokenId: number) => {
   try {
     const res: Response = await fetch(`/api/meta/${token}/${tokenId}`);
     const data: BunnyMetadata = await res.json();
