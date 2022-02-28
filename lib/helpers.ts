@@ -108,7 +108,7 @@ export const getQuixoticTradeHref = (token: string, tokenId: string) => {
     case "pbunny":
       contractAddress = process.env.NEXT_PUBLIC_PBUNNY_ADDRESS;
   }
-  return `https://quixotic.io/asset/opt/${contractAddress}/${tokenId}`;
+  return `https://quixotic.io/asset/opt/${contractAddress.toUpperCase()}/${tokenId}`;
 };
 
 export const getEtherscanTokenHref = (token: string, tokenId: string) => {
