@@ -1,39 +1,15 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import QuixoticCircle from "../public/images/quixotic_logo_circle.png";
+import OPlogo from "../public/images/optimism-logo.png";
 import {
-  CheckIcon,
-  QuestionMarkCircleIcon,
-  StarIcon,
-} from "@heroicons/react/solid";
-import { RadioGroup } from "@headlessui/react";
-import { ShieldCheckIcon } from "@heroicons/react/outline";
-import {
-  classNames,
+  getEtherscanTokenHref,
   getImgUrlForCollection,
-  getLocalMetadata,
+  getQuixoticTradeHref,
 } from "../lib/helpers";
 import { BunnyMetadata } from "../lib";
 import Breadcrumbs from "./Breadcrumbs";
 import Attributes from "./Attributes";
-
-const product = {
-  name: "",
-  href: "",
-  price: "",
-  description: "",
-  imageSrc: "",
-  imageAlt: "",
-  sizes: [
-    { name: "18L", description: "Perfect for a reasonable amount of snacks." },
-    { name: "20L", description: "Enough room for a serious amount of snacks." },
-  ],
-};
-
-const pages = [
-  { name: "Collections", href: "/collections", current: false },
-  { name: "Bunny", href: "/collections/bunny", current: false },
-  { name: "Bunny#643", current: true },
-];
 
 export interface NFTDetailViewProps {
   metadata: BunnyMetadata;
@@ -46,6 +22,54 @@ export default function NFTDetailView({
   collection,
   id,
 }: NFTDetailViewProps) {
+  const twitterLink = {
+    name: "Twitter",
+    href: `https://twitter.com/intent/tweet?text=Check%20out%20my%20NFT%20at%20https%3A//optiland.com/collections/${collection}/${id}`,
+    icon: (props: any) => (
+      <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
+        <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+      </svg>
+    ),
+  };
+  const QuixoticLink = {
+    name: "Quixotic",
+    href: getQuixoticTradeHref(collection, id.toString()),
+    icon: (props: any) => (
+      <div {...props}>
+        <Image
+          alt="Trade this NFT on Quixotic"
+          src={QuixoticCircle}
+          height={24}
+          width={24}
+          layout="intrinsic"
+        />
+      </div>
+    ),
+  };
+  const EtherscanLink = {
+    name: "Etherscan",
+    href: getEtherscanTokenHref(collection, id.toString()),
+    icon: (props: any) => (
+      <div {...props}>
+        <Image
+          alt="View this NFT on Etherscan"
+          src={OPlogo}
+          height={24}
+          width={24}
+          layout="intrinsic"
+        />
+      </div>
+    ),
+  };
+  const pages = [
+    { name: "Collections", href: "/collections", current: false },
+    {
+      name: `${collection}`,
+      href: `/collections/${collection}`,
+      current: false,
+    },
+    { name: `${collection}#${metadata.edition}`, current: true },
+  ];
   const [image] = useState<string>(getImgUrlForCollection(collection, id));
 
   return (
@@ -69,7 +93,7 @@ export default function NFTDetailView({
 
       {/* Product image */}
       <div className="mt-4 md:mt-10 lg:mt-0 lg:col-start-2 lg:row-span-2 lg:self-center">
-        <div className="aspect-square rounded-lg overflow-hidden w-full h-full">
+        <div className="aspect-square rounded-t-md overflow-hidden w-full h-full">
           <Image
             src={image}
             alt={metadata.description}
@@ -77,6 +101,47 @@ export default function NFTDetailView({
             height={680}
             layout="responsive"
           />
+        </div>
+        <div className="-mt-px flex divide-x divide-gray-200 rounded-b-md shadow">
+          <div className="w-0 flex-1 flex">
+            <a
+              href={twitterLink.href}
+              className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
+            >
+              <span className="sr-only">{twitterLink.name}</span>
+              Share:
+              <twitterLink.icon
+                className="ml-0.5 mt-0.5 w-5 h-5 text-red-600 hover:text-red-700"
+                aria-hidden="true"
+              />
+            </a>
+          </div>
+          <div className="-ml-px w-0 flex-1 flex">
+            <a
+              href={QuixoticLink.href}
+              className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
+            >
+              <span className="sr-only">{QuixoticLink.name}</span>
+              Trade:
+              <QuixoticLink.icon
+                className="ml-0.5 mt-0.5 w-5 h-5 text-gray-400"
+                aria-hidden="true"
+              />
+            </a>
+          </div>
+          <div className="-ml-px w-0 flex-1 flex">
+            <a
+              href={EtherscanLink.href}
+              className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
+            >
+              <span className="sr-only">{EtherscanLink.name}</span>
+              View:
+              <EtherscanLink.icon
+                className="ml-0.5 mt-0.5 w-5 h-5 text-gray-400"
+                aria-hidden="true"
+              />
+            </a>
+          </div>
         </div>
       </div>
 

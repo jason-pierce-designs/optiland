@@ -11,8 +11,6 @@ export function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-//       `/api/rarity/bu?trait_type=${attribute.trait_type}&value=${attribute.value}`
-
 export const getAttributePercentage = async (
   collection: string,
   attribute: Attribute
@@ -99,4 +97,28 @@ export const networkReqObj: RequestArguments = {
 
 export const connectToOptimism = () => {
   (window as any).ethereum?.request(networkReqObj);
+};
+
+export const getQuixoticTradeHref = (token: string, tokenId: string) => {
+  let contractAddress;
+  switch (token) {
+    case "bunny":
+      contractAddress = process.env.NEXT_PUBLIC_BUNNY_ADDRESS;
+      break;
+    case "pbunny":
+      contractAddress = process.env.NEXT_PUBLIC_PBUNNY_ADDRESS;
+  }
+  return `https://quixotic.io/asset/opt/${contractAddress}/${tokenId}`;
+};
+
+export const getEtherscanTokenHref = (token: string, tokenId: string) => {
+  let contractAddress;
+  switch (token) {
+    case "bunny":
+      contractAddress = process.env.NEXT_PUBLIC_BUNNY_ADDRESS;
+      break;
+    case "pbunny":
+      contractAddress = process.env.NEXT_PUBLIC_PBUNNY_ADDRESS;
+  }
+  return `${process.env.NEXT_PUBLIC_ETHERSCAN_BASE_URL}/token/${contractAddress}?a=${tokenId}`;
 };
