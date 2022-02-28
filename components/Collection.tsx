@@ -2,7 +2,7 @@ import React from "react";
 
 import NFTCard from "./NFTCard";
 
-const products = [1, 2, 3, 4, 5, 6, 7, 8];
+const products = [...Array(50).keys()];
 
 export interface CollectionProps {
   token: string;
@@ -16,7 +16,7 @@ export default function Collection({ token }: CollectionProps) {
 
       <div className="mt-6 grid grid-cols-1 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-2 lg:grid-cols-3 md:gap-y-0 lg:gap-x-8">
         {products.map((product, idx) => (
-          <NFTCard collection={token} id={product} key={idx} />
+          <NFTCard collection={token} id={product + 1} key={idx} />
         ))}
       </div>
     </div>

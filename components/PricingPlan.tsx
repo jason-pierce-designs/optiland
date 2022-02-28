@@ -1,6 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import React from "react";
 import { CheckIcon } from "@heroicons/react/outline";
+import Link from "next/link";
 
 const citizenFeatures = [
   "Details coming soon!",
@@ -86,13 +87,15 @@ export default function PricingPlan() {
                       </ul>
                       <div className="mt-8">
                         <div className="rounded-lg shadow-md">
-                          <a
+                          <Link
                             href="/mint"
-                            className="block w-full text-center rounded-lg border border-transparent bg-white px-6 py-3 text-base font-medium text-red-600 hover:bg-gray-50"
+                            passHref
                             aria-describedby="tier-hobby"
                           >
-                            Mint a BUNNY
-                          </a>
+                            <div className="cursor-pointer block w-full text-center rounded-lg border border-transparent bg-white px-6 py-3 text-base font-medium text-red-600 hover:bg-gray-50">
+                              Mint a BUNNY
+                            </div>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -151,13 +154,15 @@ export default function PricingPlan() {
                     </ul>
                     <div className="mt-10">
                       <div className="rounded-lg shadow-md">
-                        <a
+                        <Link
                           href="/mint"
-                          className="block w-full text-center rounded-lg border border-transparent bg-red-600 px-6 py-4 text-xl leading-6 font-medium text-white hover:bg-red-700"
+                          passHref
                           aria-describedby="tier-growth"
                         >
-                          Mint a BUNNY
-                        </a>
+                          <div className="cursor-pointer block w-full text-center rounded-lg border border-transparent bg-red-600 px-6 py-4 text-xl leading-6 font-medium text-white hover:bg-red-700">
+                            Mint a BUNNY
+                          </div>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -205,13 +210,15 @@ export default function PricingPlan() {
                       </ul>
                       <div className="mt-8">
                         <div className="rounded-lg shadow-md">
-                          <a
+                          <Link
                             href="/mint"
-                            className="block w-full text-center rounded-lg border border-transparent bg-white px-6 py-3 text-base font-medium text-red-600 hover:bg-gray-50"
+                            passHref
                             aria-describedby="tier-scale"
                           >
-                            Coming Soon
-                          </a>
+                            <div className="cursor-pointer block w-full text-center rounded-lg border border-transparent bg-white px-6 py-3 text-base font-medium text-red-600 hover:bg-gray-50">
+                              Coming Soon
+                            </div>
+                          </Link>
                         </div>
                       </div>
                     </div>
