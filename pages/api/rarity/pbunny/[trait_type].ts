@@ -2,8 +2,10 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import background from "./background.json";
 import body from "./body.json";
 import clothes from "./clothes.json";
+import earrings from "./earrings.json";
 import eyes from "./eyes.json";
 import head from "./head.json";
+import mask from "./mask.json";
 import mouth from "./mouth.json";
 import neck from "./neck.json";
 import personality from "./personality.json";
@@ -68,9 +70,21 @@ export default async function handler(
       );
       res.status(200).json(metadata);
       break;
+    case "earings":
+      metadata = earrings.find(
+        (earrings) => Object.keys(earrings)[0].toString() === value.toString()
+      );
+      res.status(200).json(metadata);
+      break;
     case "wings":
       metadata = wings.find(
         (wings) => Object.keys(wings)[0].toString() === value.toString()
+      );
+      res.status(200).json(metadata);
+      break;
+    case "mask":
+      metadata = mask.find(
+        (mask) => Object.keys(mask)[0].toString() === value.toString()
       );
       res.status(200).json(metadata);
       break;

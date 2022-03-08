@@ -4,6 +4,7 @@ import body from "./body.json";
 import clothes from "./clothes.json";
 import eyes from "./eyes.json";
 import head from "./head.json";
+import mask from "./mask.json";
 import mouth from "./mouth.json";
 import neck from "./neck.json";
 import personality from "./personality.json";
@@ -46,6 +47,12 @@ export default async function handler(
     case "head":
       metadata = head.find(
         (head) => Object.keys(head)[0].toString() === value.toString()
+      );
+      res.status(200).json(metadata);
+      break;
+    case "mask":
+      metadata = mask.find(
+        (mask) => Object.keys(mask)[0].toString() === value.toString()
       );
       res.status(200).json(metadata);
       break;

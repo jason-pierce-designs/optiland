@@ -125,3 +125,9 @@ export const getEtherscanTokenHref = (token: string, tokenId: string) => {
   }
   return `${process.env.NEXT_PUBLIC_ETHERSCAN_BASE_URL}/token/${contractAddress}?a=${tokenId}`;
 };
+
+export const getBaseUrl = () => {
+  return process.env.NEXT_PUBLIC_VERCEL_URL
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+    : process.env.NEXT_PUBLIC_BASEURL;
+};
