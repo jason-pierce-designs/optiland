@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import useSWR from "swr";
-import { getBaseUrl } from "../lib/helpers";
-
 import NFTCard from "./NFTCard";
-
-const baseUrl = getBaseUrl();
 
 export interface CollectionProps {
   token: string;
@@ -12,7 +7,7 @@ export interface CollectionProps {
 }
 
 export default function Collection({ token }: CollectionProps) {
-  const [tokenIds, setTokenIds] = useState<number[]>([...Array(50).keys()]);
+  const [tokenIds, setTokenIds] = useState<number[]>([...Array(75).keys()]);
 
   return (
     <div className="max-w-screen-3xl mx-auto px-4 sm:px-6 lg:px-8">
