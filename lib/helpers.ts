@@ -127,7 +127,9 @@ export const getEtherscanTokenHref = (token: string, tokenId: string) => {
 };
 
 export const getBaseUrl = () => {
-  return process.env.NEXT_PUBLIC_VERCEL_URL
+  return process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
+    ? `https://optiland.vercel.app`
+    : process.env.NEXT_PUBLIC_VERCEL_URL
     ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
     : process.env.NEXT_PUBLIC_BASEURL;
 };

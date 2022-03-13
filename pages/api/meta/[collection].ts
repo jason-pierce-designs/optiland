@@ -5,7 +5,6 @@ import bunnydata from "./bunny-metadata.json";
 import * as R from "ramda";
 
 const getJsonData = (collection: string) => {
-  console.log("NEW collection is: ", collection);
   switch (collection) {
     case "bunny":
       return bunnydata as BunnyMetadata[];
