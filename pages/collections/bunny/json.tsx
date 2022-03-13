@@ -4,7 +4,7 @@ import { getBaseUrl } from "../../../lib/helpers";
 
 export default function BunnyJSON() {
   const baseUrl = getBaseUrl();
-  const url = `${baseUrl}/api/meta/pbunny`;
+  const url = `${baseUrl}/api/meta/bunny`;
   const { data } = useSWR(url);
   return <div className="text-sm">{JSON.stringify(data)}</div>;
 }

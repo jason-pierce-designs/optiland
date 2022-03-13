@@ -13,7 +13,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
     ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
     : process.env.NEXT_PUBLIC_BASEURL;
-  const res: Response = await fetch(`${baseUrl}/api/meta/pbunny?id=${tokenId}`);
+  const res: Response = await fetch(`${baseUrl}/api/meta/pbunny/${tokenId}`);
   const metadata: BunnyMetadata = await res.json();
   return {
     props: removeUndefinedForNextJsSerializing({
