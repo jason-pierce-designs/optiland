@@ -9,13 +9,10 @@ const getJsonData = (collection: string) => {
   switch (collection) {
     case "bunny":
       return bunnydata as BunnyMetadata[];
-      break;
     case "pbunny":
       return pbunnydata as BunnyMetadata[];
-      break;
     default:
       return bunnydata as BunnyMetadata[];
-      break;
   }
 };
 
