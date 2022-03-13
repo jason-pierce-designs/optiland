@@ -26,7 +26,7 @@ export const getAttributePercentage = async (
 
 export const getLocalMetadata = async (token: string, tokenId: number) => {
   try {
-    const res: Response = await fetch(`/api/meta/${token}/${tokenId}`);
+    const res: Response = await fetch(`/api/meta/${token}?id=${tokenId}`);
     const data: BunnyMetadata = await res.json();
     return data;
   } catch (e) {
@@ -131,3 +131,7 @@ export const getBaseUrl = () => {
     ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
     : process.env.NEXT_PUBLIC_BASEURL;
 };
+
+export const DEFAULT_PAGE = 1;
+export const DEFAULT_PAGES = 1;
+export const DEFAULT_PAGESIZE = 75;

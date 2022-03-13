@@ -1,23 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { BunnyMetadata } from "../lib";
-import {
-  getLocalMetadata,
-  getImgUrlForCollection,
-  getBaseUrl,
-} from "../lib/helpers";
+import { getImgUrlForCollection } from "../lib/helpers";
 import PinkAlley from "/public/images/pink-alley-bg.jpg";
-import useSWR from "swr";
 
 export interface NFTCardProps {
   id: number;
   collection: string;
+  data: BunnyMetadata;
 }
 
-export default function NFTCard({ id, collection }: NFTCardProps) {
-  const baseUrl = getBaseUrl();
+export default function NFTCard({ id, collection, data }: NFTCardProps) {
   const [image] = useState<string>(getImgUrlForCollection(collection, id));
-  const { data, error } = useSWR(`${baseUrl}/api/meta/${collection}/${id}`);
 
   if (data) {
     return (
@@ -49,13 +43,7 @@ export default function NFTCard({ id, collection }: NFTCardProps) {
   } else {
     return (
       <div className="group relative bg-white border border-gray-200 rounded-lg flex flex-col overflow-hidden">
-        <div className="aspect-w-3 aspect-h-4 bg-gray-200 group-hover:opacity-75 sm:aspect-none sm:h-96">
-          <Image
-            src={PinkAlley}
-            alt="A Pink Alleyway, meaning the image metadata could not be loaded"
-            className="w-full h-full object-center object-cover sm:w-full sm:h-full"
-          />
-        </div>
+        <div className="aspect-w-3 aspect-h-4 bg-gray-200 animate-pulse group-hover:opacity-75 sm:aspect-none sm:h-96"></div>
         <div className="flex-1 p-4 space-y-2 flex flex-col">
           <h3 className="text-sm font-medium text-gray-900">
             Data could not be loaded
