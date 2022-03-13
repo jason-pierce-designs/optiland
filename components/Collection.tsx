@@ -7,7 +7,7 @@ import NFTCard from "./NFTCard";
 export interface CollectionProps {
   token: string;
   pages: string;
-  page: string;
+  page: string | undefined;
   pagesize: string;
   title?: string;
 }

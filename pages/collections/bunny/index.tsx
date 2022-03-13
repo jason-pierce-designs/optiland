@@ -18,9 +18,9 @@ import Footer from "../../../components/Footer";
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const baseUrl = getBaseUrl();
   const { filter, pages, page, pagesize } = context.query;
-  const url = `${baseUrl}/api/meta/bunny?pages=${pages || 1}&pagesize=${
-    pagesize || 75
-  }${page ? "&page=" + page : ""}`;
+  const url = `${baseUrl}/api/meta/bunny${
+    pages ? `?pages=${pages}` : "?pages=1"
+  }&pagesize=${pagesize || 75}${page ? `&page=${page}` : ""}`;
   const res: Response = await fetch(url);
   const fallback: BunnyMetadata = await res.json();
   return {
@@ -51,7 +51,7 @@ export default function BunnyCollection({
               <Collection
                 token="bunny"
                 pages={pages || DEFAULT_PAGES}
-                page={page || DEFAULT_PAGE}
+                page={page || undefined}
                 pagesize={pagesize || DEFAULT_PAGESIZE}
               />
             </main>
