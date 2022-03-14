@@ -13,7 +13,6 @@ import {
   getBaseUrl,
 } from "../../../lib/helpers";
 import Footer from "../../../components/Footer";
-import useIntersection from "../../../lib/hooks/useIntersector";
 import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
