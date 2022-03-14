@@ -26,7 +26,8 @@ export default async function handler(
     const tokenId = Number(id) - 1;
     res.status(200).json(json_data[tokenId]);
   } else {
-    const quantity = Number(pagesize) * (pages ? Number(pages) : 1);
+    const quantity =
+      (pagesize ? Number(pagesize) : 50) * (pages ? Number(pages) : 1);
     const BUNNY_QTY = json_data && json_data.length;
     const totalDropping = BUNNY_QTY - quantity;
     // console.log("page is: ", page);

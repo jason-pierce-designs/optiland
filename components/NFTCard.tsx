@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { BunnyMetadata } from "../lib";
 import { getImgUrlForCollection } from "../lib/helpers";
-import PinkAlley from "/public/images/pink-alley-bg.jpg";
 
 export interface NFTCardProps {
   id: number;

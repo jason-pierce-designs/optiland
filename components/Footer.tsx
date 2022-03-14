@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MutableRefObject } from "react";
 
 const navigation = {
   main: [

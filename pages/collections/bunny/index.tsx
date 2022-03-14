@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Collection from "../../../components/Collection";
 import Layout from "../../../components/Layout";
 import DarkNavbar from "../../../components/DarkNavbar";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import {
-  DEFAULT_PAGE,
   DEFAULT_PAGES,
   DEFAULT_PAGESIZE,
   getBaseUrl,
@@ -14,13 +13,14 @@ import { removeUndefinedForNextJsSerializing } from "../../../lib/utils";
 import { BunnyMetadata } from "../../../lib";
 import { SWRConfig } from "swr";
 import Footer from "../../../components/Footer";
+import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const baseUrl = getBaseUrl();
   const { filter, pages, page, pagesize } = context.query;
   const url = `${baseUrl}/api/meta/bunny${
     pages ? `?pages=${pages}` : "?pages=1"
-  }&pagesize=${pagesize || 75}${page ? `&page=${page}` : ""}`;
+  }&pagesize=${pagesize || 50}${page ? `&page=${page}` : ""}`;
   const res: Response = await fetch(url);
   const fallback: BunnyMetadata = await res.json();
   return {
@@ -41,6 +41,37 @@ export default function BunnyCollection({
   page,
   pagesize,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const router = useRouter();
+  const ref = useRef<HTMLDivElement>(null);
+  const [totalPages, setTotalPages] = useState<number>(
+    Number(pages) || DEFAULT_PAGES
+  );
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsVisible(entry.isIntersecting);
+    });
+
+    if (ref.current !== null) {
+      observer.observe(ref.current);
+    }
+  }, [ref]);
+
+  useEffect(() => {
+    if (isVisible && totalPages) {
+      setTotalPages(totalPages + 1);
+      router.push(
+        `?pages=${totalPages + 1}&pagesize=${pagesize || DEFAULT_PAGESIZE}`,
+        undefined,
+        {
+          shallow: true,
+        }
+      );
+      setIsVisible(false);
+    }
+  }, [isVisible, totalPages, pagesize, router]);
+
   return (
     <Layout>
       <DarkNavbar />
@@ -50,7 +81,7 @@ export default function BunnyCollection({
             <main className="col-span-12">
               <Collection
                 token="bunny"
-                pages={pages || DEFAULT_PAGES}
+                pages={totalPages.toString()}
                 page={page || undefined}
                 pagesize={pagesize || DEFAULT_PAGESIZE}
               />
@@ -58,6 +89,7 @@ export default function BunnyCollection({
           </div>
         </div>
       </SWRConfig>
+      <div className="block h-96 w-full" ref={ref}></div>
       <Footer />
     </Layout>
   );

@@ -136,4 +136,4 @@ export const getBaseUrl = () => {
 
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PAGES = 1;
-export const DEFAULT_PAGESIZE = 75;
+export const DEFAULT_PAGESIZE = 50;

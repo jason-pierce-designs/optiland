@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { removeUndefinedForNextJsSerializing } from "../../../lib/utils";
 import { BunnyMetadata } from "../../../lib";
@@ -13,13 +13,15 @@ import {
   getBaseUrl,
 } from "../../../lib/helpers";
 import Footer from "../../../components/Footer";
+import useIntersection from "../../../lib/hooks/useIntersector";
+import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const baseUrl = getBaseUrl();
   const { filter, pages, page, pagesize } = context.query;
   const url = `${baseUrl}/api/meta/pbunny${
     pages ? `?pages=${pages}` : "?pages=1"
-  }&pagesize=${pagesize || 75}${page ? `&page=${page}` : ""}`;
+  }&pagesize=${pagesize || 50}${page ? `&page=${page}` : ""}`;
   const res: Response = await fetch(url);
   const fallback: BunnyMetadata = await res.json();
   return {
@@ -40,6 +42,37 @@ export default function PixelBunnyCollection({
   page,
   pagesize,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const router = useRouter();
+  const ref = useRef<HTMLDivElement>(null);
+  const [totalPages, setTotalPages] = useState<number>(
+    Number(pages) || DEFAULT_PAGES
+  );
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsVisible(entry.isIntersecting);
+    });
+
+    if (ref.current !== null) {
+      observer.observe(ref.current);
+    }
+  }, [ref]);
+
+  useEffect(() => {
+    if (isVisible && totalPages) {
+      setTotalPages(totalPages + 1);
+      router.push(
+        `?pages=${totalPages + 1}&pagesize=${pagesize || DEFAULT_PAGESIZE}`,
+        undefined,
+        {
+          shallow: true,
+        }
+      );
+      setIsVisible(false);
+    }
+  }, [isVisible, totalPages, pagesize, router]);
+
   return (
     <Layout>
       <DarkNavbar />
@@ -49,7 +82,7 @@ export default function PixelBunnyCollection({
             <main className="col-span-12">
               <Collection
                 token="pbunny"
-                pages={pages || DEFAULT_PAGES}
+                pages={totalPages.toString()}
                 page={page || undefined}
                 pagesize={pagesize || DEFAULT_PAGESIZE}
               />
@@ -57,6 +90,7 @@ export default function PixelBunnyCollection({
           </div>
         </div>
       </SWRConfig>
+      <div className="block h-96 w-full" ref={ref}></div>
       <Footer />
     </Layout>
   );

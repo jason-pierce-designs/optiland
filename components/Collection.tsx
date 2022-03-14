@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import useSWR from "swr";
 import { BunnyMetadata } from "../lib";
 import { getBaseUrl } from "../lib/helpers";
