@@ -4,6 +4,7 @@ import type { AppProps } from "next/app";
 import { Web3ReactProvider } from "@web3-react/core";
 import getLibrary from "../lib/getLibrary";
 import "../styles/globals.css";
+import { StepperProvider } from "../lib/state/stepper";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -14,7 +15,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       }}
     >
       <Web3ReactProvider getLibrary={getLibrary}>
-        <Component {...pageProps} />
+        <StepperProvider>
+          <Component {...pageProps} />
+        </StepperProvider>
       </Web3ReactProvider>
     </SWRConfig>
   );
