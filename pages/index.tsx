@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <>
       <Layout>
-        <DarkNavbar />
+        <DarkNavbar activePath="/" />
         <DarkHeroSectionClouds />
         <DarkOverlapShell title="Optiland Home">
           <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">

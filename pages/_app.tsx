@@ -5,6 +5,7 @@ import { Web3ReactProvider } from "@web3-react/core";
 import getLibrary from "../lib/getLibrary";
 import "../styles/globals.css";
 import { StepperProvider } from "../lib/state/stepper";
+import { MintFormProvider } from "../lib/state/mintForm";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -15,9 +16,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       }}
     >
       <Web3ReactProvider getLibrary={getLibrary}>
-        <StepperProvider>
-          <Component {...pageProps} />
-        </StepperProvider>
+        <MintFormProvider>
+          <StepperProvider>
+            <Component {...pageProps} />
+          </StepperProvider>
+        </MintFormProvider>
       </Web3ReactProvider>
     </SWRConfig>
   );

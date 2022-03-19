@@ -30,7 +30,7 @@ export default function BunnyDetail({
   return (
     <>
       <Layout>
-        <DarkNavbar />
+        <DarkNavbar activePath="/collections" />
         <DarkOverlapShell title={`Bunny #${tokenId}`}>
           <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
             <NFTDetailView

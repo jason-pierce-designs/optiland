@@ -10,8 +10,9 @@ export interface iPerson {
 
 export interface iNavLink {
   name: string;
-  href: string;
+  href?: string;
   current?: boolean;
+  onClick?: () => void;
 }
 
 export interface iBunnyMetadata {

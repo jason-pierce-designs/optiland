@@ -74,7 +74,7 @@ export default function PixelBunnyCollection({
 
   return (
     <Layout>
-      <DarkNavbar />
+      <DarkNavbar activePath="/collections" />
       <SWRConfig value={fallback}>
         <div className="py-16 sm:py-24">
           <div className="w-full mx-auto sm:px-6 lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8">

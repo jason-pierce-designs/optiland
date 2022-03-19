@@ -12,6 +12,8 @@ export interface CollectionProps {
   title?: string;
 }
 
+// for rarity: https://raritytools.medium.com/ranking-rarity-understanding-rarity-calculation-methods-86ceaeb9b98c
+
 export default function Collection({
   token,
   pages,

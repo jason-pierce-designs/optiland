@@ -35,7 +35,7 @@ export default function Collections() {
   return (
     <>
       <Layout>
-        <DarkNavbar />
+        <DarkNavbar activePath="/collections" />
         <DarkOverlapShell title="Optiland Collections">
           <div className="relative bg-white rounded-lg shadow">
             <div className="relative bg-white pb-24">
