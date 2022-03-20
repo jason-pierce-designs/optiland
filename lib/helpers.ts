@@ -86,7 +86,7 @@ export const networkReqObj: RequestArguments = {
       chainName: process.env.NEXT_PUBLIC_CHAIN_NAME,
       nativeCurrency: {
         name: "Ether",
-        symbol: "ETH",
+        symbol: "OE",
         decimals: 18,
       },
       rpcUrls: [process.env.NEXT_PUBLIC_RPC_URL],
