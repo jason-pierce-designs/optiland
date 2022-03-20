@@ -35,7 +35,7 @@ export default function Stepper() {
                 {step.status === "complete" ? (
                   <div className="group">
                     <span
-                      className="absolute top-0 left-0 w-1 h-full bg-transparent group-hover:bg-gray-200 lg:w-full lg:h-1 lg:bottom-0 lg:top-auto"
+                      className="absolute top-0 left-0 w-1 h-full bg-transparent lg:w-full lg:h-1 lg:bottom-0 lg:top-auto"
                       aria-hidden="true"
                     />
                     <span

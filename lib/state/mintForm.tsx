@@ -2,6 +2,7 @@ import { Contract } from "web3-eth-contract";
 import { BigNumber } from "@ethersproject/bignumber";
 import { ContractReceipt } from "@ethersproject/contracts";
 import { createCtx } from "./createCtx";
+import * as R from "ramda";
 
 export interface MintForm {
   isOnOptimismChain: boolean;
@@ -9,7 +10,7 @@ export interface MintForm {
   isReadyForStep2: boolean;
   quantity: number;
   pricePerUnit: BigNumber;
-  isReadyForStep3: false;
+  isReadyForStep3: boolean;
   receipt?: ContractReceipt;
 }
 
@@ -30,10 +31,26 @@ type Action =
   | { type: "stepTwoComplete"; payload: boolean }
   | { type: "resetForm" };
 
+const markStepOneComplete = (state: MintForm, payload: boolean): MintForm => {
+  const formStateCopy = R.clone(state);
+  formStateCopy.isReadyForStep2 = payload;
+  return formStateCopy;
+};
+
+const markStepTwoComplete = (state: MintForm, payload: boolean): MintForm => {
+  const formStateCopy = R.clone(state);
+  formStateCopy.isReadyForStep3 = payload;
+  return formStateCopy;
+};
+
 export function mintFormReducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case "setMintFormState":
       return action.payload;
+    case "stepOneComplete":
+      return markStepOneComplete(state, action.payload);
+    case "stepTwoComplete":
+      return markStepTwoComplete(state, action.payload);
     default:
       return state;
   }
