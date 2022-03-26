@@ -32,15 +32,11 @@ type Action =
   | { type: "resetForm" };
 
 const markStepOneComplete = (state: MintForm, payload: boolean): MintForm => {
-  const formStateCopy = R.clone(state);
-  formStateCopy.isReadyForStep2 = payload;
-  return formStateCopy;
+  return { ...state, isReadyForStep2: payload };
 };
 
 const markStepTwoComplete = (state: MintForm, payload: boolean): MintForm => {
-  const formStateCopy = R.clone(state);
-  formStateCopy.isReadyForStep3 = payload;
-  return formStateCopy;
+  return { ...state, isReadyForStep3: payload };
 };
 
 export function mintFormReducer(state: AppState, action: Action): AppState {

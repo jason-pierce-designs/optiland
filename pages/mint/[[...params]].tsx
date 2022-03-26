@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import * as R from "ramda";
+import React, { useContext, useState } from "react";
+
 import Layout from "../../components/Layout";
 import DarkNavbar from "../../components/DarkNavbar";
 import DarkOverlapShell from "../../components/DarkOverlapShell";
@@ -10,11 +10,7 @@ import { removeUndefinedForNextJsSerializing } from "../../lib/utils";
 import { MintFormContext } from "../../lib/state/mintForm";
 import { useWeb3React } from "@web3-react/core";
 import Button from "../../components/Button";
-import Account from "../../components/Account";
-import useEagerConnect from "../../lib/hooks/useEagerConnect";
-import { connectToOptimism } from "../../lib/helpers";
 import { StepperContext } from "../../lib/state/stepper";
-import { useRouter } from "next/router";
 import MintStepOne from "../../components/MintStepOne";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -48,7 +44,27 @@ export default function MintDeepLink({
             {!formState.isReadyForStep2 && <MintStepOne />}
             {formState.isReadyForStep2 && !formState.isReadyForStep3 && (
               <div className="bg-white overflow-hidden sm-rounded-b-lg pt-16">
-                <div className="px-4 py-5 sm:p-6 sm:mb-16"></div>
+                <div className="grid grid-cols-12 gap-4">
+                  <div className="col-span-7 px-4 py-5 sm:p-6 sm:pb-16">
+                    <div className="text-lg max-w-prose mx-auto">
+                      <h1>
+                        <span className="block text-base text-center text-indigo-600 font-semibold tracking-wide uppercase">
+                          Select Quantity
+                        </span>
+                        <span className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                          How many Bunnies do you want?
+                        </span>
+                      </h1>
+                    </div>
+                  </div>
+                  <div className="col-span-5 bg-gray-100 px-4 py-5 sm:p-6 sm:pb-16">
+                    <div className="text-lg max-w-prose mx-auto">
+                      <div className=" block text-xl text-center leading-8 font-extrabold tracking-tight text-gray-900">
+                        With each NFT minted, you get:
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
           </div>

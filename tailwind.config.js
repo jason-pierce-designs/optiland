@@ -38,6 +38,7 @@ module.exports = {
       fontFamily: {
         "small-bunny": "SmallBunny",
         "mama-bunny": "Mama Bunny",
+        sans: ["Inter var", ...defaultTheme.fontFamily.sans],
       },
       screens: {
         "3xl": "1815px",

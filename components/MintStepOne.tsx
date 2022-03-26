@@ -1,5 +1,9 @@
-import { useWeb3React } from "@web3-react/core";
 import React, { useContext } from "react";
+import { useWeb3React } from "@web3-react/core";
+import Web3 from "web3";
+import { AbiItem } from "web3-utils";
+
+import BUNNIES_CONTRACT_ABI from "../lib/contracts/bunny.json";
 import { connectToOptimism } from "../lib/helpers";
 import useEagerConnect from "../lib/hooks/useEagerConnect";
 import { MintFormContext } from "../lib/state/mintForm";
@@ -7,23 +11,34 @@ import { StepperContext } from "../lib/state/stepper";
 import Account from "./Account";
 import Button from "./Button";
 
-// export interface MintStepOneProps {
-//   callback: () => {};
-// }
-
 export default function MintStepOne() {
-  const { account, chainId } = useWeb3React();
-  const { dispatch: formDispatch } = useContext(MintFormContext);
+  const { library, account, chainId } = useWeb3React();
+  const { state: formState, dispatch: formDispatch } =
+    useContext(MintFormContext);
   const { dispatch: stepperDispatch } = useContext(StepperContext);
   const triedToEagerConnect = useEagerConnect();
 
   const markStepOneComplete = () => {
     stepperDispatch({ type: "setStepComplete", payload: 0 });
+    const web3 = new Web3(library.provider);
+    const opBunnyContract = new web3.eth.Contract(
+      BUNNIES_CONTRACT_ABI as AbiItem[],
+      process.env.NEXT_PUBLIC_CONTRACT_ADDRESS
+    );
+    formDispatch({
+      type: "setMintFormState",
+      payload: {
+        ...formState,
+        contract: opBunnyContract,
+        isOnOptimismChain: true,
+      },
+    });
     setTimeout(() => {
-      stepperDispatch({ type: "setCurrentStep", payload: 1 });
       formDispatch({ type: "stepOneComplete", payload: true });
+      stepperDispatch({ type: "setCurrentStep", payload: 1 });
     }, 666);
   };
+
   return (
     <div className="bg-white overflow-hidden sm-rounded-b-lg pt-16">
       <div className="px-4 py-5 sm:p-6 sm:mb-16">
@@ -37,8 +52,7 @@ export default function MintStepOne() {
             </span>
           </h1>
           <p className="mt-8 text-xl text-gray-500 leading-8">
-            Connect your MetaMask wallet and add the Optimism Network to enable
-            minting.
+            Connect your MetaMask wallet and add the Optimism Network to start.
           </p>
           <div className="flex justify-center">
             {!account && (
@@ -78,18 +92,20 @@ export default function MintStepOne() {
           </p>
         </div>
       </div>
-      {account && chainId === Number(process.env.NEXT_PUBLIC_CHAIN_ID) && (
-        <div className="flex justify-center bg-gray-50 px-4 py-4 sm:px-6">
-          <div className="mx-8">
-            <Button variant="secondary">More info</Button>
+      {library &&
+        account &&
+        chainId === Number(process.env.NEXT_PUBLIC_CHAIN_ID) && (
+          <div className="flex justify-center bg-gray-50 px-4 py-4 sm:px-6">
+            <div className="mx-8">
+              <Button variant="secondary">More info</Button>
+            </div>
+            <div className="mx-8">
+              <Button variant="primary" onClick={() => markStepOneComplete()}>
+                I&apos;m ready
+              </Button>
+            </div>
           </div>
-          <div className="mx-8">
-            <Button variant="primary" onClick={() => markStepOneComplete()}>
-              I&apos;m ready
-            </Button>
-          </div>
-        </div>
-      )}
+        )}
     </div>
   );
 }
