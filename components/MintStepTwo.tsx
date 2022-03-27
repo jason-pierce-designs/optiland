@@ -143,7 +143,7 @@ export default function MintStepTwo() {
                     setTimeout(() => {
                       stepperDispatch({ type: "setCurrentStep", payload: 3 });
                       formDispatch({ type: "stepTwoComplete", payload: true });
-                    }, 2000);
+                    }, 2100);
                     getTotalMinted(formState.contract as Contract).then(
                       (total: string) =>
                         updateRabbitHole(
