@@ -14,6 +14,7 @@ import { MintFormContext } from "../lib/state/mintForm";
 import { StepperContext } from "../lib/state/stepper";
 import Button from "./Button";
 import { formatEtherscanLink, parseBalance } from "../lib/utils";
+import { CheckIcon } from "@heroicons/react/outline";
 
 const getCostPerToken = async (contract: Contract) => {
   try {
@@ -134,10 +135,15 @@ export default function MintStepTwo() {
               onSubmit={(e) => {
                 handleSubmit(e)(formState.contract as Contract).then(
                   (receipt) => {
+                    stepperDispatch({ type: "setStepComplete", payload: 2 });
                     const txnLink = formatEtherscanLink(
                       "Transaction",
                       receipt.transactionHash
                     );
+                    setTimeout(() => {
+                      stepperDispatch({ type: "setCurrentStep", payload: 3 });
+                      formDispatch({ type: "stepTwoComplete", payload: true });
+                    }, 2000);
                     getTotalMinted(formState.contract as Contract).then(
                       (total: string) =>
                         updateRabbitHole(
@@ -192,22 +198,71 @@ export default function MintStepTwo() {
                 </div>
               </div>
               <div className="flex justify-end">
-                <Button
-                  variant="primary"
+                <input
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   type="submit"
-                  value="Submit"
+                  value="Purchase"
                   disabled={!isValid}
-                >
-                  Purchase
-                </Button>
+                ></input>
               </div>
             </form>
           </div>
         </div>
-        <div className="col-span-5 bg-gray-200 px-4 py-5 sm:p-6 sm:pb-16">
-          <div className="text-lg max-w-prose mx-auto">
-            <div className=" block text-xl text-center leading-8 font-extrabold tracking-tight text-gray-900">
-              You will get:
+        <div className="col-span-5 bg-gray-50 px-4 py-5 sm:p-6 sm:pb-16">
+          <div className="text-lg max-w-prose mx-auto h-full">
+            <div className="flex justify-center items-center h-full">
+              <ul
+                role="list"
+                className="flex flex-col justify-center border-t border-gray-200 divide-y divide-gray-200 md:border-t-0"
+              >
+                <li className="py-4 flex md:border-t-0">
+                  <CheckIcon
+                    className="flex-shrink-0 h-6 w-6 text-green-500"
+                    aria-hidden="true"
+                  />
+                  <span className="ml-3 text-base text-gray-500">
+                    {quantity.value + " "} Optimistic Bunnies
+                  </span>
+                </li>
+                <li className="py-4 flex">
+                  <CheckIcon
+                    className="flex-shrink-0 h-6 w-6 text-green-500"
+                    aria-hidden="true"
+                  />
+                  <span className="ml-3 text-base text-gray-500">
+                    {quantity.value + " "} Pixelated Bunnies
+                  </span>
+                </li>
+                {Number(quantity.value) > 0 && (
+                  <li className="py-4 flex">
+                    <CheckIcon
+                      className="flex-shrink-0 h-6 w-6 text-green-500"
+                      aria-hidden="true"
+                    />
+                    <span className="ml-3 text-base text-gray-500">
+                      1 ??? (per wallet)
+                    </span>
+                  </li>
+                )}
+                <li className="py-4 flex">
+                  <CheckIcon
+                    className="flex-shrink-0 h-6 w-6 text-green-500"
+                    aria-hidden="true"
+                  />
+                  <span className="ml-3 text-base text-gray-500">
+                    Specialized content in Discord server
+                  </span>
+                </li>
+                <li className="py-4 flex">
+                  <CheckIcon
+                    className="flex-shrink-0 h-6 w-6 text-green-500"
+                    aria-hidden="true"
+                  />
+                  <span className="ml-3 text-base text-gray-500">
+                    Access to future airdrops
+                  </span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
