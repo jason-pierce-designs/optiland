@@ -1,3 +1,5 @@
+import { StaticImageData } from "next/image";
+
 export interface iPerson {
   name: string;
   email?: string;

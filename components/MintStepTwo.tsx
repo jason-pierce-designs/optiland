@@ -1,17 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEthereum } from "@fortawesome/free-brands-svg-icons";
 import { useWeb3React } from "@web3-react/core";
 import { Contract } from "web3-eth-contract";
 import { BigNumber } from "@ethersproject/bignumber";
-import Web3 from "web3";
-import { AbiItem } from "web3-utils";
-
-import BUNNIES_CONTRACT_ABI from "../lib/contracts/bunny.json";
-import { connectToOptimism } from "../lib/helpers";
-import useEagerConnect from "../lib/hooks/useEagerConnect";
 import { MintFormContext } from "../lib/state/mintForm";
 import { StepperContext } from "../lib/state/stepper";
-import Account from "./Account";
 import Button from "./Button";
+import { formatEtherscanLink, parseBalance } from "../lib/utils";
 
 const getCostPerToken = async (contract: Contract) => {
   try {
@@ -78,6 +80,15 @@ export default function MintStepTwo() {
   const [quantity, setQuantity] = useState<{ value: string }>({ value: "0" });
   const [isValid, setIsValid] = useState<boolean>(false);
 
+  const numBunnyChangeHandler = ({
+    target: { value },
+  }: ChangeEvent<HTMLInputElement>): void => {
+    const valid =
+      Number(value) > 0 && chainId === Number(process.env.NEXT_PUBLIC_CHAIN_ID);
+    setQuantity({ value: value });
+    setIsValid(valid);
+  };
+
   useEffect(() => {
     if (formState.contract) {
       getCostPerToken(formState.contract).then(
@@ -91,6 +102,20 @@ export default function MintStepTwo() {
     }
   }, [formState.contract]);
 
+  const handleSubmit = (e: FormEvent) => async (contract: Contract) => {
+    e.preventDefault();
+    if (chainId === Number(process.env.NEXT_PUBLIC_CHAIN_ID)) {
+      const quan = BigNumber.from(quantity.value);
+      const total = costPerToken?.mul(quan);
+      return await contract?.methods.mint(quantity.value).send({
+        from: account,
+        value: total,
+      });
+    } else {
+      throw new Error("You need to switch to the Optimistic Ethereum Network!");
+    }
+  };
+
   return (
     <div className="bg-white overflow-hidden sm-rounded-b-lg pt-16">
       <div className="grid grid-cols-12 gap-4">
@@ -101,12 +126,85 @@ export default function MintStepTwo() {
                 Select Quantity
               </span>
               <span className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                How many Bunnies do you want?
+                How many?
               </span>
             </h1>
+            <form
+              className="flex flex-col justify-center"
+              onSubmit={(e) => {
+                handleSubmit(e)(formState.contract as Contract).then(
+                  (receipt) => {
+                    const txnLink = formatEtherscanLink(
+                      "Transaction",
+                      receipt.transactionHash
+                    );
+                    getTotalMinted(formState.contract as Contract).then(
+                      (total: string) =>
+                        updateRabbitHole(
+                          Number(quantity.value),
+                          txnLink,
+                          Number(total)
+                        )
+                    );
+                  },
+                  (error) => {
+                    console.log(error);
+                    alert(error.message || error);
+                  }
+                );
+              }}
+            >
+              <div className="flex mt-12 justify-between">
+                <label htmlFor="quantity" className="text-lg">
+                  Quantity (max: 10 per transaction)
+                </label>
+                <input
+                  name="quantity"
+                  value={quantity.value}
+                  type="range"
+                  min="0"
+                  max="10"
+                  step="1"
+                  onChange={numBunnyChangeHandler}
+                />
+              </div>
+              <div className="flex flex-col justify-center items-center text-7xl p-16">
+                {quantity.value}
+              </div>
+              <div className="flex justify-between items-center border-t-2 mt-2 px-2 py-2">
+                <div>Cost per Token:</div>
+                <div className="flex">
+                  <span className="mt-1 mr-2 h-3 w-3">
+                    <FontAwesomeIcon icon={faEthereum} />
+                  </span>{" "}
+                  {parseBalance(costPerToken?.toString())}
+                </div>
+              </div>
+              <div className="flex justify-between items-center border-t-2 border-b-2 mt-2 mb-8 px-2 py-2">
+                <div>Total Base Price: </div>
+                <div className="flex">
+                  <span className="mt-1 mr-2 h-3 w-3">
+                    <FontAwesomeIcon icon={faEthereum} />
+                  </span>{" "}
+                  {parseBalance(
+                    costPerToken?.mul(BigNumber.from(quantity.value)).toString()
+                  )}
+                </div>
+              </div>
+              <div className="flex justify-end">
+                <Button
+                  variant="primary"
+                  type="submit"
+                  value="Submit"
+                  disabled={!isValid}
+                >
+                  Purchase
+                </Button>
+              </div>
+            </form>
           </div>
         </div>
-        <div className="col-span-5 bg-gray-100 px-4 py-5 sm:p-6 sm:pb-16">
+        <div className="col-span-5 bg-gray-200 px-4 py-5 sm:p-6 sm:pb-16">
           <div className="text-lg max-w-prose mx-auto">
             <div className=" block text-xl text-center leading-8 font-extrabold tracking-tight text-gray-900">
               You will get:

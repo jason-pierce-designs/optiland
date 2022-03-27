@@ -23,7 +23,7 @@ export default function MintStepOne() {
     const web3 = new Web3(library.provider);
     const opBunnyContract = new web3.eth.Contract(
       BUNNIES_CONTRACT_ABI as AbiItem[],
-      process.env.NEXT_PUBLIC_CONTRACT_ADDRESS
+      process.env.NEXT_PUBLIC_BUNNY_ADDRESS
     );
     formDispatch({
       type: "setMintFormState",
