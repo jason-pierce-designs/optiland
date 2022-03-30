@@ -60,13 +60,6 @@ const setCurrentStep = (steps: Step[], completedStepIndex: number): Step[] => {
   return stepsCopy;
 };
 
-// union structure:
-// type Action =
-// | { type: 'increment' }
-// | { type: 'add'; payload: number }
-// | { type: 'minus'; payload: number }
-// | { type: 'decrement' }
-
 export function stepperReducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case "setSteps":

@@ -10,6 +10,7 @@ export interface MintForm {
   isReadyForStep2: boolean;
   quantity: number;
   pricePerUnit: BigNumber;
+  startingTokenId: number;
   isReadyForStep3: boolean;
   receipt?: ContractReceipt;
 }
@@ -20,6 +21,7 @@ export const mintFormInitialState: MintForm = {
   isReadyForStep2: false,
   quantity: 0,
   pricePerUnit: BigNumber.from("0"),
+  startingTokenId: 0,
   isReadyForStep3: false,
   receipt: undefined,
 };

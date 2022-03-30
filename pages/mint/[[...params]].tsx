@@ -42,6 +42,7 @@ export default function MintDeepLink({
               <MintStepTwo />
             )}
             {formState.isReadyForStep3 && <MintStepThree />}
+            {/* <MintStepThree /> */}
           </div>
         </DarkOverlapShell>
         <Footer />

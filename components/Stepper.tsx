@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { CheckIcon } from "@heroicons/react/solid";
 import { classNames } from "../lib/helpers";
 import { StepperContext } from "../lib/state/stepper";
@@ -14,7 +14,7 @@ export interface Step {
 
 export default function Stepper() {
   const router = useRouter();
-  const { state, dispatch } = React.useContext(StepperContext);
+  const { state } = React.useContext(StepperContext);
 
   return state?.length > 0 ? (
     <div className="rounded-t-lg lg:border-t lg:border-b lg:border-gray-200">
