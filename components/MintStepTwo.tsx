@@ -12,9 +12,10 @@ import { Contract } from "web3-eth-contract";
 import { BigNumber } from "@ethersproject/bignumber";
 import { MintFormContext } from "../lib/state/mintForm";
 import { StepperContext } from "../lib/state/stepper";
-import Button from "./Button";
+import Modal from "./Modal";
 import { formatEtherscanLink, parseBalance } from "../lib/utils";
 import { CheckIcon } from "@heroicons/react/outline";
+import { classNames } from "../lib/helpers";
 
 const getCostPerToken = async (contract: Contract) => {
   try {
@@ -71,7 +72,7 @@ const updateRabbitHole = (quantity: number, txnLink: string, total: number) => {
 };
 
 export default function MintStepTwo() {
-  const { library, account, chainId } = useWeb3React();
+  const { account, chainId } = useWeb3React();
   const { state: formState, dispatch: formDispatch } =
     useContext(MintFormContext);
   const { dispatch: stepperDispatch } = useContext(StepperContext);
@@ -80,6 +81,7 @@ export default function MintStepTwo() {
   );
   const [quantity, setQuantity] = useState<{ value: string }>({ value: "0" });
   const [isValid, setIsValid] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const numBunnyChangeHandler = ({
     target: { value },
@@ -87,24 +89,36 @@ export default function MintStepTwo() {
     const valid =
       Number(value) > 0 && chainId === Number(process.env.NEXT_PUBLIC_CHAIN_ID);
     setQuantity({ value: value });
+    formDispatch({
+      type: "setMintFormState",
+      payload: { ...formState, quantity: Number(value) },
+    });
     setIsValid(valid);
   };
 
   useEffect(() => {
-    if (formState.contract) {
+    if (formState.contract && formState.pricePerUnit.eq(BigNumber.from("0"))) {
       getCostPerToken(formState.contract).then(
         (cost: string) => {
           if (cost) {
             setCostPerToken(BigNumber.from(cost));
+            formDispatch({
+              type: "setMintFormState",
+              payload: {
+                ...formState,
+                pricePerUnit: BigNumber.from(cost),
+              },
+            });
           }
         },
         (error) => console.log(error)
       );
     }
-  }, [formState.contract]);
+  }, [formState, formDispatch]);
 
   const handleSubmit = (e: FormEvent) => async (contract: Contract) => {
     e.preventDefault();
+    setLoading(true);
     if (chainId === Number(process.env.NEXT_PUBLIC_CHAIN_ID)) {
       const quan = BigNumber.from(quantity.value);
       const total = costPerToken?.mul(quan);
@@ -119,11 +133,17 @@ export default function MintStepTwo() {
 
   return (
     <div className="bg-white overflow-hidden sm-rounded-b-lg pt-16">
+      <Modal
+        open={loading}
+        setOpen={setLoading}
+        title="Transaction Processing"
+        message="Please wait while your transaction is being accepted and verified. Click outside this box to dismiss"
+      />
       <div className="grid grid-cols-12 gap-4">
-        <div className="col-span-7 px-4 py-5 sm:p-6 sm:pb-16">
+        <div className="col-span-12 md:col-span-7 px-4 py-5 sm:p-6 sm:pb-16">
           <div className="text-lg max-w-prose mx-auto">
             <h1>
-              <span className="block text-base text-center text-indigo-600 font-semibold tracking-wide uppercase">
+              <span className="block text-base text-center text-red-600 font-semibold tracking-wide uppercase">
                 Select Quantity
               </span>
               <span className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
@@ -135,23 +155,33 @@ export default function MintStepTwo() {
               onSubmit={(e) => {
                 handleSubmit(e)(formState.contract as Contract).then(
                   (receipt) => {
-                    stepperDispatch({ type: "setStepComplete", payload: 2 });
+                    formDispatch({
+                      type: "setReceipt",
+                      payload: receipt,
+                    });
+                    stepperDispatch({ type: "setStepComplete", payload: 1 });
                     const txnLink = formatEtherscanLink(
                       "Transaction",
                       receipt.transactionHash
                     );
-                    setTimeout(() => {
-                      stepperDispatch({ type: "setCurrentStep", payload: 3 });
-                      formDispatch({ type: "stepTwoComplete", payload: true });
-                    }, 2000);
                     getTotalMinted(formState.contract as Contract).then(
-                      (total: string) =>
+                      (total: string) => {
                         updateRabbitHole(
                           Number(quantity.value),
                           txnLink,
                           Number(total)
-                        )
+                        );
+                        formDispatch({
+                          type: "setStartingTokenId",
+                          payload: Number(total) - Number(quantity.value),
+                        });
+                      }
                     );
+                    setTimeout(() => {
+                      stepperDispatch({ type: "setCurrentStep", payload: 2 });
+                      formDispatch({ type: "stepTwoComplete", payload: true });
+                    }, 1250);
+                    setLoading(false);
                   },
                   (error) => {
                     console.log(error);
@@ -199,7 +229,12 @@ export default function MintStepTwo() {
               </div>
               <div className="flex justify-end">
                 <input
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className={classNames(
+                    isValid
+                      ? "cursor-pointer text-white bg-red-600 hover:bg-red-700 focus:ring-red-500"
+                      : "cursor-not-allowed text-red-600 bg-gray-50 hover:bg-gray-200 focus:ring-gray-100",
+                    " inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 "
+                  )}
                   type="submit"
                   value="Purchase"
                   disabled={!isValid}
@@ -208,7 +243,7 @@ export default function MintStepTwo() {
             </form>
           </div>
         </div>
-        <div className="col-span-5 bg-gray-50 px-4 py-5 sm:p-6 sm:pb-16">
+        <div className="col-span-12 md:col-span-5 bg-gray-50 px-4 py-5 sm:p-6 sm:pb-16">
           <div className="text-lg max-w-prose mx-auto h-full">
             <div className="flex justify-center items-center h-full">
               <ul

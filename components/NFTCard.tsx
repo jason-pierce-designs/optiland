@@ -1,42 +1,68 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { BunnyMetadata } from "../lib";
-import { getImgUrlForCollection } from "../lib/helpers";
+import { classNames, getBaseUrl, getImgUrlForCollection } from "../lib/helpers";
+import useSWR from "swr";
 
 export interface NFTCardProps {
   id: number;
   collection: string;
-  data: BunnyMetadata;
+  data?: BunnyMetadata;
+  width?: number;
+  height?: number;
+  variant?: "noinfo" | "sideinfo";
 }
 
-export default function NFTCard({ id, collection, data }: NFTCardProps) {
+export default function NFTCard({
+  id,
+  collection,
+  data,
+  width,
+  height,
+  variant,
+}: NFTCardProps) {
+  const baseUrl = getBaseUrl();
+  const url = `${baseUrl}/api/meta/${collection}/${id}`;
+  const { data: fetchedData }: { data?: BunnyMetadata } = useSWR(
+    data ? null : url
+  );
+
   const [image] = useState<string>(getImgUrlForCollection(collection, id));
 
-  if (data) {
+  if (data || fetchedData) {
+    const metadata: BunnyMetadata | undefined = data || fetchedData;
     return (
       <div className="group relative mb-10 border rounded-md">
-        <div className="w-full bg-gray-200 rounded-t-md overflow-hidden group-hover:opacity-75 object-center object-cover">
+        <div
+          className={classNames(
+            variant && variant === "noinfo" ? "rounded-b-md" : "",
+            "w-full bg-gray-200 rounded-t-md overflow-hidden group-hover:opacity-75 object-center object-cover"
+          )}
+        >
           <Image
             src={image}
-            alt={data?.description}
-            width={400}
-            height={400}
+            alt={metadata?.description}
+            width={width || 400}
+            height={height || 400}
             layout="responsive"
           />
         </div>
-        <div className="flex-1 p-4 space-y-2 flex flex-col">
-          <h3 className="text-sm font-medium text-gray-900">
-            <a href={`/collections/${collection}/${id}`}>
-              <span aria-hidden="true" className="absolute inset-0" />
-              {data.name}
-            </a>
-          </h3>
-          {/* <p className="text-sm text-gray-500">{metadata.description}</p>
-    <div className="flex-1 flex flex-col justify-end">
-      <p className="text-sm italic text-gray-500">{metadata.description}</p>
-      <p className="text-base font-medium text-gray-900">0.025 OΞ</p>
-    </div> */}
-        </div>
+        {metadata ? (
+          variant && variant === "noinfo" ? (
+            <></>
+          ) : (
+            <div className="flex-1 p-4 space-y-2 flex flex-col">
+              <h3 className="text-sm font-medium text-gray-900">
+                <a href={`/collections/${collection}/${id}`}>
+                  <span aria-hidden="true" className="absolute inset-0" />
+                  {metadata && metadata.name}
+                </a>
+              </h3>
+            </div>
+          )
+        ) : (
+          <></>
+        )}
       </div>
     );
   } else {
