@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { BunnyMetadata } from "../lib";
-import { getBaseUrl, getImgUrlForCollection } from "../lib/helpers";
+import { classNames, getBaseUrl, getImgUrlForCollection } from "../lib/helpers";
 import useSWR from "swr";
 
 export interface NFTCardProps {
@@ -10,6 +10,7 @@ export interface NFTCardProps {
   data?: BunnyMetadata;
   width?: number;
   height?: number;
+  variant?: "noinfo" | "sideinfo";
 }
 
 export default function NFTCard({
@@ -18,6 +19,7 @@ export default function NFTCard({
   data,
   width,
   height,
+  variant,
 }: NFTCardProps) {
   const baseUrl = getBaseUrl();
   const url = `${baseUrl}/api/meta/${collection}/${id}`;
@@ -28,10 +30,15 @@ export default function NFTCard({
   const [image] = useState<string>(getImgUrlForCollection(collection, id));
 
   if (data || fetchedData) {
-    const metadata = data || fetchedData;
+    const metadata: BunnyMetadata | undefined = data || fetchedData;
     return (
       <div className="group relative mb-10 border rounded-md">
-        <div className="w-full bg-gray-200 rounded-t-md overflow-hidden group-hover:opacity-75 object-center object-cover">
+        <div
+          className={classNames(
+            variant && variant === "noinfo" ? "rounded-b-md" : "",
+            "w-full bg-gray-200 rounded-t-md overflow-hidden group-hover:opacity-75 object-center object-cover"
+          )}
+        >
           <Image
             src={image}
             alt={metadata?.description}
@@ -40,20 +47,21 @@ export default function NFTCard({
             layout="responsive"
           />
         </div>
-        {metadata && (
-          <div className="flex-1 p-4 space-y-2 flex flex-col">
-            <h3 className="text-sm font-medium text-gray-900">
-              <a href={`/collections/${collection}/${id}`}>
-                <span aria-hidden="true" className="absolute inset-0" />
-                {metadata.name}
-              </a>
-            </h3>
-            {/* <p className="text-sm text-gray-500">{metadata.description}</p>
-    <div className="flex-1 flex flex-col justify-end">
-      <p className="text-sm italic text-gray-500">{metadata.description}</p>
-      <p className="text-base font-medium text-gray-900">0.025 OΞ</p>
-    </div> */}
-          </div>
+        {metadata ? (
+          variant && variant === "noinfo" ? (
+            <></>
+          ) : (
+            <div className="flex-1 p-4 space-y-2 flex flex-col">
+              <h3 className="text-sm font-medium text-gray-900">
+                <a href={`/collections/${collection}/${id}`}>
+                  <span aria-hidden="true" className="absolute inset-0" />
+                  {metadata && metadata.name}
+                </a>
+              </h3>
+            </div>
+          )
+        ) : (
+          <></>
         )}
       </div>
     );

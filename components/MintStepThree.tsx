@@ -1,64 +1,35 @@
-import React, {
-  ChangeEvent,
-  FormEvent,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEthereum } from "@fortawesome/free-brands-svg-icons";
 import { useWeb3React } from "@web3-react/core";
-import { Contract } from "web3-eth-contract";
 import { BigNumber } from "@ethersproject/bignumber";
-import { MintFormContext } from "../lib/state/mintForm";
-import { StepperContext } from "../lib/state/stepper";
-import Button from "./Button";
-import Modal from "./Modal";
+import { MintFormContext, mintFormInitialState } from "../lib/state/mintForm";
 import { formatEtherscanLink, parseBalance, shortenHex } from "../lib/utils";
-import { CheckIcon } from "@heroicons/react/outline";
-import Image from "next/image";
 import NFTCard from "./NFTCard";
-import useSWR from "swr";
-import { calcRange, getBaseUrl } from "../lib/helpers";
-import { BunnyMetadata } from "../lib";
+import { calcRange } from "../lib/helpers";
 import Link from "next/link";
 
-const products = [
-  {
-    id: 1,
-    name: "Basic Tee",
-    href: "#",
-    price: "$36.00",
-    color: "Charcoal",
-    size: "L",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/confirmation-page-06-product-01.jpg",
-    imageAlt: "Model wearing men's charcoal basic tee in large.",
-  },
-  // More products...
-];
-
-// const getTotalMinted = async (contract: Contract) => {
-//   try {
-//     return await contract?.methods.totalSupply().call();
-//   } catch (e) {
-//     return e;
-//   }
-// };
-
 export default function MintStepThree() {
-  const { library, account, chainId } = useWeb3React();
-  const baseUrl = getBaseUrl();
+  const { account } = useWeb3React();
   const { state: formState, dispatch: formDispatch } =
     useContext(MintFormContext);
-  const { dispatch: stepperDispatch } = useContext(StepperContext);
   const [products, setProducts] = useState<number[]>();
+  const [subtotal, setSubtotal] = useState<BigNumber>();
+
+  const startOver = () => {
+    (window as any).location.reload();
+    formDispatch({ type: "resetForm" });
+  };
 
   useEffect(() => {
-    if (formState.startingTokenId && formState.quantity) {
+    if (formState.startingTokenId && formState.quantity && !subtotal) {
+      debugger;
+      const quan = BigNumber.from(formState.quantity);
+      const total = formState.pricePerUnit?.mul(quan);
       setProducts(calcRange(formState.quantity, formState.startingTokenId));
+      setSubtotal(total);
     }
-  }, [formState]);
+  }, [formState, formDispatch, subtotal]);
 
   return (
     <div>
@@ -72,13 +43,14 @@ export default function MintStepThree() {
           </p>
           <p className="mt-2 text-base text-gray-500">
             We appreciate your order and as it is still getting validated, hang
-            tight and we&apos;ll send you confirmation very soon!
+            tight and see what you minted!
           </p>
 
           <dl className="mt-16 text-sm font-medium">
-            <dt className="text-gray-900">Transaction number</dt>
+            <dt className="text-gray-900">Transaction number (hash)</dt>
             <dd className="mt-2 text-indigo-600">
-              {formState.receipt?.transactionHash}
+              {formState.receipt &&
+                formState.receipt.transactionHash.toString()}
             </dd>
           </dl>
 
@@ -94,25 +66,28 @@ export default function MintStepThree() {
                   alt={product.imageAlt}
                   className="flex-none w-24 h-24 bg-gray-100 rounded-md object-center object-cover"
                 /> */}
-                  <NFTCard
-                    collection="bunny"
-                    id={product}
-                    width={24 * 16}
-                    height={24 * 16}
-                  />
+                  <div className="h-32 w-36">
+                    <NFTCard collection="bunny" id={product} variant="noinfo" />
+                  </div>
+
                   <div className="flex-auto space-y-1">
                     <h3 className="text-gray-900">
-                      <Link href={`collections/bunny/${product}`}>
-                        {`#${product}`}
+                      <Link href={`/collections/bunny/${product}`} passHref>
+                        <a
+                          rel="noreferrer"
+                          target="_blank"
+                          href={`/collections/bunny/${product}`}
+                        >
+                          Bunny{`#${product}`}
+                        </a>
                       </Link>
                     </h3>
-                    <p>
-                      Token ID: {"#"}
-                      {product}
-                    </p>
                   </div>
-                  <p className="flex-none font-medium text-gray-900">
-                    {formState.pricePerUnit.toString()}
+                  <p className="flex flex-none font-medium text-gray-900">
+                    <span className="mt-1 mr-2 h-2 w-2">
+                      <FontAwesomeIcon icon={faEthereum} />
+                    </span>{" "}
+                    {parseBalance(formState.pricePerUnit.toString())}
                   </p>
                 </li>
               ))}
@@ -124,25 +99,35 @@ export default function MintStepThree() {
                   alt={product.imageAlt}
                   className="flex-none w-24 h-24 bg-gray-100 rounded-md object-center object-cover"
                 /> */}
-                  <NFTCard
-                    collection="bunny"
-                    id={product}
-                    width={24 * 16}
-                    height={24 * 16}
-                  />
+                  <div className="h-32 w-36">
+                    <NFTCard
+                      collection="pbunny"
+                      id={product}
+                      variant="noinfo"
+                    />
+                  </div>
+
                   <div className="flex-auto space-y-1">
                     <h3 className="text-gray-900">
-                      <Link href={`collections/pbunny/${product}`}>
-                        {`#${product}`}
+                      <Link href={`/collections/pbunny/${product}`} passHref>
+                        <a
+                          rel="noreferrer"
+                          target="_blank"
+                          href={`/collections/pbunny/${product}`}
+                        >
+                          Pixelated Bunny{`#${product}`}
+                        </a>
                       </Link>
                     </h3>
-                    <p>
-                      Token ID: {"#"}
-                      {product}
-                    </p>
+                    <p>To be airdropped within 1-2 weeks</p>
                   </div>
-                  <p className="flex-none font-medium text-gray-900">
-                    {formState.pricePerUnit}
+                  <p className="flex flex-none font-medium text-gray-900">
+                    <span className="mt-1 mr-2 h-2 w-2">
+                      <FontAwesomeIcon icon={faEthereum} />
+                    </span>{" "}
+                    <span className="line-through">
+                      {parseBalance(formState.pricePerUnit.toString())}
+                    </span>
                   </p>
                 </li>
               ))}
@@ -151,76 +136,143 @@ export default function MintStepThree() {
           <dl className="text-sm font-medium text-gray-500 space-y-6 border-t border-gray-200 pt-6">
             <div className="flex justify-between">
               <dt>Subtotal</dt>
-              <dd className="text-gray-900">$72.00</dd>
+              <dd className="flex flex-none text-gray-900">
+                {" "}
+                <span className="mt-1 mr-2 h-2 w-2">
+                  <FontAwesomeIcon icon={faEthereum} />
+                </span>{" "}
+                {subtotal && parseBalance(subtotal.toString())}
+              </dd>
             </div>
 
             <div className="flex justify-between">
-              <dt>Shipping</dt>
-              <dd className="text-gray-900">$8.00</dd>
+              <dt>Gas</dt>
+              <dd className="flex flex-none text-gray-900">
+                {" "}
+                <span className="mt-1 mr-2 h-2 w-2">
+                  <FontAwesomeIcon icon={faEthereum} />
+                </span>{" "}
+                {formState.receipt?.cumulativeGasUsed &&
+                  parseBalance(
+                    formState.receipt.cumulativeGasUsed.toString(),
+                    18,
+                    18
+                  )}
+              </dd>
             </div>
 
-            <div className="flex justify-between">
-              <dt>Taxes</dt>
-              <dd className="text-gray-900">$6.40</dd>
-            </div>
-
-            <div className="flex items-center justify-between border-t border-gray-200 text-gray-900 pt-6">
+            <div className="flex items-center justify-between border-t border-gray-200 text-gray-900 pt-8">
               <dt className="text-base">Total</dt>
-              <dd className="text-base">$86.40</dd>
+              <dd className="text-base flex">
+                {" "}
+                <span className="mt-1 mr-2 h-3 w-3">
+                  <FontAwesomeIcon icon={faEthereum} />
+                </span>{" "}
+                {formState.receipt &&
+                  subtotal &&
+                  parseBalance(
+                    subtotal.add(formState.receipt.cumulativeGasUsed),
+                    18
+                  )}
+              </dd>
             </div>
           </dl>
 
           <dl className="mt-16 grid grid-cols-2 gap-x-4 text-sm text-gray-600">
             <div>
-              <dt className="font-medium text-gray-900">Shipping Address</dt>
+              <dt className="font-medium text-gray-900">
+                Transaction Information
+              </dt>
               <dd className="mt-2">
-                <address className="not-italic">
-                  <span className="block">Kristin Watson</span>
-                  <span className="block">7363 Cynthia Pass</span>
-                  <span className="block">Toronto, ON N3Y 4H8</span>
-                </address>
-              </dd>
-            </div>
-            <div>
-              <dt className="font-medium text-gray-900">Payment Information</dt>
-              <dd className="mt-2 space-y-2 sm:flex sm:space-y-0 sm:space-x-4">
-                <div className="flex-none">
-                  <svg
-                    aria-hidden="true"
-                    width={36}
-                    height={24}
-                    viewBox="0 0 36 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-auto"
-                  >
-                    <rect width={36} height={24} rx={4} fill="#224DBA" />
-                    <path
-                      d="M10.925 15.673H8.874l-1.538-6c-.073-.276-.228-.52-.456-.635A6.575 6.575 0 005 8.403v-.231h3.304c.456 0 .798.347.855.75l.798 4.328 2.05-5.078h1.994l-3.076 7.5zm4.216 0h-1.937L14.8 8.172h1.937l-1.595 7.5zm4.101-5.422c.057-.404.399-.635.798-.635a3.54 3.54 0 011.88.346l.342-1.615A4.808 4.808 0 0020.496 8c-1.88 0-3.248 1.039-3.248 2.481 0 1.097.969 1.673 1.653 2.02.74.346 1.025.577.968.923 0 .519-.57.75-1.139.75a4.795 4.795 0 01-1.994-.462l-.342 1.616a5.48 5.48 0 002.108.404c2.108.057 3.418-.981 3.418-2.539 0-1.962-2.678-2.077-2.678-2.942zm9.457 5.422L27.16 8.172h-1.652a.858.858 0 00-.798.577l-2.848 6.924h1.994l.398-1.096h2.45l.228 1.096h1.766zm-2.905-5.482l.57 2.827h-1.596l1.026-2.827z"
-                      fill="#fff"
-                    />
-                  </svg>
-                  <p className="sr-only">Visa</p>
-                </div>
-                <div className="flex-auto">
-                  <p className="text-gray-900">
-                    {account && shortenHex(account, 6)}
-                  </p>
-                  <p>Expires 12 / 21</p>
+                <div className="not-italic">
+                  <span className="block">
+                    Smart Contract Address:{" "}
+                    {process.env.NEXT_PUBLIC_BUNNY_ADDRESS}
+                  </span>
+                  <span className="block">
+                    Etherscan:{" "}
+                    {formState.receipt && (
+                      <a
+                        className="text-red-600 hover:text-red-500 underline"
+                        target="_blank"
+                        rel="noreferrer"
+                        href={formatEtherscanLink(
+                          "Transaction",
+                          formState.receipt.transactionHash
+                        )}
+                      >
+                        Open in new tab
+                      </a>
+                    )}
+                  </span>
+                  <span className="block">
+                    Account: {account && shortenHex(account, 6)}
+                  </span>
                 </div>
               </dd>
             </div>
           </dl>
 
           <div className="mt-16 border-t border-gray-200 py-6 text-right">
-            <a
-              href="#"
+            <button
+              onClick={startOver}
               className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
             >
               Continue Minting<span aria-hidden="true"> &rarr;</span>
-            </a>
+            </button>
           </div>
         </div>
       </div>
     </div>
   );
 }
+
+/** {
+  "blockHash": "0x336207f81a1624b16586ba2e5b92913067531dd921623b530b2cffa2bee7cefd",
+  "blockNumber": 1802839,
+  "contractAddress": null,
+  "cumulativeGasUsed": 158193,
+  "from": "0x3ed9d38601748734e94ee8480077cc8d4c8ffb0c",
+  "gasUsed": 158193,
+  "l1Fee": "0xbf8b",
+  "l1FeeScalar": "1.5",
+  "l1GasPrice": "0x7",
+  "l1GasUsed": "0x123e",
+  "logsBloom": "0x00000000400000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000020400000000000020000800000000000000000000000010000000000200000000000001000000000000000000000000000000000000000000000000000000000008000000000040000000000000000000000000000000000000000000000002000000000000000000000008000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000",
+  "status": true,
+  "to": "0xb87b4f704401930c968a29328e33daa5f87e47c2",
+  "transactionHash": "0x72097bd53baaa9866eac9b611c8b7413605e43ab21ef7a38af89d52bd48143c1",
+  "transactionIndex": 0,
+  "events": {
+      "Transfer": {
+          "address": "0xb87b4F704401930C968a29328e33DAa5F87e47c2",
+          "blockHash": "0x336207f81a1624b16586ba2e5b92913067531dd921623b530b2cffa2bee7cefd",
+          "blockNumber": 1802839,
+          "logIndex": 0,
+          "removed": false,
+          "transactionHash": "0x72097bd53baaa9866eac9b611c8b7413605e43ab21ef7a38af89d52bd48143c1",
+          "transactionIndex": 0,
+          "id": "log_48080495",
+          "returnValues": {
+              "0": "0x0000000000000000000000000000000000000000",
+              "1": "0x3ED9d38601748734e94Ee8480077cc8D4C8ffb0C",
+              "2": "387",
+              "from": "0x0000000000000000000000000000000000000000",
+              "to": "0x3ED9d38601748734e94Ee8480077cc8D4C8ffb0C",
+              "tokenId": "387"
+          },
+          "event": "Transfer",
+          "signature": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "raw": {
+              "data": "0x",
+              "topics": [
+                  "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                  "0x0000000000000000000000000000000000000000000000000000000000000000",
+                  "0x0000000000000000000000003ed9d38601748734e94ee8480077cc8d4c8ffb0c",
+                  "0x0000000000000000000000000000000000000000000000000000000000000183"
+              ]
+          }
+      }
+  }
+}
+*/

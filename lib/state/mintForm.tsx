@@ -2,7 +2,6 @@ import { Contract } from "web3-eth-contract";
 import { BigNumber } from "@ethersproject/bignumber";
 import { ContractReceipt } from "@ethersproject/contracts";
 import { createCtx } from "./createCtx";
-import * as R from "ramda";
 
 export interface MintForm {
   isOnOptimismChain: boolean;
@@ -31,6 +30,8 @@ type Action =
   | { type: "setMintFormState"; payload: MintForm }
   | { type: "stepOneComplete"; payload: boolean }
   | { type: "stepTwoComplete"; payload: boolean }
+  | { type: "setReceipt"; payload: ContractReceipt }
+  | { type: "setStartingTokenId"; payload: number }
   | { type: "resetForm" };
 
 const markStepOneComplete = (state: MintForm, payload: boolean): MintForm => {
@@ -41,6 +42,18 @@ const markStepTwoComplete = (state: MintForm, payload: boolean): MintForm => {
   return { ...state, isReadyForStep3: payload };
 };
 
+const setReceipt = (state: MintForm, payload: ContractReceipt): MintForm => {
+  return { ...state, receipt: payload };
+};
+
+const setStartingTokenId = (state: MintForm, payload: number): MintForm => {
+  return { ...state, startingTokenId: payload };
+};
+
+const resetForm = (): MintForm => {
+  return mintFormInitialState;
+};
+
 export function mintFormReducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case "setMintFormState":
@@ -49,6 +62,12 @@ export function mintFormReducer(state: AppState, action: Action): AppState {
       return markStepOneComplete(state, action.payload);
     case "stepTwoComplete":
       return markStepTwoComplete(state, action.payload);
+    case "setReceipt":
+      return setReceipt(state, action.payload);
+    case "setStartingTokenId":
+      return setStartingTokenId(state, action.payload);
+    case "resetForm":
+      return resetForm();
     default:
       return state;
   }

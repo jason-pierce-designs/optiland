@@ -12,7 +12,6 @@ import { Contract } from "web3-eth-contract";
 import { BigNumber } from "@ethersproject/bignumber";
 import { MintFormContext } from "../lib/state/mintForm";
 import { StepperContext } from "../lib/state/stepper";
-import Button from "./Button";
 import Modal from "./Modal";
 import { formatEtherscanLink, parseBalance } from "../lib/utils";
 import { CheckIcon } from "@heroicons/react/outline";
@@ -157,8 +156,8 @@ export default function MintStepTwo() {
                 handleSubmit(e)(formState.contract as Contract).then(
                   (receipt) => {
                     formDispatch({
-                      type: "setMintFormState",
-                      payload: { ...formState, receipt },
+                      type: "setReceipt",
+                      payload: receipt,
                     });
                     stepperDispatch({ type: "setStepComplete", payload: 1 });
                     const txnLink = formatEtherscanLink(
@@ -173,12 +172,8 @@ export default function MintStepTwo() {
                           Number(total)
                         );
                         formDispatch({
-                          type: "setMintFormState",
-                          payload: {
-                            ...formState,
-                            startingTokenId:
-                              Number(total) - Number(quantity.value),
-                          },
+                          type: "setStartingTokenId",
+                          payload: Number(total) - Number(quantity.value),
                         });
                       }
                     );
