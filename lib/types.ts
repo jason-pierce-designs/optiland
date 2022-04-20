@@ -64,3 +64,6 @@ export interface iResultEntity {
   input: string;
   confirmations: string;
 }
+
+export type WindowInstanceWithEthereum = Window &
+  typeof globalThis & { ethereum?: any };

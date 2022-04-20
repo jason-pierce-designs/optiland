@@ -34,7 +34,7 @@ export default function PBunnyDetail({
         <DarkOverlapShell title={`Pixel #${tokenId}`}>
           <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
             <NFTDetailView
-              metadata={metadata}
+              data={metadata}
               collection="pbunny"
               id={Number(tokenId)}
             />

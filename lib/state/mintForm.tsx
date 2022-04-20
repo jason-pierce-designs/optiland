@@ -1,6 +1,5 @@
-import { Contract } from "web3-eth-contract";
 import { BigNumber } from "@ethersproject/bignumber";
-import { ContractReceipt } from "@ethersproject/contracts";
+import { ContractReceipt, Contract } from "@ethersproject/contracts";
 import { createCtx } from "./createCtx";
 
 export interface MintForm {

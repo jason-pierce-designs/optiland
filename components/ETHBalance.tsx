@@ -1,13 +1,16 @@
-import type { Web3Provider } from "@ethersproject/providers";
-import { useWeb3React } from "@web3-react/core";
 import useETHBalance from "../lib/hooks/useEthBalance";
-import { parseBalance } from "../lib/utils";
+import { parseBalance, shortenHex } from "../lib/utils";
+import { useWeb3React } from "@web3-react/core";
 
 const ETHBalance = () => {
-  const { account } = useWeb3React<Web3Provider>();
+  const { account, ENSName } = useWeb3React();
   const { data } = useETHBalance(account as string);
 
-  return <>Balance: {parseBalance(data ?? 0)} OΞ</>;
+  return data ? (
+    <>Balance: {parseBalance(data ?? 0)} OΞ</>
+  ) : (
+    <>{ENSName || (account && `${shortenHex(account, 4)}`)}</>
+  );
 };
 
 export default ETHBalance;

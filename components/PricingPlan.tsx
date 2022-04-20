@@ -71,8 +71,8 @@ export default function PricingPlan() {
                     </div>
                     <div className="flex-1 flex flex-col justify-between border-t-2 border-gray-100 p-6 bg-gray-50 sm:p-10 lg:p-6 xl:p-10">
                       <ul role="list" className="space-y-4">
-                        {pbunnyFeatures.map((feature) => (
-                          <li key={feature} className="flex items-start">
+                        {pbunnyFeatures.map((feature, idx) => (
+                          <li key={idx} className="flex items-start">
                             <div className="flex-shrink-0">
                               <CheckIcon
                                 className="flex-shrink-0 h-6 w-6 text-green-500"
@@ -138,8 +138,8 @@ export default function PricingPlan() {
                   </div>
                   <div className="border-t-2 border-gray-100 rounded-b-lg pt-10 pb-8 px-6 bg-gray-50 sm:px-10 sm:py-10">
                     <ul role="list" className="space-y-4">
-                      {bunnyFeatures.map((feature) => (
-                        <li key={feature} className="flex items-start">
+                      {bunnyFeatures.map((feature, idx) => (
+                        <li key={idx} className="flex items-start">
                           <div className="flex-shrink-0">
                             <CheckIcon
                               className="flex-shrink-0 h-6 w-6 text-green-500"
@@ -194,8 +194,8 @@ export default function PricingPlan() {
                     </div>
                     <div className="flex-1 flex flex-col justify-between border-t-2 border-gray-100 p-6 bg-gray-50 sm:p-10 lg:p-6 xl:p-10">
                       <ul role="list" className="space-y-4">
-                        {citizenFeatures.map((feature) => (
-                          <li key={feature} className="flex items-start">
+                        {citizenFeatures.map((feature, idx) => (
+                          <li key={idx} className="flex items-start">
                             <div className="flex-shrink-0">
                               <CheckIcon
                                 className="flex-shrink-0 h-6 w-6 text-green-500"

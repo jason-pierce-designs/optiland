@@ -1,5 +1,6 @@
-import { Contract } from "web3-eth-contract";
+import { Contract } from "@ethersproject/contracts";
 import { Attribute, BunnyMetadata } from ".";
+import { WindowInstanceWithEthereum } from "./types";
 
 export function getImgUrlForCollection(collection: string, tokenId: number) {
   const pngUrl = collection === "bunny" ? "bunny" : "pixel";
@@ -55,7 +56,7 @@ export const getTokenOfOwnerByIndex = async (
   }
 };
 
-export const getMyBunnies = async (contract: Contract, account: string) => {
+export const getMyTokenIds = async (contract: Contract, account: string) => {
   let tokenIds: number[] = [];
   let index = 0;
   let hasError;
@@ -100,7 +101,7 @@ export function calcRange(size: number, startAt = 0) {
 }
 
 export const connectToOptimism = () => {
-  (window as any).ethereum?.request(networkReqObj);
+  (window as WindowInstanceWithEthereum).ethereum?.request(networkReqObj);
 };
 
 export const getQuixoticTradeHref = (token: string, tokenId: string) => {

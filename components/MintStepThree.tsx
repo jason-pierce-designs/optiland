@@ -3,11 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEthereum } from "@fortawesome/free-brands-svg-icons";
 import { useWeb3React } from "@web3-react/core";
 import { BigNumber } from "@ethersproject/bignumber";
-import { MintFormContext, mintFormInitialState } from "../lib/state/mintForm";
+import { MintFormContext } from "../lib/state/mintForm";
 import { formatEtherscanLink, parseBalance, shortenHex } from "../lib/utils";
 import NFTCard from "./NFTCard";
 import { calcRange } from "../lib/helpers";
 import Link from "next/link";
+import { WindowInstanceWithEthereum } from "../lib/types";
 
 export default function MintStepThree() {
   const { account } = useWeb3React();
@@ -17,13 +18,12 @@ export default function MintStepThree() {
   const [subtotal, setSubtotal] = useState<BigNumber>();
 
   const startOver = () => {
-    (window as any).location.reload();
+    (window as WindowInstanceWithEthereum).location.reload();
     formDispatch({ type: "resetForm" });
   };
 
   useEffect(() => {
     if (formState.startingTokenId && formState.quantity && !subtotal) {
-      debugger;
       const quan = BigNumber.from(formState.quantity);
       const total = formState.pricePerUnit?.mul(quan);
       setProducts(calcRange(formState.quantity, formState.startingTokenId));
@@ -61,11 +61,6 @@ export default function MintStepThree() {
             {products &&
               products.map((product) => (
                 <li key={product} className="flex py-6 space-x-6">
-                  {/* <Image
-                  src={product.imageSrc}
-                  alt={product.imageAlt}
-                  className="flex-none w-24 h-24 bg-gray-100 rounded-md object-center object-cover"
-                /> */}
                   <div className="h-32 w-36">
                     <NFTCard collection="bunny" id={product} variant="noinfo" />
                   </div>
@@ -94,11 +89,6 @@ export default function MintStepThree() {
             {products &&
               products.map((product) => (
                 <li key={product} className="flex py-6 space-x-6">
-                  {/* <Image
-                  src={product.imageSrc}
-                  alt={product.imageAlt}
-                  className="flex-none w-24 h-24 bg-gray-100 rounded-md object-center object-cover"
-                /> */}
                   <div className="h-32 w-36">
                     <NFTCard
                       collection="pbunny"

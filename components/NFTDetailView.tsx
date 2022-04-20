@@ -3,6 +3,7 @@ import Image from "next/image";
 import QuixoticCircle from "../public/images/quixotic_logo_circle.png";
 import OPlogo from "../public/images/optimism-logo.png";
 import {
+  getBaseUrl,
   getEtherscanTokenHref,
   getImgUrlForCollection,
   getQuixoticTradeHref,
@@ -10,18 +11,25 @@ import {
 import { BunnyMetadata } from "../lib";
 import Breadcrumbs from "./Breadcrumbs";
 import Attributes from "./Attributes";
+import useSWR from "swr";
 
 export interface NFTDetailViewProps {
-  metadata: BunnyMetadata;
+  data?: BunnyMetadata;
   id: number;
   collection: string;
 }
 
 export default function NFTDetailView({
-  metadata,
+  data,
   collection,
   id,
 }: NFTDetailViewProps) {
+  const baseUrl = getBaseUrl();
+  const url = `${baseUrl}/api/meta/${collection}/${id}`;
+  const { data: fetchedData }: { data?: BunnyMetadata } = useSWR(
+    data ? null : url
+  );
+
   const twitterLink = {
     name: "Twitter",
     href: `https://twitter.com/intent/tweet?text=Check%20out%20my%20NFT%20at%20https%3A//optiland.com/collections/${collection}/${id}`,
@@ -68,96 +76,108 @@ export default function NFTDetailView({
       href: `/collections/${collection}`,
       current: false,
     },
-    { name: `${collection}#${metadata.edition}`, current: true },
+    {
+      name: `${collection}#${data?.edition || fetchedData?.edition}`,
+      current: true,
+    },
   ];
   const [image] = useState<string>(getImgUrlForCollection(collection, id));
 
-  return (
-    <div className="max-w-2xl mx-auto px-0 sm:px-6 pt-0 pb-3 lg:max-w-7xl lg:px-8 lg:py-12 lg:grid lg:grid-cols-2 lg:gap-x-8">
-      {/* Product details */}
-      <div className="lg:max-w-lg lg:self-start">
-        <div className="hidden md:flex">
-          <Breadcrumbs pages={pages} />
+  if (data || fetchedData) {
+    const metadata: BunnyMetadata | undefined = data || fetchedData;
+    return (
+      <div className="max-w-2xl mx-auto px-0 sm:px-6 pt-0 pb-3 lg:max-w-7xl lg:px-8 lg:py-12 lg:grid lg:grid-cols-2 lg:gap-x-8">
+        {/* Product details */}
+        <div className="lg:max-w-lg lg:self-start">
+          <div className="hidden md:flex">
+            <Breadcrumbs pages={pages} />
+          </div>
+
+          <section
+            aria-labelledby="information-heading"
+            className="mt-0 md:mt-4"
+          >
+            <h2 id="information-heading" className="sr-only">
+              Product information
+            </h2>
+
+            <div className="mt-0 md:mt-4 space-y-6">
+              <p className="text-base text-gray-500">
+                {metadata && metadata.description}
+              </p>
+            </div>
+          </section>
         </div>
 
-        <section aria-labelledby="information-heading" className="mt-0 md:mt-4">
-          <h2 id="information-heading" className="sr-only">
-            Product information
-          </h2>
-
-          <div className="mt-0 md:mt-4 space-y-6">
-            <p className="text-base text-gray-500">{metadata.description}</p>
+        {/* Product image */}
+        <div className="mt-4 md:mt-10 lg:mt-0 lg:col-start-2 lg:row-span-2 lg:self-center">
+          <div className="aspect-square rounded-t-md overflow-hidden w-full h-full">
+            <Image
+              src={image}
+              alt={metadata && metadata.description}
+              width={680}
+              height={680}
+              layout="responsive"
+            />
           </div>
-        </section>
-      </div>
-
-      {/* Product image */}
-      <div className="mt-4 md:mt-10 lg:mt-0 lg:col-start-2 lg:row-span-2 lg:self-center">
-        <div className="aspect-square rounded-t-md overflow-hidden w-full h-full">
-          <Image
-            src={image}
-            alt={metadata.description}
-            width={680}
-            height={680}
-            layout="responsive"
-          />
-        </div>
-        <div className="-mt-px flex divide-x divide-gray-200 rounded-b-md shadow">
-          <div className="w-0 flex-1 flex">
-            <a
-              href={twitterLink.href}
-              className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
-            >
-              <span className="sr-only">{twitterLink.name}</span>
-              Share:
-              <twitterLink.icon
-                className="ml-0.5 mt-0.5 w-5 h-5 text-red-600 hover:text-red-700"
-                aria-hidden="true"
-              />
-            </a>
-          </div>
-          <div className="-ml-px w-0 flex-1 flex">
-            <a
-              href={QuixoticLink.href}
-              className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
-            >
-              <span className="sr-only">{QuixoticLink.name}</span>
-              Trade:
-              <QuixoticLink.icon
-                className="ml-0.5 mt-0.5 w-5 h-5 text-gray-400"
-                aria-hidden="true"
-              />
-            </a>
-          </div>
-          <div className="-ml-px w-0 flex-1 flex">
-            <a
-              href={EtherscanLink.href}
-              className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
-            >
-              <span className="sr-only">{EtherscanLink.name}</span>
-              View:
-              <EtherscanLink.icon
-                className="ml-0.5 mt-0.5 w-5 h-5 text-gray-400"
-                aria-hidden="true"
-              />
-            </a>
+          <div className="-mt-px flex divide-x divide-gray-200 rounded-b-md shadow">
+            <div className="w-0 flex-1 flex">
+              <a
+                href={twitterLink.href}
+                className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
+              >
+                <span className="sr-only">{twitterLink.name}</span>
+                Share:
+                <twitterLink.icon
+                  className="ml-0.5 mt-0.5 w-5 h-5 text-red-600 hover:text-red-700"
+                  aria-hidden="true"
+                />
+              </a>
+            </div>
+            <div className="-ml-px w-0 flex-1 flex">
+              <a
+                href={QuixoticLink.href}
+                className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
+              >
+                <span className="sr-only">{QuixoticLink.name}</span>
+                Trade:
+                <QuixoticLink.icon
+                  className="ml-0.5 mt-0.5 w-5 h-5 text-gray-400"
+                  aria-hidden="true"
+                />
+              </a>
+            </div>
+            <div className="-ml-px w-0 flex-1 flex">
+              <a
+                href={EtherscanLink.href}
+                className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
+              >
+                <span className="sr-only">{EtherscanLink.name}</span>
+                View:
+                <EtherscanLink.icon
+                  className="ml-0.5 mt-0.5 w-5 h-5 text-gray-400"
+                  aria-hidden="true"
+                />
+              </a>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Product form */}
-      <div className="mt-5 lg:max-w-lg lg:col-start-1 lg:row-start-2 lg:self-start">
-        <section aria-labelledby="attributes-heading">
-          <h2 id="attributes-heading" className="sr-only">
-            Product options
-          </h2>
+        {/* Product form */}
+        <div className="mt-5 lg:max-w-lg lg:col-start-1 lg:row-start-2 lg:self-start">
+          <section aria-labelledby="attributes-heading">
+            <h2 id="attributes-heading" className="sr-only">
+              Product options
+            </h2>
 
-          <Attributes
-            attributes={metadata.attributes}
-            collection={collection}
-          />
+            {metadata && (
+              <Attributes
+                attributes={metadata.attributes}
+                collection={collection}
+              />
+            )}
 
-          {/* <div className="mt-10">
+            {/* <div className="mt-10">
             <button
               type="submit"
               className="w-full bg-red-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
@@ -165,8 +185,11 @@ export default function NFTDetailView({
               Trade on Quixotic
             </button>
           </div> */}
-        </section>
+          </section>
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return <div>loading...</div>;
+  }
 }

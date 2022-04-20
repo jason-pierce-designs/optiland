@@ -1,16 +1,10 @@
 import React, { useState } from "react";
 import { Disclosure } from "@headlessui/react";
-import useEagerConnect from "../lib/hooks/useEagerConnect";
-import { useWeb3React } from "@web3-react/core";
 import { NavLink } from "../lib";
-import Account from "./Account";
 
 export default function UserMenuMobile() {
-  const { deactivate } = useWeb3React();
-
   const userNavInitialState: NavLink[] = [
     { name: "Your Optiland NFT's", href: "/view" },
-    { name: "Disconnect wallet", onClick: () => deactivate() },
   ];
   const [userNavigation] = useState<NavLink[]>(userNavInitialState);
   return (
