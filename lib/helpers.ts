@@ -38,7 +38,7 @@ export const getLocalMetadata = async (token: string, tokenId: number) => {
 
 export const getTotalMinted = async (contract: Contract) => {
   try {
-    return await contract?.methods.totalSupply().call();
+    return await contract?.totalSupply();
   } catch (e) {
     return e;
   }
@@ -50,7 +50,7 @@ export const getTokenOfOwnerByIndex = async (
   index: number
 ) => {
   try {
-    return await contract?.methods.tokenOfOwnerByIndex(account, index).call();
+    return await contract?.tokenOfOwnerByIndex(account, index);
   } catch (e) {
     return new Error("end of array bounds");
   }

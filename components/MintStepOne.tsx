@@ -9,7 +9,6 @@ import { StepperContext } from "../lib/state/stepper";
 import Account from "./Account";
 import Button from "./Button";
 import { Contract, ContractInterface } from "@ethersproject/contracts";
-import { ethers } from "ethers";
 
 const { useProvider } = hooks;
 

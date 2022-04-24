@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
-import { hooks, metaMask } from "../../lib/connectors/metaMask";
-import { AbiItem } from "web3-utils";
+import { hooks } from "../../lib/connectors/metaMask";
 
 import BUNNIES_CONTRACT_ABI from "../../lib/contracts/bunny.json";
 import PIXEL_CONTRACT_ABI from "../../lib/contracts/pbunny.json";
-import getLibrary from "../../lib/getLibrary";
 import DarkOverlapShell from "../../components/DarkOverlapShell";
 import Footer from "../../components/Footer";
 import Layout from "../../components/Layout";
@@ -14,25 +12,16 @@ import { Contract, ContractInterface } from "@ethersproject/contracts";
 import { getTokenOfOwnerByIndex } from "../../lib/helpers";
 import NFTDetailView from "../../components/NFTDetailView";
 import NFTCard from "../../components/NFTCard";
-import { Web3Provider } from "@ethersproject/providers";
 
-const {
-  useChainId,
-  useAccounts,
-  useError,
-  useIsActivating,
-  useIsActive,
-  useProvider,
-  useENSNames,
-} = hooks;
+const { useProvider } = hooks;
 
 export default function View() {
-  const { account, chainId } = useWeb3React();
+  const { account } = useWeb3React();
   const provider = useProvider();
+  const signer = provider?.getSigner(account);
   const [myBunnies, setMyBunnies] = useState<number[]>([]);
   const [myPixelBunnies, setMyPixelBunnies] = useState<number[]>([]);
   const [myBunniesLoading, setMyBunniesLoading] = useState<boolean>(false);
-  const [myPixelLoading, setMyPixelLoading] = useState<boolean>(false);
 
   const getMyTokenIds = async (contract: Contract, account: string) => {
     let tokenIds: number[] = [];
@@ -52,45 +41,27 @@ export default function View() {
   };
 
   useEffect(() => {
-    if (
-      provider &&
-      account &&
-      chainId === Number(process.env.NEXT_PUBLIC_CHAIN_ID)
-    ) {
+    if (account && signer) {
       const opBunnyContract = new Contract(
         process.env.NEXT_PUBLIC_BUNNY_ADDRESS as string,
         BUNNIES_CONTRACT_ABI as ContractInterface,
-        provider.getSigner()
+        signer
       );
       const pixelBunnyContract = new Contract(
         process.env.NEXT_PUBLIC_BUNNY_ADDRESS as string,
         PIXEL_CONTRACT_ABI as ContractInterface,
-        provider.getSigner()
+        signer
       );
-      if (myBunnies.length === 0 && !myBunniesLoading) {
-        setMyBunniesLoading(true);
-        getMyTokenIds(opBunnyContract, account).then((tokenIds) => {
-          setMyBunnies(tokenIds);
-          setMyBunniesLoading(false);
-        });
-      }
-      if (myPixelBunnies.length === 0 && !myPixelLoading) {
-        setMyPixelLoading(true);
-        getMyTokenIds(pixelBunnyContract, account).then((tokenIds) => {
-          setMyPixelBunnies(tokenIds);
-          setMyPixelLoading(false);
-        });
-      }
+      setMyBunniesLoading(true);
+      getMyTokenIds(opBunnyContract, account).then((tokenIds) => {
+        setMyBunniesLoading(false);
+        setMyBunnies(tokenIds);
+      });
+      getMyTokenIds(pixelBunnyContract, account).then((tokenIds) => {
+        setMyPixelBunnies(tokenIds);
+      });
     }
-  }, [
-    account,
-    provider,
-    chainId,
-    myBunnies,
-    myPixelBunnies,
-    myBunniesLoading,
-    myPixelLoading,
-  ]);
+  }, [account, signer]);
 
   return (
     <>
@@ -98,7 +69,7 @@ export default function View() {
         <DarkNavbar />
         <DarkOverlapShell title="My Optiland NFT's">
           <div className="flex flex-col bg-white rounded-lg shadow">
-            {myBunniesLoading && (
+            {myBunniesLoading && myBunnies.length === 0 && (
               <div className="px-4 py-5 sm:p-6 sm:mb-16">
                 <h3 className="mt-2 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
                   Loading...
@@ -118,6 +89,7 @@ export default function View() {
                         key={idx}
                         id={tokenId}
                         collection="bunny"
+                        showBreadcrumbs={false}
                       />
                     ))}
                   </div>
@@ -143,6 +115,7 @@ export default function View() {
                         key={idx}
                         id={tokenId}
                         collection="pbunny"
+                        showBreadcrumbs={false}
                       />
                     ))}
                   </div>

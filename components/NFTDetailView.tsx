@@ -17,12 +17,14 @@ export interface NFTDetailViewProps {
   data?: BunnyMetadata;
   id: number;
   collection: string;
+  showBreadcrumbs?: boolean;
 }
 
 export default function NFTDetailView({
   data,
   collection,
   id,
+  showBreadcrumbs,
 }: NFTDetailViewProps) {
   const baseUrl = getBaseUrl();
   const url = `${baseUrl}/api/meta/${collection}/${id}`;
@@ -89,9 +91,11 @@ export default function NFTDetailView({
       <div className="max-w-2xl mx-auto px-0 sm:px-6 pt-0 pb-3 lg:max-w-7xl lg:px-8 lg:py-12 lg:grid lg:grid-cols-2 lg:gap-x-8">
         {/* Product details */}
         <div className="lg:max-w-lg lg:self-start">
-          <div className="hidden md:flex">
-            <Breadcrumbs pages={pages} />
-          </div>
+          {showBreadcrumbs && (
+            <div className="hidden md:flex">
+              <Breadcrumbs pages={pages} />
+            </div>
+          )}
 
           <section
             aria-labelledby="information-heading"
