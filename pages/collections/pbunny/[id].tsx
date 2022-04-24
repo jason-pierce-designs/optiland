@@ -37,6 +37,7 @@ export default function PBunnyDetail({
               data={metadata}
               collection="pbunny"
               id={Number(tokenId)}
+              showBreadcrumbs
             />
           </div>
         </DarkOverlapShell>

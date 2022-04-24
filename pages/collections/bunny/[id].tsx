@@ -37,6 +37,7 @@ export default function BunnyDetail({
               data={metadata}
               collection="bunny"
               id={Number(tokenId)}
+              showBreadcrumbs
             />
           </div>
         </DarkOverlapShell>

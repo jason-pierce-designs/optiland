@@ -45,43 +45,41 @@ export default function UserMenu() {
   const [userNavigation] = useState<NavLink[]>(userNavInitialState);
 
   if (typeof account !== "string") {
-    return (
-      <>
-        {isWeb3Available ? (
-          <button
-            className="max-w-xs px-3 py-1 bg-gray-900 text-gray-400 hover:text-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-            disabled={isActivating || connecting}
-            onClick={() => {
-              setConnecting(true);
-              isMetaMaskInstalled
-                ? activate().catch((error) => {
-                    if (error instanceof UserRejectedRequestError) {
-                      alert(error.message);
-                    }
-                  })
-                : startOnboarding();
-            }}
-          >
-            {isMetaMaskInstalled ? (
-              <span className="flex items-center">
-                <span className="pr-2">Connect</span>
-                <CreditCardIcon className="h-6 w-6" aria-hidden="true" />
-              </span>
-            ) : (
-              "Connect to Wallet"
-            )}
-          </button>
+    return isWeb3Available ? (
+      <button
+        className="max-w-xs px-3 py-1 bg-gray-900 text-gray-400 hover:text-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white cursor-pointer"
+        disabled={isActivating || connecting}
+        onClick={() => {
+          setConnecting(true);
+          isMetaMaskInstalled
+            ? activate().catch((error) => {
+                if (error instanceof UserRejectedRequestError) {
+                  setConnecting(false);
+                  alert(error.message);
+                }
+              })
+            : startOnboarding();
+        }}
+      >
+        {isMetaMaskInstalled ? (
+          <span className="flex items-center">
+            <span className="pr-2">Connect</span>
+            <CreditCardIcon className="h-6 w-6" aria-hidden="true" />
+          </span>
         ) : (
-          <button
-            className="max-w-xs px-3 py-1 bg-gray-900 text-gray-400 hover:text-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-            onClick={startOnboarding}
-          >
-            Install Metamask
-          </button>
+          "Connect to Wallet"
         )}
-      </>
+      </button>
+    ) : (
+      <button
+        className="max-w-xs px-3 py-1 bg-gray-900 text-gray-400 hover:text-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+        onClick={startOnboarding}
+      >
+        Install Metamask
+      </button>
     );
   }
+
   return (
     <Menu as="div" className="ml-3 relative">
       <Menu.Button className="max-w-xs px-3 py-1 bg-gray-900 text-gray-400 hover:text-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
