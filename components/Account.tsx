@@ -41,7 +41,7 @@ const Account = () => {
       <>
         {isWeb3Available ? (
           <button
-            disabled={connecting || isActivating}
+            // disabled={connecting}
             onClick={() => {
               setConnecting(true);
               isMetaMaskInstalled
