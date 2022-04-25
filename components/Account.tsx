@@ -9,17 +9,14 @@ import ETHBalance from "./ETHBalance";
 const Account = () => {
   const { account, error, isActive, isActivating } = useWeb3React();
   const [connecting, setConnecting] = useState(false);
+  const [isWeb3Available, setIsWeb3Available] = useState<boolean>(false);
 
   const activate = async () => {
     return await metaMask.activate(Number(process.env.NEXT_PUBLIC_CHAIN_ID));
   };
 
-  const {
-    isMetaMaskInstalled,
-    isWeb3Available,
-    startOnboarding,
-    stopOnboarding,
-  } = useMetaMaskOnboarding();
+  const { isMetaMaskInstalled, startOnboarding, stopOnboarding } =
+    useMetaMaskOnboarding();
 
   useEffect(() => {
     if (isActive || error) {
@@ -30,6 +27,13 @@ const Account = () => {
 
   useEffect(() => {
     void metaMask.connectEagerly();
+  }, []);
+
+  useEffect(() => {
+    const isAvailable = typeof window !== "undefined" && window?.ethereum;
+    if (isAvailable) {
+      setIsWeb3Available(true);
+    }
   }, []);
 
   if (typeof account !== "string") {

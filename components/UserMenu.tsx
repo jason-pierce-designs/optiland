@@ -1,43 +1,13 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { metaMask } from "../lib/connectors/metaMask";
 
 import { NavLink } from "../lib";
 import { classNames } from "../lib/helpers";
-import { CreditCardIcon } from "@heroicons/react/outline";
-import ETHBalance from "./ETHBalance";
-import useMetaMaskOnboarding from "../lib/hooks/useMetaMaskOnboarding";
 import { useWeb3React } from "@web3-react/core";
-import { UserRejectedRequestError } from "@web3-react/injected-connector";
+import Account from "./Account";
 
 export default function UserMenu() {
-  const { account, error, isActive, isActivating } = useWeb3React();
-
-  const activate = async () => {
-    return await metaMask.activate(Number(process.env.NEXT_PUBLIC_CHAIN_ID));
-  };
-
-  const [connecting, setConnecting] = useState(false);
-
-  const {
-    isMetaMaskInstalled,
-    isWeb3Available,
-    startOnboarding,
-    stopOnboarding,
-  } = useMetaMaskOnboarding();
-
-  useEffect(() => {}, []);
-
-  useEffect(() => {
-    if (isActive || error) {
-      setConnecting(false);
-      stopOnboarding();
-    }
-  }, [isActive, error, stopOnboarding]);
-
-  useEffect(() => {
-    void metaMask.connectEagerly();
-  }, []);
+  const { account } = useWeb3React();
 
   const userNavInitialState: NavLink[] = [
     { name: "Your Optiland NFT's", href: "/view" },
@@ -45,38 +15,10 @@ export default function UserMenu() {
   const [userNavigation] = useState<NavLink[]>(userNavInitialState);
 
   if (typeof account !== "string") {
-    return isWeb3Available ? (
-      <button
-        className="max-w-xs px-3 py-1 bg-gray-900 text-gray-400 hover:text-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white cursor-pointer"
-        disabled={isActivating || connecting}
-        onClick={() => {
-          setConnecting(true);
-          isMetaMaskInstalled
-            ? activate().catch((error) => {
-                if (error instanceof UserRejectedRequestError) {
-                  setConnecting(false);
-                  alert(error.message);
-                }
-              })
-            : startOnboarding();
-        }}
-      >
-        {isMetaMaskInstalled ? (
-          <span className="flex items-center">
-            <span className="pr-2">Connect</span>
-            <CreditCardIcon className="h-6 w-6" aria-hidden="true" />
-          </span>
-        ) : (
-          "Connect to Wallet"
-        )}
-      </button>
-    ) : (
-      <button
-        className="max-w-xs px-3 py-1 bg-gray-900 text-gray-400 hover:text-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-        onClick={startOnboarding}
-      >
-        Install Metamask
-      </button>
+    return (
+      <div className="max-w-xs px-3 py-1 bg-gray-900 text-gray-400 hover:text-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white cursor-pointer">
+        <Account />
+      </div>
     );
   }
 
@@ -90,7 +32,7 @@ export default function UserMenu() {
         src={user.imageUrl}
         alt=""
       /> */}
-        <ETHBalance />
+        <Account />
       </Menu.Button>
       <Transition
         as={Fragment}

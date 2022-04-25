@@ -12,10 +12,24 @@ import { Contract, ContractInterface } from "@ethersproject/contracts";
 import { getTokenOfOwnerByIndex } from "../../lib/helpers";
 import NFTDetailView from "../../components/NFTDetailView";
 import NFTCard from "../../components/NFTCard";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { removeUndefinedForNextJsSerializing } from "../../lib/utils";
 
 const { useProvider } = hooks;
 
-export default function View() {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { accountNum } = context.query;
+
+  return {
+    props: removeUndefinedForNextJsSerializing({
+      accountNum,
+    }),
+  };
+};
+
+export default function View({
+  accountNum,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { account } = useWeb3React();
   const provider = useProvider();
   const signer = provider?.getSigner(account);
