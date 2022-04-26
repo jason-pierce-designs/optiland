@@ -1,14 +1,11 @@
 import React from "react";
 import Image from "next/image";
-import Layout from "../../components/Layout";
-import DarkNavbar from "../../components/DarkNavbar";
 import DarkOverlapShell from "../../components/DarkOverlapShell";
 
 import NeonCity from "/public/images/neon-city-bg.jpg";
 import PinkAlley from "/public/images/pink-alley-bg.jpg";
 import AlleyCity from "/public/images/apt-tower-bg.jpg";
 import AptMoonlight from "/public/images/apt-moonlight.jpg";
-import Footer from "../../components/Footer";
 
 const collections = [
   {
@@ -24,8 +21,8 @@ const collections = [
     imageAlt: "a run down alley way",
   },
   {
-    name: "Coming Soon!",
-    href: "#",
+    name: "Optiland Citizens",
+    href: "/collections/citizen",
     imageSrc: AptMoonlight,
     imageAlt: "an apartment complex at night in the moonlight",
   },

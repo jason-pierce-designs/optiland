@@ -3,7 +3,21 @@ import { Attribute, BunnyMetadata } from ".";
 import { WindowInstanceWithEthereum } from "./types";
 
 export function getImgUrlForCollection(collection: string, tokenId: number) {
-  const pngUrl = collection === "bunny" ? "bunny" : "pixel";
+  let pngUrl;
+  switch (collection) {
+    case "bunny":
+      pngUrl = "bunny";
+      break;
+    case "pbunny":
+      pngUrl = "pixel";
+      break;
+    case "citizen":
+      pngUrl = "citizen";
+      break;
+    default:
+      pngUrl = "bunny";
+  }
+  // = collection === "bunny" ? "bunny" : "pixel";
   const imgSrc = `https://optiland.s3.amazonaws.com/${collection}/${pngUrl}${tokenId}.png`;
   return imgSrc;
 }

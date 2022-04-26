@@ -13,9 +13,14 @@ export default function Attributes({
 }: AttributesProps) {
   return (
     <dl className="grid grid-cols-1 rounded-lg bg-white overflow-hidden shadow divide-y divide-gray-200">
-      {attributes.map((attribute, idx) => (
-        <AttributeBox key={idx} attribute={attribute} collection={collection} />
-      ))}
+      {attributes &&
+        attributes.map((attribute, idx) => (
+          <AttributeBox
+            key={idx}
+            attribute={attribute}
+            collection={collection}
+          />
+        ))}
     </dl>
   );
 }
