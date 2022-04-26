@@ -7,7 +7,9 @@ export default async function handler(
 ) {
   try {
     const { tokenId } = req.query;
-    const data = await fsp.readFile(`../citizen/citizen${tokenId}.json`);
+    const data = await fsp.readFile(
+      `pages/api/meta/citizen/citizen${tokenId}.json`
+    );
     const metadata = JSON.parse(data);
     res.status(200).json(metadata);
   } catch (e) {
