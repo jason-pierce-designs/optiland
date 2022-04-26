@@ -1,22 +1,27 @@
 import { CreditCardIcon } from "@heroicons/react/outline";
 import { useWeb3React } from "@web3-react/core";
-import { metaMask } from "../lib/connectors/metaMask";
+import { metaMask, hooks } from "../lib/connectors/metaMask";
 import { UserRejectedRequestError } from "@web3-react/injected-connector";
 import { useEffect, useState } from "react";
 import useMetaMaskOnboarding from "../lib/hooks/useMetaMaskOnboarding";
 import ETHBalance from "./ETHBalance";
 
 const Account = () => {
-  const { account, error, isActive, isActivating } = useWeb3React();
-  const [connecting, setConnecting] = useState(false);
-  const [isWeb3Available, setIsWeb3Available] = useState<boolean>(false);
+  const { account, error, isActive } = useWeb3React();
+  const [connecting, setConnecting] = useState<boolean>(false);
+  const [hasTriedEagerly, setHasTriedEagerly] = useState<boolean | null>(null);
+
+  const {
+    isMetaMaskInstalled,
+    startOnboarding,
+    stopOnboarding,
+    isWeb3Available,
+  } = useMetaMaskOnboarding();
 
   const activate = async () => {
+    setConnecting(true);
     return await metaMask.activate(Number(process.env.NEXT_PUBLIC_CHAIN_ID));
   };
-
-  const { isMetaMaskInstalled, startOnboarding, stopOnboarding } =
-    useMetaMaskOnboarding();
 
   useEffect(() => {
     if (isActive || error) {
@@ -25,32 +30,23 @@ const Account = () => {
     }
   }, [isActive, error, stopOnboarding]);
 
-  useEffect(() => {
-    void metaMask.connectEagerly();
-  }, []);
-
-  useEffect(() => {
-    const isAvailable = typeof window !== "undefined" && window?.ethereum;
-    if (isAvailable) {
-      setIsWeb3Available(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   void metaMask.connectEagerly();
+  // }, []);
 
   if (typeof account !== "string") {
     return (
       <>
         {isWeb3Available ? (
           <button
-            // disabled={connecting}
+            disabled={connecting}
             onClick={() => {
               setConnecting(true);
-              isMetaMaskInstalled
-                ? activate().catch((error) => {
-                    if (error instanceof UserRejectedRequestError) {
-                      alert(error.message);
-                    }
-                  })
-                : startOnboarding();
+              activate().catch((error) => {
+                if (error instanceof UserRejectedRequestError) {
+                  alert(error.message);
+                }
+              });
             }}
           >
             {isMetaMaskInstalled ? (

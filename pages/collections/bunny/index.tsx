@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import Collection from "../../../components/Collection";
-import Layout from "../../../components/Layout";
-import DarkNavbar from "../../../components/DarkNavbar";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import {
   DEFAULT_PAGES,
@@ -12,7 +10,6 @@ import {
 import { removeUndefinedForNextJsSerializing } from "../../../lib/utils";
 import { BunnyMetadata } from "../../../lib";
 import { SWRConfig } from "swr";
-import Footer from "../../../components/Footer";
 import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -73,8 +70,7 @@ export default function BunnyCollection({
   }, [isVisible, totalPages, pagesize, router]);
 
   return (
-    <Layout>
-      <DarkNavbar activePath="/collections" />
+    <>
       <SWRConfig value={fallback}>
         <div className="py-16 sm:py-24">
           <div className="w-full mx-auto sm:px-6 lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8">
@@ -90,8 +86,7 @@ export default function BunnyCollection({
         </div>
       </SWRConfig>
       <div className="block h-96 w-full" ref={ref}></div>
-      <Footer />
-    </Layout>
+    </>
   );
 }
 

@@ -1,10 +1,7 @@
 import React, { useContext } from "react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
-import Layout from "../../components/Layout";
-import DarkNavbar from "../../components/DarkNavbar";
 import DarkOverlapShell from "../../components/DarkOverlapShell";
-import Footer from "../../components/Footer";
 import Stepper from "../../components/Stepper";
 import { removeUndefinedForNextJsSerializing } from "../../lib/utils";
 import { MintFormContext } from "../../lib/state/mintForm";
@@ -32,20 +29,16 @@ export default function MintDeepLink({
 
   return (
     <>
-      <Layout>
-        <DarkNavbar activePath="/mint" />
-        <DarkOverlapShell title="Mint">
-          <div className="relative bg-white rounded-lg shadow">
-            <Stepper />
-            {!formState.isReadyForStep2 && <MintStepOne />}
-            {formState.isReadyForStep2 && !formState.isReadyForStep3 && (
-              <MintStepTwo />
-            )}
-            {formState.isReadyForStep3 && <MintStepThree />}
-          </div>
-        </DarkOverlapShell>
-        <Footer />
-      </Layout>
+      <DarkOverlapShell title="Mint">
+        <div className="relative bg-white rounded-lg shadow">
+          <Stepper />
+          {!formState.isReadyForStep2 && <MintStepOne />}
+          {formState.isReadyForStep2 && !formState.isReadyForStep3 && (
+            <MintStepTwo />
+          )}
+          {formState.isReadyForStep3 && <MintStepThree />}
+        </div>
+      </DarkOverlapShell>
     </>
   );
 }

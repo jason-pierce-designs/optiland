@@ -3,16 +3,12 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { removeUndefinedForNextJsSerializing } from "../../../lib/utils";
 import { BunnyMetadata } from "../../../lib";
 import Collection from "../../../components/Collection";
-import Layout from "../../../components/Layout";
-import DarkNavbar from "../../../components/DarkNavbar";
 import { SWRConfig } from "swr";
 import {
-  DEFAULT_PAGE,
   DEFAULT_PAGES,
   DEFAULT_PAGESIZE,
   getBaseUrl,
 } from "../../../lib/helpers";
-import Footer from "../../../components/Footer";
 import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -73,8 +69,7 @@ export default function PixelBunnyCollection({
   }, [isVisible, totalPages, pagesize, router]);
 
   return (
-    <Layout>
-      <DarkNavbar activePath="/collections" />
+    <>
       <SWRConfig value={fallback}>
         <div className="py-16 sm:py-24">
           <div className="w-full mx-auto sm:px-6 lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8">
@@ -90,7 +85,6 @@ export default function PixelBunnyCollection({
         </div>
       </SWRConfig>
       <div className="block h-96 w-full" ref={ref}></div>
-      <Footer />
-    </Layout>
+    </>
   );
 }

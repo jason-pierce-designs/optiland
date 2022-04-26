@@ -4,17 +4,18 @@ import { useEffect, useRef, useState } from "react";
 
 export default function useMetaMaskOnboarding() {
   const onboarding = useRef<MetaMaskOnboarding>();
-
+  const [isWeb3Available, isWeb3AvailableSet] = useState<boolean>();
   const [isMetaMaskInstalled, isMetaMaskInstalledSet] = useState<boolean>();
 
   useEffect(() => {
     if (typeof window === "undefined") {
       return;
+    } else {
+      isWeb3AvailableSet(!!window?.ethereum);
     }
 
     async function checkForMetaMask() {
       const provider = await detectEthereumProvider({
-        timeout: 1000,
         mustBeMetaMask: true,
       });
 
@@ -43,8 +44,6 @@ export default function useMetaMaskOnboarding() {
       onboarding.current.stopOnboarding();
     }
   }
-
-  const isWeb3Available = typeof window !== "undefined" && window?.ethereum;
 
   return {
     startOnboarding,
