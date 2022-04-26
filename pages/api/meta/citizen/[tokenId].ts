@@ -1,19 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-const fsp = require("fs").promises;
+import { BunnyMetadata } from "../../../../lib";
+import citizenMetadata from "../citizen-metadata-sorted.json";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  try {
-    const { tokenId } = req.query;
-    const data = await fsp.readFile(
-      `pages/api/meta/citizen/citizen${tokenId}.json`
-    );
-    const metadata = JSON.parse(data);
-    res.status(200).json(metadata);
-  } catch (e) {
-    console.log(e);
-    res.status(500).json({ error: "Error reading data" });
-  }
+  const json_data: BunnyMetadata[] = citizenMetadata as BunnyMetadata[];
+  const { tokenId } = req.query;
+  const index = Number(tokenId) - 1;
+  const metadata = json_data[index];
+  res.status(200).json(metadata);
 }
