@@ -1,0 +1,52 @@
+{
+  "dna": "d0eb679b6e4097da6523f80940dccaed39c04126902c3d0ae4621e25ea24bc9a",
+  "name": "Citizen#4647",
+  "description": "Optiland Citizens - A collection of 5151 unique NFTs that features the brave new citizens of Optiland.",
+  "image": "ipfs://QmctVuZDCaLng9e9GgcfmHPGASjZZLTeQSf1xyk4JYzov4/citizen4647.png",
+  "imageHash": "e97ee4a7acec57a4a304ff36c394027405aace51561620b937a58b55e6df30d2",
+  "edition": 4647,
+  "date": 1649555027543,
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Red"
+    },
+    {
+      "trait_type": "Body",
+      "value": "Lizardman Male"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Chef's Uniform"
+    },
+    {
+      "trait_type": "Neck",
+      "value": "Yellow Bow Tie"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Blue"
+    },
+    {
+      "trait_type": "Eye Accessories",
+      "value": "Glasses"
+    },
+    {
+      "trait_type": "Hair",
+      "value": "Wavy Orange"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Laughing"
+    },
+    {
+      "trait_type": "Mouth Accessories",
+      "value": "Cigarettes"
+    },
+    {
+      "trait_type": "Earings",
+      "value": "Gold Earings"
+    }
+  ],
+  "creator": "cryptofox_nft"
+}

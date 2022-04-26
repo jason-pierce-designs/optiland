@@ -1,0 +1,52 @@
+{
+  "dna": "8509d854edf06a740f2a0d632466928e562c11b31714a659f30f87e7aae12b20",
+  "name": "Citizen#528",
+  "description": "Optiland Citizens - A collection of 5151 unique NFTs that features the brave new citizens of Optiland.",
+  "image": "ipfs://QmctVuZDCaLng9e9GgcfmHPGASjZZLTeQSf1xyk4JYzov4/citizen528.png",
+  "imageHash": "4aef0d4c703543c0015c6d087d515cd602d1003c3e4f3434865157e28d94752a",
+  "edition": 528,
+  "date": 1649554623647,
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Blue"
+    },
+    {
+      "trait_type": "Body",
+      "value": "Human Female"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Burgundy Golf Shirt"
+    },
+    {
+      "trait_type": "Neck",
+      "value": "Neckerchief"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Brown"
+    },
+    {
+      "trait_type": "Eye Accessories",
+      "value": "Monocle"
+    },
+    {
+      "trait_type": "Hair",
+      "value": "Wavy Purple"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Smirking"
+    },
+    {
+      "trait_type": "Earings",
+      "value": "Gold Earings"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Red Hair Ribbon"
+    }
+  ],
+  "creator": "cryptofox_nft"
+}

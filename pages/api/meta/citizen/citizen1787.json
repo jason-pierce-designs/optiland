@@ -1,0 +1,44 @@
+{
+  "dna": "098b6c4607ca9ef9109891b774f8ee80ab93861c63967f2d38bd61b625fb5966",
+  "name": "Citizen#1787",
+  "description": "Optiland Citizens - A collection of 5151 unique NFTs that features the brave new citizens of Optiland.",
+  "image": "ipfs://QmctVuZDCaLng9e9GgcfmHPGASjZZLTeQSf1xyk4JYzov4/citizen1787.png",
+  "imageHash": "7aa596d2d0517d6405d5aaf9f8627fde1f8d20d66eb4da9d3f4c996d7dacb5b6",
+  "edition": 1787,
+  "date": 1649540512527,
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Cyan"
+    },
+    {
+      "trait_type": "Body",
+      "value": "Human Male"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "GI"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Brown"
+    },
+    {
+      "trait_type": "Earings",
+      "value": "Gold Earings"
+    },
+    {
+      "trait_type": "Hair",
+      "value": "Black Hair"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Neutral"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Top Hat"
+    }
+  ],
+  "creator": "cryptofox_nft"
+}

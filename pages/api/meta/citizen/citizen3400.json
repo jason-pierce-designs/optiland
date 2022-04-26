@@ -1,0 +1,48 @@
+{
+  "dna": "a485ae16eeefe3e1797382753f8f9ca844c50f20231e9ffa75f645d180dccef6",
+  "name": "Citizen#3400",
+  "description": "Optiland Citizens - A collection of 5151 unique NFTs that features the brave new citizens of Optiland.",
+  "image": "ipfs://QmctVuZDCaLng9e9GgcfmHPGASjZZLTeQSf1xyk4JYzov4/citizen3400.png",
+  "imageHash": "46ba07452d5cfc80312f9c5efd340090161f1fef65e6e4a53326f0eaa10dac76",
+  "edition": 3400,
+  "date": 1649552813084,
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Orange"
+    },
+    {
+      "trait_type": "Body",
+      "value": "Human Female"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Chef's Uniform"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Brown Left"
+    },
+    {
+      "trait_type": "Earings",
+      "value": "Gold Earings"
+    },
+    {
+      "trait_type": "Hair",
+      "value": "Blonde Hair"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Laughing"
+    },
+    {
+      "trait_type": "Mouth Accessories",
+      "value": "White Mask"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Chef's Hat"
+    }
+  ],
+  "creator": "cryptofox_nft"
+}

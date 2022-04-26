@@ -7,19 +7,26 @@ import React, {
 } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEthereum } from "@fortawesome/free-brands-svg-icons";
+import { hooks } from "../lib/connectors/metaMask";
 import { useWeb3React } from "@web3-react/core";
-import { Contract } from "web3-eth-contract";
+import { Contract } from "@ethersproject/contracts";
 import { BigNumber } from "@ethersproject/bignumber";
+import { parseEther } from "@ethersproject/units";
 import { MintFormContext } from "../lib/state/mintForm";
 import { StepperContext } from "../lib/state/stepper";
 import Modal from "./Modal";
 import { formatEtherscanLink, parseBalance } from "../lib/utils";
 import { CheckIcon } from "@heroicons/react/outline";
 import { classNames } from "../lib/helpers";
+import { ethers } from "ethers";
+import {
+  TransactionReceipt,
+  TransactionResponse,
+} from "@ethersproject/providers";
 
 const getCostPerToken = async (contract: Contract) => {
   try {
-    return await contract?.methods.cost().call();
+    return await contract?.cost();
   } catch (e) {
     console.error(e);
     return e;
@@ -28,7 +35,7 @@ const getCostPerToken = async (contract: Contract) => {
 
 const getTotalMinted = async (contract: Contract) => {
   try {
-    return await contract?.methods.totalSupply().call();
+    return await contract?.totalSupply();
   } catch (e) {
     return e;
   }
@@ -71,8 +78,11 @@ const updateRabbitHole = (quantity: number, txnLink: string, total: number) => {
   }
 };
 
+const { useProvider } = hooks;
+
 export default function MintStepTwo() {
   const { account, chainId } = useWeb3React();
+  const provider = useProvider();
   const { state: formState, dispatch: formDispatch } =
     useContext(MintFormContext);
   const { dispatch: stepperDispatch } = useContext(StepperContext);
@@ -99,7 +109,7 @@ export default function MintStepTwo() {
   useEffect(() => {
     if (formState.contract && formState.pricePerUnit.eq(BigNumber.from("0"))) {
       getCostPerToken(formState.contract).then(
-        (cost: string) => {
+        (cost: BigNumber) => {
           if (cost) {
             setCostPerToken(BigNumber.from(cost));
             formDispatch({
@@ -118,14 +128,24 @@ export default function MintStepTwo() {
 
   const handleSubmit = (e: FormEvent) => async (contract: Contract) => {
     e.preventDefault();
+    const signer = provider && provider.getSigner(account);
+    const connectedContract = contract.connect(signer as ethers.Signer);
     setLoading(true);
-    if (chainId === Number(process.env.NEXT_PUBLIC_CHAIN_ID)) {
+    if (account && chainId === Number(process.env.NEXT_PUBLIC_CHAIN_ID)) {
       const quan = BigNumber.from(quantity.value);
       const total = costPerToken?.mul(quan);
-      return await contract?.methods.mint(quantity.value).send({
-        from: account,
-        value: total,
-      });
+      try {
+        const response: TransactionResponse = await connectedContract.mint(
+          quantity.value,
+          {
+            value: total,
+          }
+        );
+        const fullReceipt: TransactionReceipt = await response.wait();
+        return fullReceipt;
+      } catch (e) {
+        console.log(e);
+      }
     } else {
       throw new Error("You need to switch to the Optimistic Ethereum Network!");
     }
@@ -153,41 +173,43 @@ export default function MintStepTwo() {
             <form
               className="flex flex-col justify-center"
               onSubmit={(e) => {
-                handleSubmit(e)(formState.contract as Contract).then(
-                  (receipt) => {
-                    formDispatch({
-                      type: "setReceipt",
-                      payload: receipt,
-                    });
-                    stepperDispatch({ type: "setStepComplete", payload: 1 });
-                    const txnLink = formatEtherscanLink(
-                      "Transaction",
-                      receipt.transactionHash
-                    );
-                    getTotalMinted(formState.contract as Contract).then(
-                      (total: string) => {
-                        updateRabbitHole(
-                          Number(quantity.value),
-                          txnLink,
-                          Number(total)
-                        );
+                handleSubmit(e)(formState.contract as Contract)
+                  .then((receipt: TransactionReceipt | undefined) => {
+                    if (receipt) {
+                      formDispatch({
+                        type: "setReceipt",
+                        payload: receipt,
+                      });
+                      stepperDispatch({ type: "setStepComplete", payload: 1 });
+                      const txnLink = formatEtherscanLink(
+                        "Transaction",
+                        receipt.transactionHash
+                      );
+                      debugger;
+                      getTotalMinted(formState.contract as Contract).then(
+                        (total: string) => {
+                          updateRabbitHole(
+                            Number(quantity.value),
+                            txnLink,
+                            Number(total)
+                          );
+                          formDispatch({
+                            type: "setStartingTokenId",
+                            payload: Number(total) - Number(quantity.value),
+                          });
+                        }
+                      );
+                      setTimeout(() => {
+                        stepperDispatch({ type: "setCurrentStep", payload: 2 });
                         formDispatch({
-                          type: "setStartingTokenId",
-                          payload: Number(total) - Number(quantity.value),
+                          type: "stepTwoComplete",
+                          payload: true,
                         });
-                      }
-                    );
-                    setTimeout(() => {
-                      stepperDispatch({ type: "setCurrentStep", payload: 2 });
-                      formDispatch({ type: "stepTwoComplete", payload: true });
-                    }, 1250);
-                    setLoading(false);
-                  },
-                  (error) => {
-                    console.log(error);
-                    alert(error.message || error);
-                  }
-                );
+                      }, 1250);
+                      setLoading(false);
+                    }
+                  })
+                  .catch((e) => alert(e));
               }}
             >
               <div className="flex mt-12 justify-between">

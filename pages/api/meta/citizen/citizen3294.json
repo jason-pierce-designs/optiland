@@ -1,0 +1,52 @@
+{
+  "dna": "1d50b46f9e2b5cab15d11f1039aa1704b4df4b74e019e7e372e9db394c267f96",
+  "name": "Citizen#3294",
+  "description": "Optiland Citizens - A collection of 5151 unique NFTs that features the brave new citizens of Optiland.",
+  "image": "ipfs://QmctVuZDCaLng9e9GgcfmHPGASjZZLTeQSf1xyk4JYzov4/citizen3294.png",
+  "imageHash": "c1bea6e2b6c91bb38fd7cfa49dfe625a79f90b257553a2c0f8ed682fbc76c44f",
+  "edition": 3294,
+  "date": 1649555365708,
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Green"
+    },
+    {
+      "trait_type": "Body",
+      "value": "Human Female"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Cyan Golf Shirt"
+    },
+    {
+      "trait_type": "Neck",
+      "value": "Red Scarf"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Brown"
+    },
+    {
+      "trait_type": "Hair",
+      "value": "Wavy Orange"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Thinking"
+    },
+    {
+      "trait_type": "Mouth Accessories",
+      "value": "Bear Mask"
+    },
+    {
+      "trait_type": "Earings",
+      "value": "Gold Earings"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Orange Hair Clip"
+    }
+  ],
+  "creator": "cryptofox_nft"
+}

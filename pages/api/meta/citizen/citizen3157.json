@@ -1,0 +1,52 @@
+{
+  "dna": "a3f59aff500ae813acaf0a11bdd038c691b22ca5c62b4e5b783dfc59df52f890",
+  "name": "Citizen#3157",
+  "description": "Optiland Citizens - A collection of 5151 unique NFTs that features the brave new citizens of Optiland.",
+  "image": "ipfs://QmctVuZDCaLng9e9GgcfmHPGASjZZLTeQSf1xyk4JYzov4/citizen3157.png",
+  "imageHash": "13d49b7af92e22a69b2caf7a04d93eecce0206a9dc1b598e3ab057ac4c3a0dc0",
+  "edition": 3157,
+  "date": 1649555363227,
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Orange"
+    },
+    {
+      "trait_type": "Body",
+      "value": "Beastman Female"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Cyan Shirt"
+    },
+    {
+      "trait_type": "Neck",
+      "value": "Purple Bow Tie"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Blue"
+    },
+    {
+      "trait_type": "Hair",
+      "value": "Wavy Purple"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Thinking"
+    },
+    {
+      "trait_type": "Mouth Accessories",
+      "value": "White Mask"
+    },
+    {
+      "trait_type": "Earings",
+      "value": "Gold Earings"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Red Hair Ribbon"
+    }
+  ],
+  "creator": "cryptofox_nft"
+}

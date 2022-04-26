@@ -1,67 +1,59 @@
 import { CreditCardIcon } from "@heroicons/react/outline";
 import { useWeb3React } from "@web3-react/core";
+import { metaMask, hooks } from "../lib/connectors/metaMask";
 import { UserRejectedRequestError } from "@web3-react/injected-connector";
 import { useEffect, useState } from "react";
-import { injected } from "../connectors";
 import useMetaMaskOnboarding from "../lib/hooks/useMetaMaskOnboarding";
 import ETHBalance from "./ETHBalance";
 
-type AccountProps = {
-  triedToEagerConnect: boolean;
-};
-
-const Account = ({ triedToEagerConnect }: AccountProps) => {
-  const { active, error, activate, account, setError } = useWeb3React();
+const Account = () => {
+  const { account, error, isActive } = useWeb3React();
+  const [connecting, setConnecting] = useState<boolean>(false);
+  const [hasTriedEagerly, setHasTriedEagerly] = useState<boolean | null>(null);
 
   const {
     isMetaMaskInstalled,
-    isWeb3Available,
     startOnboarding,
     stopOnboarding,
+    isWeb3Available,
   } = useMetaMaskOnboarding();
 
-  // manage connecting state for injected connector
-  const [connecting, setConnecting] = useState(false);
+  const activate = async () => {
+    setConnecting(true);
+    return await metaMask.activate(Number(process.env.NEXT_PUBLIC_CHAIN_ID));
+  };
+
   useEffect(() => {
-    if (active || error) {
+    if (isActive || error) {
       setConnecting(false);
       stopOnboarding();
     }
-  }, [active, error, stopOnboarding]);
+  }, [isActive, error, stopOnboarding]);
 
-  if (error) {
-    return null;
-  }
-
-  if (!triedToEagerConnect) {
-    return null;
-  }
+  // useEffect(() => {
+  //   void metaMask.connectEagerly();
+  // }, []);
 
   if (typeof account !== "string") {
     return (
       <>
         {isWeb3Available ? (
           <button
-            className=""
             disabled={connecting}
             onClick={() => {
               setConnecting(true);
-
-              activate(injected, undefined, true).catch((error) => {
-                // ignore the error if it's a user rejected request
+              activate().catch((error) => {
                 if (error instanceof UserRejectedRequestError) {
-                  setConnecting(false);
-                } else {
-                  setError(error);
+                  alert(error.message);
                 }
               });
             }}
           >
             {isMetaMaskInstalled ? (
-              <div className="flex items-center">
+              <span className="flex items-center">
                 <span className="pr-2">Connect</span>
                 <CreditCardIcon className="h-6 w-6" aria-hidden="true" />
-              </div>
+              </span>
             ) : (
               "Connect to Wallet"
             )}
@@ -75,15 +67,7 @@ const Account = ({ triedToEagerConnect }: AccountProps) => {
 
   return (
     <>
-      {/* {account &&
-        isWeb3Available &&
-        chainId !== Number(process.env.NEXT_PUBLIC_CHAIN_ID) && (
-          <button className="" onClick={() => connectToOptimism()}>
-            Add {process.env.NEXT_PUBLIC_CHAIN_NAME_SHORT}
-          </button>
-        )} */}
-      {/* {ENSName || `${shortenHex(account, 4)}`} */}
-      {account && <ETHBalance />}
+      <ETHBalance />
     </>
   );
 };

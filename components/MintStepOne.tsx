@@ -1,29 +1,33 @@
 import React, { useContext } from "react";
 import { useWeb3React } from "@web3-react/core";
-import Web3 from "web3";
-import { AbiItem } from "web3-utils";
+import { hooks } from "../lib/connectors/metaMask";
 
 import BUNNIES_CONTRACT_ABI from "../lib/contracts/bunny.json";
 import { connectToOptimism } from "../lib/helpers";
-import useEagerConnect from "../lib/hooks/useEagerConnect";
 import { MintFormContext } from "../lib/state/mintForm";
 import { StepperContext } from "../lib/state/stepper";
 import Account from "./Account";
 import Button from "./Button";
+import { Contract, ContractInterface } from "@ethersproject/contracts";
+
+const { useProvider } = hooks;
 
 export default function MintStepOne() {
-  const { library, account, chainId } = useWeb3React();
+  const { account, chainId } = useWeb3React();
+  const provider = useProvider();
+  const signer = provider?.getSigner(account);
+
   const { state: formState, dispatch: formDispatch } =
     useContext(MintFormContext);
   const { dispatch: stepperDispatch } = useContext(StepperContext);
-  const triedToEagerConnect = useEagerConnect();
 
   const markStepOneComplete = () => {
+    const abi: ContractInterface = BUNNIES_CONTRACT_ABI;
     stepperDispatch({ type: "setStepComplete", payload: 0 });
-    const web3 = new Web3(library.provider);
-    const opBunnyContract = new web3.eth.Contract(
-      BUNNIES_CONTRACT_ABI as AbiItem[],
-      process.env.NEXT_PUBLIC_BUNNY_ADDRESS
+    const opBunnyContract = new Contract(
+      process.env.NEXT_PUBLIC_BUNNY_ADDRESS as string,
+      abi,
+      signer
     );
     formDispatch({
       type: "setMintFormState",
@@ -57,9 +61,9 @@ export default function MintStepOne() {
           <div className="flex justify-center">
             {!account && (
               <div className="mx-8 mt-8">
-                <Button variant="primary">
-                  <Account triedToEagerConnect={triedToEagerConnect} />
-                </Button>
+                <div className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                  <Account />
+                </div>
               </div>
             )}
 
@@ -92,7 +96,7 @@ export default function MintStepOne() {
           </p>
         </div>
       </div>
-      {library &&
+      {provider &&
         account &&
         chainId === Number(process.env.NEXT_PUBLIC_CHAIN_ID) && (
           <div className="flex justify-center bg-gray-50 px-4 py-4 sm:px-6">

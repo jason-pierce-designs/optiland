@@ -1,0 +1,44 @@
+{
+  "dna": "50d03f91ee3e22d231bd702af07f61590c753e1b402dfde6ec3ae4bbbceae63a",
+  "name": "Citizen#1480",
+  "description": "Optiland Citizens - A collection of 5151 unique NFTs that features the brave new citizens of Optiland.",
+  "image": "ipfs://QmctVuZDCaLng9e9GgcfmHPGASjZZLTeQSf1xyk4JYzov4/citizen1480.png",
+  "imageHash": "dbb1552ad99e427c5fcd0d1569d0af49970fc1545daa1108ad49aa05e2df2d11",
+  "edition": 1480,
+  "date": 1649555732220,
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Red"
+    },
+    {
+      "trait_type": "Body",
+      "value": "Beastman Male"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Chef's Uniform"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Green"
+    },
+    {
+      "trait_type": "Hair",
+      "value": "Blonde Hair"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Thinking"
+    },
+    {
+      "trait_type": "Earings",
+      "value": "Gold Earings"
+    },
+    {
+      "trait_type": "Mask",
+      "value": "Purple Kisune"
+    }
+  ],
+  "creator": "cryptofox_nft"
+}

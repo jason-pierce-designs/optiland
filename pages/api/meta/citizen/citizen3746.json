@@ -1,0 +1,40 @@
+{
+  "dna": "c0b8f94a33ee69b4d0a6fcf51320ee3e79b852d9ec13818aaa0108181866b9a5",
+  "name": "Citizen#3746",
+  "description": "Optiland Citizens - A collection of 5151 unique NFTs that features the brave new citizens of Optiland.",
+  "image": "ipfs://QmctVuZDCaLng9e9GgcfmHPGASjZZLTeQSf1xyk4JYzov4/citizen3746.png",
+  "imageHash": "c013ed2c64037f17715c5826eced2ebabfc6aa2d15b1f0b361b8a08555d97f93",
+  "edition": 3746,
+  "date": 1649540673258,
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Yellow"
+    },
+    {
+      "trait_type": "Body",
+      "value": "Lizardman Female"
+    },
+    {
+      "trait_type": "Clothes",
+      "value": "Santa Costume"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Green"
+    },
+    {
+      "trait_type": "Hair",
+      "value": "Red Hair"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Smiling"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Santa Hat"
+    }
+  ],
+  "creator": "cryptofox_nft"
+}

@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { BunnyMetadata } from "../../../lib";
 import pbunnydata from "./pbunny-metadata-sorted.json";
-import bunnydata from "./bunny-metadata.json";
+import bunnydata from "./bunny-metadata-sorted.json";
+import citizendata from "./citizen-metadata-sorted.json";
 import * as R from "ramda";
 
 const getJsonData = (collection: string) => {
@@ -10,6 +11,8 @@ const getJsonData = (collection: string) => {
       return bunnydata as BunnyMetadata[];
     case "pbunny":
       return pbunnydata as BunnyMetadata[];
+    case "citizen":
+      return citizendata as BunnyMetadata[];
     default:
       return bunnydata as BunnyMetadata[];
   }

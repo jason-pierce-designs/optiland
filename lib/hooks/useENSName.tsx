@@ -1,17 +1,16 @@
-import type { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
 import { useEffect, useState } from "react";
 
 export default function useENSName(address: string) {
-  const { library, chainId } = useWeb3React<Web3Provider>();
+  const { provider, account, chainId } = useWeb3React();
   const [ENSName, setENSName] = useState("");
 
   useEffect(() => {
-    if (library && typeof address === "string") {
+    if (provider && typeof account === "string") {
       let stale = false;
 
-      library
-        .lookupAddress(address)
+      provider
+        .lookupAddress(account)
         .then((name) => {
           if (!stale && typeof name === "string") {
             setENSName(name);
@@ -24,7 +23,7 @@ export default function useENSName(address: string) {
         setENSName("");
       };
     }
-  }, [library, address, chainId]);
+  }, [provider, account, chainId]);
 
   return ENSName;
 }

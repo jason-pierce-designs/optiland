@@ -1,14 +1,8 @@
-import React, { Fragment, useState } from "react";
+import React from "react";
 import Image from "next/image";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import useEagerConnect from "../lib/hooks/useEagerConnect";
+import { Disclosure } from "@headlessui/react";
 
-import {
-  BellIcon,
-  MenuIcon,
-  XIcon,
-  CreditCardIcon,
-} from "@heroicons/react/outline";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
 
 import heroImg from "../public/images/hero-img.png";
 import { NavLink } from "../lib";
@@ -50,15 +44,7 @@ export default function Navbar({ activePath }: NavbarProps) {
       })
     : navDefaultState;
 
-  const { deactivate, account } = useWeb3React();
-
-  // const userNavInitialState: NavLink[] = [
-  //   { name: "Your Optiland NFT's", href: "/view" },
-  //   { name: "Disconnect wallet", onClick: deactivate },
-  // ];
-
-  const triedToEagerConnect = useEagerConnect();
-  // const [userNavigation] = useState<NavLink[]>(userNavInitialState);
+  const { account } = useWeb3React();
 
   return (
     <Disclosure as="nav" className="bg-gray-900 z-10">
@@ -150,7 +136,7 @@ export default function Navbar({ activePath }: NavbarProps) {
             </div>
             <div className="pt-4 pb-3 border-t border-gray-700">
               <span className="text-gray-300 pl-5">
-                <Account triedToEagerConnect={triedToEagerConnect} />
+                <Account />
               </span>
               {account && <UserMenuMobile />}
             </div>
