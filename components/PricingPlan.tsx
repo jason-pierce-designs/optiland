@@ -4,9 +4,9 @@ import { CheckIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 
 const citizenFeatures = [
-  "Details coming soon!",
-  "Details coming soon!",
-  "Details coming soon!",
+  "Free with Bunny Purchase!",
+  "One airdrop per holder",
+  "Realistic anime style",
 ];
 const pbunnyFeatures = [
   "FREE with Bunny purchase",
@@ -177,17 +177,17 @@ export default function PricingPlan() {
                           className="text-center text-2xl font-medium text-gray-900"
                           id="tier-scale"
                         >
-                          Coming Soon!
+                          Optiland Citizens
                         </h3>
                         <div className="mt-4 flex items-center justify-center">
                           <span className="px-3 flex items-start text-6xl tracking-tight text-gray-900">
                             <span className="mt-2 mr-2 text-4xl font-medium">
                               OΞ
                             </span>
-                            <span className="font-extrabold">???</span>
+                            <span className="font-extrabold">0.00</span>
                           </span>
                           <span className="text-xl font-medium text-gray-500">
-                            /???
+                            /OC
                           </span>
                         </div>
                       </div>
@@ -213,10 +213,10 @@ export default function PricingPlan() {
                           <Link
                             href="/mint"
                             passHref
-                            aria-describedby="tier-scale"
+                            aria-describedby="tier-hobby"
                           >
                             <div className="cursor-pointer block w-full text-center rounded-lg border border-transparent bg-white px-6 py-3 text-base font-medium text-red-600 hover:bg-gray-50">
-                              Coming Soon
+                              Mint a BUNNY
                             </div>
                           </Link>
                         </div>
