@@ -4,7 +4,7 @@ import { CheckIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 
 const citizenFeatures = [
-  "Free with Bunny Purchase!",
+  "FREE with Bunny Purchase!",
   "One airdrop per holder",
   "Realistic anime style",
 ];
