@@ -89,6 +89,7 @@ export default function DarkHeroSectionClouds() {
                     width={660}
                     height={660}
                     layout="intrinsic"
+                    priority
                     alt=""
                   />
                 </div>
