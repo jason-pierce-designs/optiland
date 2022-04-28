@@ -9,24 +9,12 @@ import DarkOverlapShell from "../../components/DarkOverlapShell";
 import { Contract, ContractInterface } from "@ethersproject/contracts";
 import NFTDetailView from "../../components/NFTDetailView";
 import NFTCard from "../../components/NFTCard";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { removeUndefinedForNextJsSerializing } from "../../lib/utils";
 import { getMyTokenIds } from "../../lib/helpers";
 
 const { useProvider } = hooks;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { accountNum } = context.query;
-  return {
-    props: removeUndefinedForNextJsSerializing({
-      accountNum,
-    }),
-  };
-};
-
-export default function View({
-  accountNum,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function View() {
+  const { account } = useWeb3React();
   const provider = useProvider();
   const [myBunnies, setMyBunnies] = useState<number[]>([]);
   const [myPixelBunnies, setMyPixelBunnies] = useState<number[]>([]);
@@ -34,7 +22,7 @@ export default function View({
   const [myBunniesLoading, setMyBunniesLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    if (typeof accountNum !== "undefined" && provider) {
+    if (typeof account !== "undefined" && provider) {
       setMyBunniesLoading(true);
       const opBunnyContract: Contract = new Contract(
         process.env.NEXT_PUBLIC_BUNNY_ADDRESS as string,
@@ -51,18 +39,18 @@ export default function View({
         CITIZENS_CONTRACT_ABI as ContractInterface,
         provider
       );
-      getMyTokenIds(opBunnyContract, accountNum).then((tokenIds) => {
+      getMyTokenIds(opBunnyContract, account).then((tokenIds) => {
         setMyBunniesLoading(false);
         setMyBunnies(tokenIds);
       });
-      getMyTokenIds(pixelBunnyContract, accountNum).then((tokenIds) => {
+      getMyTokenIds(pixelBunnyContract, account).then((tokenIds) => {
         setMyPixelBunnies(tokenIds);
       });
-      getMyTokenIds(citizensContract, accountNum).then((tokenIds) => {
+      getMyTokenIds(citizensContract, account).then((tokenIds) => {
         setMyCitizens(tokenIds);
       });
     }
-  }, [accountNum, provider]);
+  }, [account, provider]);
 
   return (
     <>

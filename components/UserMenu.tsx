@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { Menu, Transition } from "@headlessui/react";
 
 import { NavLink } from "../lib";
@@ -9,10 +9,15 @@ import Account from "./Account";
 export default function UserMenu() {
   const { account } = useWeb3React();
 
-  const userNavInitialState: NavLink[] = [
-    { name: "Your Optiland NFT's", href: "/view" },
-  ];
-  const [userNavigation] = useState<NavLink[]>(userNavInitialState);
+  const [userNavigation, setUserNavigation] = useState<NavLink[]>();
+
+  useEffect(() => {
+    if (account) {
+      setUserNavigation([
+        { name: "Your Optiland NFT's", href: `/view/${account}` },
+      ]);
+    }
+  }, [account]);
 
   if (typeof account !== "string") {
     return (
@@ -44,7 +49,7 @@ export default function UserMenu() {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-          {userNavigation.map((item) => (
+          {userNavigation?.map((item) => (
             <Menu.Item key={item.name}>
               {({ active }) =>
                 item.onClick ? (

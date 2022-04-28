@@ -11,7 +11,6 @@ import { hooks } from "../lib/connectors/metaMask";
 import { useWeb3React } from "@web3-react/core";
 import { Contract } from "@ethersproject/contracts";
 import { BigNumber } from "@ethersproject/bignumber";
-import { parseEther } from "@ethersproject/units";
 import { MintFormContext } from "../lib/state/mintForm";
 import { StepperContext } from "../lib/state/stepper";
 import Modal from "./Modal";
@@ -185,7 +184,6 @@ export default function MintStepTwo() {
                         "Transaction",
                         receipt.transactionHash
                       );
-                      debugger;
                       getTotalMinted(formState.contract as Contract).then(
                         (total: string) => {
                           updateRabbitHole(
