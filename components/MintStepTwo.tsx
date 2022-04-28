@@ -295,7 +295,7 @@ export default function MintStepTwo() {
                       aria-hidden="true"
                     />
                     <span className="ml-3 text-base text-gray-500">
-                      1 ??? (per wallet)
+                      1 Optiland Citizen (per holder)
                     </span>
                   </li>
                 )}
@@ -315,6 +315,15 @@ export default function MintStepTwo() {
                   />
                   <span className="ml-3 text-base text-gray-500">
                     Access to future airdrops
+                  </span>
+                </li>
+                <li className="py-4 flex">
+                  <CheckIcon
+                    className="flex-shrink-0 h-6 w-6 text-green-500"
+                    aria-hidden="true"
+                  />
+                  <span className="ml-3 text-base text-gray-500">
+                    Airdrops happen ~ weekly
                   </span>
                 </li>
               </ul>
