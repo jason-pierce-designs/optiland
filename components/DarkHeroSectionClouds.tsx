@@ -18,7 +18,7 @@ export default function DarkHeroSectionClouds() {
                 <div className="lg:py-24">
                   <div className="inline-flex items-center text-white bg-black rounded-full p-1 pr-2 sm:text-base lg:text-sm xl:text-base hover:text-gray-200 cursor-pointer">
                     <Link href="/mint" passHref>
-                      <>
+                      <span className="flex items-center">
                         <span className="px-3 py-0.5 text-white text-xs font-semibold leading-5 uppercase tracking-wide bg-red-600 rounded-full">
                           Bunny minting available
                         </span>
@@ -29,7 +29,7 @@ export default function DarkHeroSectionClouds() {
                           className="ml-2 w-5 h-5 text-gray-500"
                           aria-hidden="true"
                         />
-                      </>
+                      </span>
                     </Link>
                   </div>
 

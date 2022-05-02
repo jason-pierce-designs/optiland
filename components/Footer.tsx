@@ -1,12 +1,9 @@
-import React, { MutableRefObject } from "react";
+import React from "react";
 
 const navigation = {
   main: [
     { name: "Home", href: "/" },
     { name: "Collections", href: "/collections" },
-    { name: "Optimistic Bunnies", href: "/collections/bunny" },
-    { name: "Pixelated Bunnies", href: "/collections/pbunny" },
-    { name: "Optiland Citizens", href: "/collections/citizen" },
     { name: "Mint", href: "/mint" },
   ],
   social: [
