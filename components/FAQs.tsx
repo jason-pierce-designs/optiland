@@ -32,6 +32,9 @@ export default function FAQs() {
               </a>{" "}
               server.
             </p>
+            <p className="mt-4 text-lg text-gray-500">
+              Airdrops go out in batches, usually once or twice per week.
+            </p>
           </div>
           <div className="mt-12 lg:mt-0 lg:col-span-2">
             <dl className="space-y-12">
@@ -93,6 +96,28 @@ export default function FAQs() {
                   , and enter them when you import the NFT&apos;s into your
                   wallet.
                 </dd>
+              </div>
+              <div>
+                <dt className="text-lg leading-6 font-medium text-gray-900">
+                  Do I get Pixelated Bunnies for free?
+                </dt>
+                <dd className="mt-2 text-base text-gray-500">
+                  Until minting of Optmistic Bunnies is complete, for each one
+                  you mint, you will get a Pixelated Bunny airdropped to you for
+                  free!
+                </dd>
+              </div>
+              <div>
+                <dt className="text-lg leading-6 font-medium text-gray-900">
+                  What about Optiland Citizens? Are they really free too?
+                </dt>
+                <dd className="mt-2 text-base text-gray-500">
+                  Yes! Here at Optiland, we recognize that anime-styled
+                  NFT&apos;s are gaining in popularity and wanted to give the OG
+                  Bunny holders the first release of our exclusive set, Optiland
+                  Citizens.
+                </dd>
+                <dd>Limit: one per customer, while supplies last</dd>
               </div>
             </dl>
           </div>

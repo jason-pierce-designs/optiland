@@ -20,16 +20,21 @@ export default function BgImageColorHeroSection() {
           <div className="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
             <h1 className="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
               <span className="block text-white">
-                Featuring Optimistic Bunnies
+                The FIRST NFT Collections
               </span>
-              <span className="block text-indigo-200">
-                with more to come...
-              </span>
+              <span className="block text-indigo-200">only on Optimism...</span>
             </h1>
             <p className="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">
-              The feeback we&apos;ve received on the OP Bunny set has been
-              tremendous and we intend to build out an entire civilization of
+              The feeback we&apos;ve received since the launch of Optimistic
+              Bunnies and Pixelated Bunnies has been tremendous and we intend to
+              maintain that momentum by building out an entire civilization of
               NFT sets that are as diverse as our community.
+            </p>
+            <p className="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">
+              For every Optimistic Bunny you mint, will also get a Pixelated
+              Bunny airdropped to you for free within ~1-2 weeks. For each new
+              BUNNY holder, one Optiland Citizen will be airdropped for free as
+              well (while they last).
             </p>
             <div className="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
               <div className="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5">

@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       <DarkHeroSectionClouds />
-      <DarkOverlapShell title="Optiland Home">
+      <DarkOverlapShell>
         <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
           <BgImageColorHeroSection />
           <PricingPlan />

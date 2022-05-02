@@ -30,7 +30,7 @@ export default function PricingPlan() {
             Pricing
           </h2>
           <p className="mt-2 text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl">
-            Up to 20% of proceeds go to charity
+            Up to 10% of proceeds goes to charity
           </p>
           <p className="mt-3 max-w-4xl mx-auto text-xl text-gray-300 sm:mt-5 sm:text-2xl">
             We chose to release all our collections on Optimism because we want

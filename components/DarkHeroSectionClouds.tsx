@@ -45,6 +45,15 @@ export default function DarkHeroSectionClouds() {
                     City who want to live in the world of low gas fees
                     we&apos;ve gotten used to.
                   </p>
+                  <p className="hidden xl:block mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                    Optimistic Bunnies
+                  </p>
+                  <p className="hidden xl:block mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                    Pixelated Bunnies
+                  </p>
+                  <p className="hidden xl:block mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                    Optiland Citizens
+                  </p>
                   {/* <div className="mt-10 sm:mt-12">
                     <form action="#" className="sm:max-w-xl sm:mx-auto lg:mx-0">
                       <div className="sm:flex">
