@@ -41,9 +41,9 @@ export default function Tokenomics() {
       setContract(opBunnyContract);
 
       if (!bunniesMinted) {
-        getTotalMinted(opBunnyContract).then((totalMinted) =>
-          setBunniesMinted(BigNumber.from(totalMinted))
-        );
+        getTotalMinted(opBunnyContract)
+          .then((totalMinted) => setBunniesMinted(BigNumber.from(totalMinted)))
+          .catch(() => setBunniesMinted(undefined));
       }
       if (!citizensMinted) {
         getTotalMinted(citizensContract)
@@ -51,9 +51,9 @@ export default function Tokenomics() {
           .catch(() => setCitizensMinted(undefined));
       }
       if (!pBunniesMinted) {
-        getTotalMinted(pBunnyContract).then((totalMinted) =>
-          setPBunniesMinted(BigNumber.from(totalMinted))
-        );
+        getTotalMinted(pBunnyContract)
+          .then((totalMinted) => setPBunniesMinted(BigNumber.from(totalMinted)))
+          .catch(() => setPBunniesMinted(undefined));
       }
     }
   }, [provider, contract, bunniesMinted, citizensMinted, pBunniesMinted]);
@@ -65,7 +65,9 @@ export default function Tokenomics() {
           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
             Optiland Tokenomics
           </h2>
-          <p className="mt-3 text-xl text-gray-500 sm:mt-4">at a glance</p>
+          <p className="mt-3 text-xl text-gray-500 sm:mt-4">
+            connect your wallet to see mint totals
+          </p>
         </div>
       </div>
       <div className="mt-10 pb-12 bg-white sm:pb-16">
