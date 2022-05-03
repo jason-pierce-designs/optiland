@@ -37,22 +37,26 @@ export default function Tokenomics() {
         cabi,
         provider
       );
+
       setContract(opBunnyContract);
+
       if (!bunniesMinted) {
-        getTotalMinted(opBunnyContract).then((totalMinted) => {
-          setBunniesMinted(BigNumber.from(totalMinted));
-        });
-        getTotalMinted(pBunnyContract).then((totalMinted) => {
-          setPBunniesMinted(BigNumber.from(totalMinted));
-        });
+        getTotalMinted(opBunnyContract).then((totalMinted) =>
+          setBunniesMinted(BigNumber.from(totalMinted))
+        );
+      }
+      if (!citizensMinted) {
         getTotalMinted(citizensContract)
-          .then((totalMinted) => {
-            setCitizensMinted(BigNumber.from(totalMinted));
-          })
+          .then((totalMinted) => setCitizensMinted(BigNumber.from(totalMinted)))
           .catch(() => setCitizensMinted(undefined));
       }
+      if (!pBunniesMinted) {
+        getTotalMinted(pBunnyContract).then((totalMinted) =>
+          setPBunniesMinted(BigNumber.from(totalMinted))
+        );
+      }
     }
-  }, [provider, contract, bunniesMinted]);
+  }, [provider, contract, bunniesMinted, citizensMinted, pBunniesMinted]);
 
   return (
     <div className="bg-gray-50 pt-12 sm:pt-16">
