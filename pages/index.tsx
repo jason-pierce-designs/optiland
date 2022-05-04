@@ -16,8 +16,8 @@ export default function Home() {
         <div className="bg-white rounded-lg shadow py-6">
           <BgImageColorHeroSection />
           <PricingPlan />
-          <FAQs />
           <Tokenomics />
+          <FAQs />
           <Team />
         </div>
       </DarkOverlapShell>
