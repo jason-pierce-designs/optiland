@@ -3,27 +3,27 @@ import Image from "next/image";
 import DarkOverlapShell from "../../components/DarkOverlapShell";
 
 import NeonCity from "/public/images/neon-city-bg.jpg";
-import PinkAlley from "/public/images/pink-alley-bg.jpg";
-import AlleyCity from "/public/images/apt-tower-bg.jpg";
-import AptMoonlight from "/public/images/apt-moonlight.jpg";
+import BunnyBg from "/public/images/op-bunnies-bg.jpg";
+import PixelBg from "/public/images/pixel-bunnies-bg.jpg";
+import CitizensBg from "/public/images/citizens-bg.jpg";
 
 const collections = [
   {
     name: "Optimistic Bunnies",
     href: "/collections/bunny",
-    imageSrc: PinkAlley,
+    imageSrc: BunnyBg,
     imageAlt: "a pink alley way",
   },
   {
     name: "Pixelated Bunnies",
     href: "/collections/pbunny",
-    imageSrc: AlleyCity,
+    imageSrc: PixelBg,
     imageAlt: "a run down alley way",
   },
   {
     name: "Optiland Citizens",
     href: "/collections/citizen",
-    imageSrc: AptMoonlight,
+    imageSrc: CitizensBg,
     imageAlt: "an apartment complex at night in the moonlight",
   },
 ];

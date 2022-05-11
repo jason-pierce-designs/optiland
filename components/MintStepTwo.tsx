@@ -92,7 +92,7 @@ export default function MintStepTwo() {
   const [quantity, setQuantity] = useState<{ value: string }>({ value: "0" });
   const [isValid, setIsValid] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [hasEnoughEth, setHasEnoughEth] = useState<boolean>();
+  const [hasEnoughEth, setHasEnoughEth] = useState<boolean>(true);
   const { data: ethBal } = useETHBalance(account as string);
 
   const numBunnyChangeHandler = ({
@@ -103,6 +103,7 @@ export default function MintStepTwo() {
     const quan = BigNumber.from(value);
     const total = costPerToken.mul(quan);
     const hasEnough = ethBal && !ethBal.sub(total).isNegative();
+    debugger;
     setQuantity({ value: value });
     formDispatch({
       type: "setMintFormState",
@@ -178,10 +179,10 @@ export default function MintStepTwo() {
               <span className="block text-base text-center text-red-600 font-semibold tracking-wide uppercase">
                 Select Quantity
               </span>
-              <span className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                How many?{" "}
-                {!hasEnoughEth &&
-                  "You need to select a quantity you can afford"}
+              <span className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900">
+                {!hasEnoughEth
+                  ? "You need to select a quantity you can afford"
+                  : "How many?"}
               </span>
             </h1>
             <form
