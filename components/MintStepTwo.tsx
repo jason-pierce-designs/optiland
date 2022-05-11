@@ -103,7 +103,6 @@ export default function MintStepTwo() {
     const quan = BigNumber.from(value);
     const total = costPerToken.mul(quan);
     const hasEnough = ethBal && !ethBal.sub(total).isNegative();
-    debugger;
     setQuantity({ value: value });
     formDispatch({
       type: "setMintFormState",
