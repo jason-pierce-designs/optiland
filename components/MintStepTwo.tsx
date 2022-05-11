@@ -22,6 +22,7 @@ import {
   TransactionReceipt,
   TransactionResponse,
 } from "@ethersproject/providers";
+import useETHBalance from "../lib/hooks/useEthBalance";
 
 const getCostPerToken = async (contract: Contract) => {
   try {
@@ -86,23 +87,29 @@ export default function MintStepTwo() {
     useContext(MintFormContext);
   const { dispatch: stepperDispatch } = useContext(StepperContext);
   const [costPerToken, setCostPerToken] = useState<BigNumber>(
-    BigNumber.from("0")
+    BigNumber.from("2500000000000000")
   );
   const [quantity, setQuantity] = useState<{ value: string }>({ value: "0" });
   const [isValid, setIsValid] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [hasEnoughEth, setHasEnoughEth] = useState<boolean>(true);
+  const { data: ethBal } = useETHBalance(account as string);
 
   const numBunnyChangeHandler = ({
     target: { value },
   }: ChangeEvent<HTMLInputElement>): void => {
     const valid =
       Number(value) > 0 && chainId === Number(process.env.NEXT_PUBLIC_CHAIN_ID);
+    const quan = BigNumber.from(value);
+    const total = costPerToken.mul(quan);
+    const hasEnough = ethBal && !ethBal.sub(total).isNegative();
     setQuantity({ value: value });
     formDispatch({
       type: "setMintFormState",
       payload: { ...formState, quantity: Number(value) },
     });
-    setIsValid(valid);
+    setIsValid(valid && !!hasEnough);
+    setHasEnoughEth(!!hasEnough);
   };
 
   useEffect(() => {
@@ -130,7 +137,11 @@ export default function MintStepTwo() {
     const signer = provider && provider.getSigner(account);
     const connectedContract = contract.connect(signer as ethers.Signer);
     setLoading(true);
-    if (account && chainId === Number(process.env.NEXT_PUBLIC_CHAIN_ID)) {
+    if (
+      account &&
+      hasEnoughEth &&
+      chainId === Number(process.env.NEXT_PUBLIC_CHAIN_ID)
+    ) {
       const quan = BigNumber.from(quantity.value);
       const total = costPerToken?.mul(quan);
       try {
@@ -146,7 +157,9 @@ export default function MintStepTwo() {
         console.log(e);
       }
     } else {
-      throw new Error("You need to switch to the Optimistic Ethereum Network!");
+      throw new Error(
+        "You need to switch to Optimism and/or make sure you have enough Eth"
+      );
     }
   };
 
@@ -165,8 +178,10 @@ export default function MintStepTwo() {
               <span className="block text-base text-center text-red-600 font-semibold tracking-wide uppercase">
                 Select Quantity
               </span>
-              <span className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                How many?
+              <span className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900">
+                {!hasEnoughEth
+                  ? "You need to select a quantity you can afford"
+                  : "How many?"}
               </span>
             </h1>
             <form

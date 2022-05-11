@@ -35,7 +35,14 @@ export default function PricingPlan() {
           <p className="mt-3 max-w-4xl mx-auto text-xl text-gray-300 sm:mt-5 sm:text-2xl">
             We chose to release all our collections on Optimism because we want
             Optiland fans to appreciate the art without spending an arm and a
-            leg on fees.
+            leg on fees, and we make donations to{" "}
+            <a
+              className="underline hover:text-red-500"
+              href="https://medium.com/ethereum-optimism/retroactive-public-goods-funding-33c9b7d00f0c"
+            >
+              retroactive public goods
+            </a>{" "}
+            at each benchmark.
           </p>
         </div>
       </div>
