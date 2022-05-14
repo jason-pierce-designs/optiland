@@ -3,6 +3,10 @@ import readingTime from "reading-time";
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import { NextSeo } from "next-seo";
+import autoLinkHeadings from "remark-autolink-headings";
+import externalLinks from "remark-external-links";
+import images from "remark-images";
+import slug from "remark-slug";
 
 import Article from "../../components/Blog/Article";
 import ArticleItem from "../../components/Blog/ArticleItem";
@@ -36,7 +40,12 @@ export default function ArticlePage({
   slug,
   source,
 }: Props) {
-  const content = <MDXRemote {...source} components={{ MDXComponents }} />;
+  const content = (
+    <MDXRemote
+      {...source}
+      components={{ Article, ArticleItem, Content, Header, Footer }}
+    />
+  );
 
   return (
     <div>
@@ -70,17 +79,7 @@ export async function getStaticProps({ params }: Params) {
   const { content, data } = blogApi.getRawArticleBySlug(params.slug);
   const mdxSource = await serialize(content, {
     mdxOptions: {
-      remarkPlugins: [
-        require("remark-autolink-headings"),
-        require("remark-slug"),
-        require("remark-code-titles"),
-        require("remark-autolink-headings"),
-        require("remark-capitalize"),
-        require("remark-code-titles"),
-        require("remark-external-links"),
-        require("remark-images"),
-        require("remark-slug"),
-      ],
+      remarkPlugins: [autoLinkHeadings, externalLinks, images, slug],
     },
   });
   const tags = data.tags ?? [];
