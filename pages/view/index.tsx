@@ -53,96 +53,94 @@ export default function View() {
   }, [account, provider]);
 
   return (
-    <>
-      <DarkOverlapShell title="My Optiland NFT's">
-        <div className="flex flex-col bg-white rounded-lg shadow">
-          {myBunniesLoading && myBunnies.length === 0 && (
-            <div className="px-4 py-5 sm:p-6 sm:mb-16">
-              <h3 className="mt-2 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
-                Loading...
-              </h3>
-            </div>
-          )}
-          {myBunnies.length > 0 && (
-            <div className="px-4 py-5 sm:p-6 sm:mb-16">
-              <h3 className="mt-2 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
-                Optimistic Bunnies
-              </h3>
+    <DarkOverlapShell title="My Optiland NFT's">
+      <div className="flex flex-col bg-white rounded-lg shadow">
+        {myBunniesLoading && myBunnies.length === 0 && (
+          <div className="px-4 py-5 sm:p-6 sm:mb-16">
+            <h3 className="mt-2 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
+              Loading...
+            </h3>
+          </div>
+        )}
+        {myBunnies.length > 0 && (
+          <div className="px-4 py-5 sm:p-6 sm:mb-16">
+            <h3 className="mt-2 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
+              Optimistic Bunnies
+            </h3>
 
-              {myBunnies.length <= 5 ? (
-                <div className="flex flex-col mt-6">
-                  {myBunnies.map((tokenId, idx) => (
-                    <NFTDetailView
-                      key={idx}
-                      id={tokenId}
-                      collection="bunny"
-                      showBreadcrumbs={false}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="mt-12 grid grid-cols-1 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-8 2xl:grid-cols-12 md:gap-y-0 lg:gap-x-8">
-                  {myBunnies.map((tokenId, idx) => (
-                    <NFTCard key={idx} id={tokenId} collection="bunny" />
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-          {myPixelBunnies.length > 0 && (
-            <div className="px-4 py-5 sm:p-6 sm:mb-16">
-              <h3 className="mt-2 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
-                Pixelated Bunnies
-              </h3>
+            {myBunnies.length <= 5 ? (
+              <div className="flex flex-col mt-6">
+                {myBunnies.map((tokenId, idx) => (
+                  <NFTDetailView
+                    key={idx}
+                    id={tokenId}
+                    collection="bunny"
+                    showBreadcrumbs={false}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="mt-12 grid grid-cols-1 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-8 2xl:grid-cols-12 md:gap-y-0 lg:gap-x-8">
+                {myBunnies.map((tokenId, idx) => (
+                  <NFTCard key={idx} id={tokenId} collection="bunny" />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+        {myPixelBunnies.length > 0 && (
+          <div className="px-4 py-5 sm:p-6 sm:mb-16">
+            <h3 className="mt-2 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
+              Pixelated Bunnies
+            </h3>
 
-              {myPixelBunnies.length <= 5 ? (
-                <div className="flex flex-col mt-6">
-                  {myPixelBunnies.map((tokenId, idx) => (
-                    <NFTDetailView
-                      key={idx}
-                      id={tokenId}
-                      collection="pbunny"
-                      showBreadcrumbs={false}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="mt-12 grid grid-cols-1 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-8 2xl:grid-cols-12 md:gap-y-0 lg:gap-x-8">
-                  {myPixelBunnies.map((tokenId, idx) => (
-                    <NFTCard key={idx} id={tokenId} collection="pbunny" />
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-          {myCitizens.length > 0 && (
-            <div className="px-4 py-5 sm:p-6 sm:mb-16">
-              <h3 className="mt-2 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
-                Optiland Citizens
-              </h3>
+            {myPixelBunnies.length <= 5 ? (
+              <div className="flex flex-col mt-6">
+                {myPixelBunnies.map((tokenId, idx) => (
+                  <NFTDetailView
+                    key={idx}
+                    id={tokenId}
+                    collection="pbunny"
+                    showBreadcrumbs={false}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="mt-12 grid grid-cols-1 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-8 2xl:grid-cols-12 md:gap-y-0 lg:gap-x-8">
+                {myPixelBunnies.map((tokenId, idx) => (
+                  <NFTCard key={idx} id={tokenId} collection="pbunny" />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+        {myCitizens.length > 0 && (
+          <div className="px-4 py-5 sm:p-6 sm:mb-16">
+            <h3 className="mt-2 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
+              Optiland Citizens
+            </h3>
 
-              {myCitizens.length <= 5 ? (
-                <div className="flex flex-col mt-6">
-                  {myCitizens.map((tokenId, idx) => (
-                    <NFTDetailView
-                      key={idx}
-                      id={tokenId}
-                      collection="citizen"
-                      showBreadcrumbs={false}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="mt-12 grid grid-cols-1 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-8 2xl:grid-cols-12 md:gap-y-0 lg:gap-x-8">
-                  {myCitizens.map((tokenId, idx) => (
-                    <NFTCard key={idx} id={tokenId} collection="citizen" />
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-      </DarkOverlapShell>
-    </>
+            {myCitizens.length <= 5 ? (
+              <div className="flex flex-col mt-6">
+                {myCitizens.map((tokenId, idx) => (
+                  <NFTDetailView
+                    key={idx}
+                    id={tokenId}
+                    collection="citizen"
+                    showBreadcrumbs={false}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="mt-12 grid grid-cols-1 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-8 2xl:grid-cols-12 md:gap-y-0 lg:gap-x-8">
+                {myCitizens.map((tokenId, idx) => (
+                  <NFTCard key={idx} id={tokenId} collection="citizen" />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </DarkOverlapShell>
   );
 }

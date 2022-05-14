@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React from "react";
 
-import heroRed from "/public/images/hero-red.png";
-import chillBunny from "/public/images/chill-bunny.png";
+import heroRed from "/public/images/bunny1.webp";
+import chillBunny from "/public/images/bunny7.webp";
 import { Person } from "../lib";
 
 const people: Person[] = [
