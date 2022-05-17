@@ -50,7 +50,7 @@ export default function ArticlePage({
 
   return (
     <DarkOverlapShell title={frontMatter.title}>
-      <div className="flex flex-col bg-white rounded-lg shadow">
+      <div className="flex flex-col bg-white rounded-lg shadow py-6">
         <NextSeo
           title={frontMatter.title}
           description={frontMatter.description}
