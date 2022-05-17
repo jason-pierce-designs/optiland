@@ -78,8 +78,8 @@ export default function MintStepThree() {
                       </Link>
                     </h3>
                   </div>
-                  <p className="flex flex-none font-medium text-gray-900">
-                    <span className="mt-1 mr-2 h-2 w-2">
+                  <p className="flex flex-none justify-center font-medium text-gray-900">
+                    <span className="mt-0 mr-2 h-2 w-2">
                       <FontAwesomeIcon icon={faEthereum} />
                     </span>{" "}
                     {parseBalance(formState.pricePerUnit.toString())}
@@ -112,7 +112,7 @@ export default function MintStepThree() {
                     <p>To be airdropped within 1-2 weeks</p>
                   </div>
                   <p className="flex flex-none font-medium text-gray-900">
-                    <span className="mt-1 mr-2 h-2 w-2">
+                    <span className="mt-0 mr-2 h-2 w-2">
                       <FontAwesomeIcon icon={faEthereum} />
                     </span>{" "}
                     <span className="line-through">
@@ -128,7 +128,7 @@ export default function MintStepThree() {
               <dt>Subtotal</dt>
               <dd className="flex flex-none text-gray-900">
                 {" "}
-                <span className="mt-1 mr-2 h-2 w-2">
+                <span className="mt-0 mr-2 h-2 w-2">
                   <FontAwesomeIcon icon={faEthereum} />
                 </span>{" "}
                 {subtotal && parseBalance(subtotal.toString())}
@@ -139,7 +139,7 @@ export default function MintStepThree() {
               <dt>Gas</dt>
               <dd className="flex flex-none text-gray-900">
                 {" "}
-                <span className="mt-1 mr-2 h-2 w-2">
+                <span className="mt-0 mr-2 h-2 w-2">
                   <FontAwesomeIcon icon={faEthereum} />
                 </span>{" "}
                 {formState.receipt?.cumulativeGasUsed &&
@@ -155,7 +155,7 @@ export default function MintStepThree() {
               <dt className="text-base">Total</dt>
               <dd className="text-base flex">
                 {" "}
-                <span className="mt-1 mr-2 h-3 w-3">
+                <span className="mt-0 mr-2 h-3 w-3">
                   <FontAwesomeIcon icon={faEthereum} />
                 </span>{" "}
                 {formState.receipt &&
