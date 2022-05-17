@@ -72,13 +72,16 @@ export type WindowInstanceWithEthereum = Window &
 export interface AuthorType {
   name: string;
   picture: string;
+  link: string;
 }
 
 export interface ArticleType {
   slug: string;
   title: string;
   description: string;
+  category: string;
   date: string;
+  datetime: string;
   coverImage: string;
   author: AuthorType;
   excerpt: string;

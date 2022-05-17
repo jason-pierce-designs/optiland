@@ -12,9 +12,9 @@ import Article from "../../components/Blog/Article";
 import ArticleItem from "../../components/Blog/ArticleItem";
 import Content from "../../components/Blog/Content";
 import Header from "../../components/Blog/Header";
-import Footer from "../../components/Blog/Footer";
 import { BlogArticleType } from "../../lib/types";
 import { blogApi } from "../../lib/blogHelpers";
+import DarkOverlapShell from "../../components/DarkOverlapShell";
 
 interface Props {
   readingTime: {
@@ -22,6 +22,7 @@ interface Props {
   };
   frontMatter: {
     title: string;
+    category: string;
     description: string;
     date: string;
     content: string;
@@ -43,26 +44,29 @@ export default function ArticlePage({
   const content = (
     <MDXRemote
       {...source}
-      components={{ Article, ArticleItem, Content, Header, Footer }}
+      components={{ Article, ArticleItem, Content, Header }}
     />
   );
 
   return (
-    <div>
-      <NextSeo
-        title={frontMatter.title}
-        description={frontMatter.description}
-      />
-      <Article
-        readingTime={readingTime}
-        title={frontMatter.title}
-        description={frontMatter.description}
-        date={frontMatter.date}
-        content={content}
-        ogImage={frontMatter.ogImage}
-        slug={slug}
-      />
-    </div>
+    <DarkOverlapShell title={frontMatter.title}>
+      <div className="flex flex-col bg-white rounded-lg shadow">
+        <NextSeo
+          title={frontMatter.title}
+          description={frontMatter.description}
+        />
+        <Article
+          category={frontMatter.category}
+          readingTime={readingTime}
+          title={frontMatter.title}
+          description={frontMatter.description}
+          date={frontMatter.date}
+          content={content}
+          ogImage={frontMatter.ogImage}
+          slug={slug}
+        />
+      </div>
+    </DarkOverlapShell>
   );
 }
 

@@ -81,16 +81,16 @@ export default function Tokenomics() {
                     <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">
                       OG Bunnies Minted
                     </dt>
-                    <dd className="order-1 text-5xl font-extrabold text-indigo-600">
+                    <dd className="order-1 text-5xl font-extrabold text-red-600">
                       {bunniesMinted && bunniesMinted.toNumber()}
                     </dd>
                   </div>
                 ) : (
                   <div className="flex flex-col border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
                     <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">
-                      Total Supply
+                      Total Supply (each)
                     </dt>
-                    <dd className="order-1 text-5xl font-extrabold text-indigo-600">
+                    <dd className="order-1 text-5xl font-extrabold text-red-600">
                       5151
                     </dd>
                   </div>
@@ -101,7 +101,7 @@ export default function Tokenomics() {
                     <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">
                       Pixelated Bunnies airdropped
                     </dt>
-                    <dd className="order-1 text-5xl font-extrabold text-indigo-600">
+                    <dd className="order-1 text-5xl font-extrabold text-red-600">
                       {pBunniesMinted && pBunniesMinted.toNumber()}
                     </dd>
                   </div>
@@ -110,7 +110,7 @@ export default function Tokenomics() {
                     <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">
                       Staff Allocation
                     </dt>
-                    <dd className="order-1 text-5xl font-extrabold text-indigo-600">
+                    <dd className="order-1 text-5xl font-extrabold text-red-600">
                       10
                     </dd>
                   </div>
@@ -120,7 +120,7 @@ export default function Tokenomics() {
                     <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">
                       Citizens airdopped
                     </dt>
-                    <dd className="order-1 text-5xl font-extrabold text-indigo-600">
+                    <dd className="order-1 text-5xl font-extrabold text-red-600">
                       {citizensMinted && citizensMinted.toNumber()}
                     </dd>
                   </div>
@@ -129,7 +129,7 @@ export default function Tokenomics() {
                     <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">
                       Saved in fees
                     </dt>
-                    <dd className="order-1 text-5xl font-extrabold text-indigo-600">
+                    <dd className="order-1 text-5xl font-extrabold text-red-600">
                       10x-100x
                     </dd>
                   </div>

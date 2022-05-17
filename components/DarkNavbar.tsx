@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { Disclosure } from "@headlessui/react";
 
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
@@ -10,6 +11,9 @@ import Account from "./Account";
 import { useWeb3React } from "@web3-react/core";
 import UserMenu from "./UserMenu";
 import UserMenuMobile from "./UserMenuMobile";
+import { useEffect } from "react";
+import { useState } from "react";
+import { iNavLink } from "../lib/types";
 
 // const user: Person = {
 //   name: "Tom Cook",
@@ -21,28 +25,32 @@ const navDefaultState: NavLink[] = [
   { name: "Home", href: "/", current: false },
   { name: "Collections", href: "/collections", current: false },
   { name: "Mint", href: "/mint", current: false },
-  // { name: "News", href: "/news", current: false },
+  { name: "Blog", href: "/blog", current: false },
 ];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export interface NavbarProps {
-  activePath?: string;
-}
+export default function Navbar() {
+  const router = useRouter();
+  const [navigation, setNavigation] = useState<iNavLink[]>(navDefaultState);
 
-export default function Navbar({ activePath }: NavbarProps) {
-  const navigation = activePath
-    ? navDefaultState.map((navLink) => {
-        let link = navLink;
-        link.current =
-          link.href && activePath.toString() === link.href.toString()
-            ? true
-            : false;
-        return link;
-      })
-    : navDefaultState;
+  useEffect(() => {
+    if (router.isReady) {
+      setNavigation((prevState) => {
+        return prevState.map((navLink) => {
+          let link = navLink;
+          const pathPartToMatch = router.pathname.split("/")[1];
+          const linkPartToMatch = link.href?.split("/")[1];
+          if (pathPartToMatch === linkPartToMatch) {
+            link.current = true;
+          }
+          return link;
+        });
+      });
+    }
+  }, [router]);
 
   const { account } = useWeb3React();
 
