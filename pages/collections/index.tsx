@@ -6,6 +6,7 @@ import NeonCity from "/public/images/neon-city-bg.jpg";
 import BunnyBg from "/public/images/op-bunnies-bg.jpg";
 import PixelBg from "/public/images/pixel-bunnies-bg.jpg";
 import CitizensBg from "/public/images/citizens-bg.jpg";
+import HeadMeta from "../../components/HeadMeta";
 
 const collections = [
   {
@@ -31,6 +32,11 @@ const collections = [
 export default function Collections() {
   return (
     <>
+      <HeadMeta
+        title={`Collections`}
+        description={`Choose an Optiland Collection`}
+        keywords={`Collections, Optiland, Non-Fungible Tokens`}
+      />
       <DarkOverlapShell title="Optiland Collections">
         <div className="relative bg-white rounded-lg shadow">
           <div className="relative bg-white pb-24">

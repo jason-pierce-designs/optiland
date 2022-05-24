@@ -10,6 +10,7 @@ import {
   getBaseUrl,
 } from "../../../lib/helpers";
 import { useRouter } from "next/router";
+import HeadMeta from "../../../components/HeadMeta";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const baseUrl = getBaseUrl();
@@ -70,6 +71,11 @@ export default function PixelBunnyCollection({
 
   return (
     <>
+      <HeadMeta
+        title={`Pixel Bunnies`}
+        description={`View all the Pixel Bunny NFT's`}
+        keywords={`View, Optiland, Non-Fungible Tokens`}
+      />
       <SWRConfig value={fallback}>
         <div className="py-16 sm:py-24">
           <div className="w-full mx-auto sm:px-6 lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8">

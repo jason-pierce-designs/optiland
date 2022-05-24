@@ -4,6 +4,7 @@ import { removeUndefinedForNextJsSerializing } from "../../../lib/utils";
 import { BunnyMetadata } from "../../../lib";
 import NFTDetailView from "../../../components/NFTDetailView";
 import DarkOverlapShell from "../../../components/DarkOverlapShell";
+import HeadMeta from "../../../components/HeadMeta";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const tokenId = context.params?.id as string;
@@ -26,6 +27,11 @@ export default function PBunnyDetail({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <>
+      <HeadMeta
+        title={`Pixel Bunny#${tokenId}`}
+        description={`View the details of Pixel Bunny#${tokenId}`}
+        keywords={`View, Optiland, Pixel Bunny#${tokenId}`}
+      />
       <DarkOverlapShell title={`Pixel #${tokenId}`}>
         <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
           <NFTDetailView

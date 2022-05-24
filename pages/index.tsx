@@ -10,6 +10,7 @@ import BgImageColorHeroSection from "../components/BgImageColorHeroSection";
 import { ArticleType, BlogArticleType } from "../lib/types";
 import { blogApi } from "../lib/blogHelpers";
 import ArticleItem from "../components/Blog/ArticleItem";
+import HeadMeta from "../components/HeadMeta";
 
 interface Props {
   articles: Array<ArticleType>;
@@ -18,6 +19,7 @@ interface Props {
 export default function Home({ articles }: Props) {
   return (
     <>
+      <HeadMeta />
       <DarkHeroSectionClouds />
       <DarkOverlapShell>
         <div className="bg-white rounded-lg shadow py-6">

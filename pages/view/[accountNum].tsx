@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useWeb3React } from "@web3-react/core";
 import { hooks } from "../../lib/connectors/metaMask";
 
 import BUNNIES_CONTRACT_ABI from "../../lib/contracts/bunny.json";
@@ -12,6 +11,7 @@ import NFTCard from "../../components/NFTCard";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { removeUndefinedForNextJsSerializing } from "../../lib/utils";
 import { getMyTokenIds } from "../../lib/helpers";
+import HeadMeta from "../../components/HeadMeta";
 
 const { useProvider } = hooks;
 
@@ -66,6 +66,11 @@ export default function View({
 
   return (
     <>
+      <HeadMeta
+        title={`My Optiland NFT's`}
+        description={`With a connected wallet, you can use this page to view the Optiland NFT's that you own`}
+        keywords={`View, Optiland, Non-Fungible Tokens`}
+      />
       <DarkOverlapShell title="My Optiland NFT's">
         <div className="flex flex-col bg-white rounded-lg shadow">
           {myBunniesLoading && myBunnies.length === 0 && (

@@ -8,6 +8,7 @@ import { MintFormContext } from "../../lib/state/mintForm";
 import MintStepOne from "../../components/MintStepOne";
 import MintStepTwo from "../../components/MintStepTwo";
 import MintStepThree from "../../components/MintStepThree";
+import HeadMeta from "../../components/HeadMeta";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { params, variable } = context.query;
@@ -29,6 +30,11 @@ export default function MintDeepLink({
 
   return (
     <>
+      <HeadMeta
+        title={`Mint Optiland NFT's`}
+        description={`Connect and Mint! (while supplies last)`}
+        keywords={`View, Optiland, Non-Fungible Tokens`}
+      />
       <DarkOverlapShell title="Mint">
         <div className="relative bg-white rounded-lg shadow">
           <Stepper />
