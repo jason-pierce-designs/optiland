@@ -63,7 +63,7 @@ export default function Home({ articles }: Props) {
 
 export const getStaticProps = async () => {
   const articleOne: BlogArticleType = blogApi.getArticleBySlug(
-    "citizens-release",
+    "phase-four-update",
     [
       "slug",
       "title",
@@ -80,7 +80,7 @@ export const getStaticProps = async () => {
     ]
   );
   const articleTwo: BlogArticleType = blogApi.getArticleBySlug(
-    "bunny-wearables",
+    "citizens-release",
     [
       "slug",
       "title",
@@ -97,7 +97,7 @@ export const getStaticProps = async () => {
     ]
   );
   const articleThree: BlogArticleType = blogApi.getArticleBySlug(
-    "six-percent-donated",
+    "bunny-wearables",
     [
       "slug",
       "title",
