@@ -17,6 +17,11 @@ export default function HeadMeta({
         property="og:image"
         content="https://optiland.s3.amazonaws.com/bunny/bunny1.png"
       />
+      <meta
+        name="twitter:image:alt"
+        content="a red background with a cartoonish detailed image of an optimistic bunny"
+      ></meta>
+      <meta property="og:site_name" content="Optiland" />
 
       {/* Favicons */}
       <link

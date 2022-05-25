@@ -337,9 +337,6 @@ export default function MintStepTwo() {
                     className="flex-shrink-0 h-6 w-6 text-green-500"
                     aria-hidden="true"
                   />
-                  <span className="ml-3 text-base text-gray-500">
-                    Airdrops happen ~ weekly
-                  </span>
                 </li>
               </ul>
             </div>
