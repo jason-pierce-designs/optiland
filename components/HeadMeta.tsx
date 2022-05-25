@@ -13,6 +13,10 @@ export default function HeadMeta({
       <meta name="keywords" content={keywords} />
       <meta charSet="utf-8" />
       <meta name="author" content="Jason Pierce 'distractionboy.eth'" />
+      <meta
+        property="og:image"
+        content="https://optiland.s3.amazonaws.com/bunny/bunny1.png"
+      />
 
       {/* Favicons */}
       <link
