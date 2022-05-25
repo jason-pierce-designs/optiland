@@ -9,7 +9,7 @@ import { StepperContext } from "../lib/state/stepper";
 import Account from "./Account";
 import Button from "./Button";
 import { Contract, ContractInterface } from "@ethersproject/contracts";
-// import MoreInfoModal from "./MoreInfoModal";
+import MoreInfoModal from "./MoreInfoModal";
 
 const { useProvider } = hooks;
 
@@ -21,7 +21,7 @@ export default function MintStepOne() {
   const { state: formState, dispatch: formDispatch } =
     useContext(MintFormContext);
   const { dispatch: stepperDispatch } = useContext(StepperContext);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, toggleModalOpen] = useState(false);
 
   const markStepOneComplete = () => {
     const abi: ContractInterface = BUNNIES_CONTRACT_ABI;
@@ -102,9 +102,11 @@ export default function MintStepOne() {
         account &&
         chainId === Number(process.env.NEXT_PUBLIC_CHAIN_ID) && (
           <div className="flex justify-center bg-gray-50 px-4 py-4 sm:px-6">
-            {/* <div className="mx-8">
-              <Button variant="secondary" onClick={setModalOpen(true)}>More info</Button>
-            </div> */}
+            <div className="mx-8">
+              <Button variant="secondary" onClick={() => toggleModalOpen(true)}>
+                More info
+              </Button>
+            </div>
             <div className="mx-8">
               <Button variant="primary" onClick={() => markStepOneComplete()}>
                 I&apos;m ready
@@ -112,6 +114,7 @@ export default function MintStepOne() {
             </div>
           </div>
         )}
+      {modalOpen && <MoreInfoModal toggle={toggleModalOpen} open={modalOpen} />}
     </div>
   );
 }

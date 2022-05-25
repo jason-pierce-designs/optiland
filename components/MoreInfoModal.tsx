@@ -1,17 +1,16 @@
-import { Fragment, useState } from "react";
+import { Dispatch, Fragment, SetStateAction, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/outline";
 
 interface Props {
-  openFromContainer: boolean;
+  toggle: Dispatch<SetStateAction<boolean>>;
+  open: boolean;
 }
 
-export default function MoreInfoModal({ openFromContainer }: Props) {
-  const [open, setOpen] = useState(openFromContainer);
-
+export default function MoreInfoModal({ toggle, open }: Props) {
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+      <Dialog as="div" className="relative z-10" onClose={toggle}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -54,11 +53,17 @@ export default function MoreInfoModal({ openFromContainer }: Props) {
                       <p className="text-sm text-gray-500">
                         You need to have Ether bridged from Layer 1 (mainnet) to
                         Optimism (Layer 2) in order for you to complete the
-                        transaction. Please visit the{" "}
-                        <a href="https://app.optimism.io/bridge">
+                        transaction.{" "}
+                      </p>
+                      <p className="mt-2 text-sm text-gray-500">
+                        Please visit the{" "}
+                        <a
+                          href="https://app.optimism.io/bridge"
+                          className="text-red-500"
+                        >
                           Optimism Bridge
                         </a>{" "}
-                        and transfer as much Eth as you can to layer 2, so that
+                        and transfer as much Eth as you can to Optimism, so that
                         you can enjoy miniscule gas fees for all your
                         decentralized needs. Join the{" "}
                         <a href="https://app.optimism.io/governance">
@@ -71,10 +76,10 @@ export default function MoreInfoModal({ openFromContainer }: Props) {
                 <div className="mt-5 sm:mt-6">
                   <button
                     type="button"
-                    className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
-                    onClick={() => setOpen(false)}
+                    className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:text-sm"
+                    onClick={() => toggle(false)}
                   >
-                    Go back to dashboard
+                    Go back to minting
                   </button>
                 </div>
               </Dialog.Panel>
