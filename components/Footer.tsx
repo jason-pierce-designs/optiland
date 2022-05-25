@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDiscord } from "@fortawesome/free-brands-svg-icons";
+
 import React from "react";
 
 const navigation = {
@@ -34,6 +37,11 @@ const navigation = {
     //     </svg>
     //   ),
     // },
+    {
+      name: "Discord",
+      href: "https://discord.gg/TdGetFFBvw",
+      icon: () => <FontAwesomeIcon icon={faDiscord} />,
+    },
     {
       name: "Twitter",
       href: "https://twitter.com/OPBunnies",
