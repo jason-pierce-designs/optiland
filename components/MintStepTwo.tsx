@@ -332,12 +332,6 @@ export default function MintStepTwo() {
                     Access to future airdrops
                   </span>
                 </li>
-                <li className="py-4 flex">
-                  <CheckIcon
-                    className="flex-shrink-0 h-6 w-6 text-green-500"
-                    aria-hidden="true"
-                  />
-                </li>
               </ul>
             </div>
           </div>
