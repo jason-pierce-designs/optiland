@@ -61,19 +61,19 @@ const postMsgToMintyBot = async (message: string) => {
 const updateRabbitHole = (quantity: number, txnLink: string, total: number) => {
   if (quantity === 1) {
     postMsgToMintyBot(
-      `Someone just minted one Bunny (transaction: ${txnLink} )! ${total} have been minted so far. Maybe they'll show some of them off in #show-off-your-bunny?! `
+      `Someone just minted one Bunny from https://optiland.xyz/mint (transaction: ${txnLink} )! ${total} have been minted so far. Maybe they'll show some of them off in #show-off-your-bunny?! `
     );
   } else if (quantity === 10) {
     postMsgToMintyBot(
-      `WOW!!! Someone just minted 10 Bunnies at once (transaction: ${txnLink} )! ${total} have been minted so far. Maybe they'll show some of them off in #show-off-your-bunny?!`
+      `WOW!!! Someone just minted 10 Bunnies at once from https://optiland.xyz/mint (transaction: ${txnLink} )! ${total} have been minted so far. Maybe they'll show some of them off in #show-off-your-bunny?!`
     );
   } else if (quantity >= 5) {
     postMsgToMintyBot(
-      `Someone just minted a handful of Bunnies (transaction: ${txnLink} )! ${total} have been minted so far. Maybe they'll show some of them off in #show-off-your-bunny?!`
+      `Someone just minted a handful of Bunnies from https://optiland.xyz/mint (transaction: ${txnLink} )! ${total} have been minted so far. Maybe they'll show some of them off in #show-off-your-bunny?!`
     );
   } else {
     postMsgToMintyBot(
-      `Someone just minted some Bunnies! (transaction: ${txnLink}). ${total} have been minted so far. Maybe they'll show some of them off in #show-off-your-bunny?!`
+      `Someone just minted some Bunnies! from https://optiland.xyz/mint (transaction: ${txnLink}). ${total} have been minted so far. Maybe they'll show some of them off in #show-off-your-bunny?!`
     );
   }
 };
