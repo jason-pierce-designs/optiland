@@ -30,7 +30,7 @@ export default function PricingPlan() {
             Pricing
           </h2>
           <p className="mt-2 text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl">
-            10% goes to public goods
+            up to 10% goes to public goods
           </p>
           <p className="mt-3 max-w-4xl mx-auto text-xl text-gray-300 sm:mt-5 sm:text-2xl">
             We chose to release all our collections on Optimism because we want
