@@ -13,6 +13,7 @@ interface Props {
   date: string;
   ogImage: {
     url: string;
+    alt: string;
   };
   content: React.ReactNode;
   slug: string;
@@ -133,7 +134,13 @@ export default function Article({
         </div>
       </div>
       <div className="relative px-4 sm:px-6 lg:px-8">
-        <Header category={category} title={title} description={description} />
+        <Header
+          category={category}
+          title={title}
+          description={description}
+          imageUrl={ogImage.url}
+          imageAlt={ogImage.alt}
+        />
         <div className="mt-6 prose prose-indigo prose-lg text-gray-500 mx-auto">
           <Content content={content} />
         </div>

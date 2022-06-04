@@ -1,5 +1,6 @@
 module.exports = {
   reactStrictMode: true,
+  experimental: { images: { layoutRaw: true } },
   images: {
     domains: ["ipfs.io", "optiland.s3.amazonaws.com"],
   },

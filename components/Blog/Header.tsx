@@ -1,12 +1,21 @@
 import React from "react";
+import Image from "next/image";
 
 interface Props {
   title: string;
   description: string;
   category: string;
+  imageUrl: string;
+  imageAlt: string;
 }
 
-export default function Header({ title, description, category }: Props) {
+export default function Header({
+  title,
+  description,
+  category,
+  imageUrl,
+  imageAlt,
+}: Props) {
   return (
     <div className="text-lg max-w-prose mx-auto">
       <h1>
@@ -17,6 +26,14 @@ export default function Header({ title, description, category }: Props) {
           {title}
         </span>
       </h1>
+      <Image
+        className="mt-8 rounded-md shadow-md p-2"
+        src={imageUrl}
+        alt={imageAlt}
+        width={720}
+        height={480}
+        layout="raw"
+      />
       <p className="mt-8 text-xl text-gray-500 leading-8">{description}</p>
     </div>
   );
