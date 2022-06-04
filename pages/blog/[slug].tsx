@@ -28,6 +28,7 @@ interface Props {
     content: string;
     ogImage: {
       url: string;
+      alt: string;
     };
   };
   slug: string;
