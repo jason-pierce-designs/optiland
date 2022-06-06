@@ -90,6 +90,7 @@ export interface ArticleType {
   };
   ogImage: {
     url: string;
+    alt: string;
   };
   content: string;
 }
