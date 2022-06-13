@@ -10,6 +10,7 @@ import Account from "./Account";
 import Button from "./Button";
 import { Contract, ContractInterface } from "@ethersproject/contracts";
 import MoreInfoModal from "./MoreInfoModal";
+import { ethers } from "ethers";
 
 const { useProvider } = hooks;
 
@@ -18,31 +19,51 @@ export default function MintStepOne() {
   const provider = useProvider();
   const signer = provider?.getSigner(account);
 
+  const sign = async (
+    signer: ethers.Signer,
+    message: string
+  ): Promise<string | Error> => await signer.signMessage(message);
+
   const { state: formState, dispatch: formDispatch } =
     useContext(MintFormContext);
   const { dispatch: stepperDispatch } = useContext(StepperContext);
   const [modalOpen, toggleModalOpen] = useState(false);
 
   const markStepOneComplete = () => {
-    const abi: ContractInterface = BUNNIES_CONTRACT_ABI;
-    stepperDispatch({ type: "setStepComplete", payload: 0 });
-    const opBunnyContract = new Contract(
-      process.env.NEXT_PUBLIC_BUNNY_ADDRESS as string,
-      abi,
-      signer
+    const txnDate = new Date().toString();
+    sign(signer as ethers.Signer, `Optiland Minting: ${txnDate}`).then(
+      (signature) => {
+        const result = ethers.utils.verifyMessage(
+          `Optiland Minting: ${txnDate}`,
+          signature as string
+        );
+        if (result === account) {
+          const abi: ContractInterface = BUNNIES_CONTRACT_ABI;
+          stepperDispatch({ type: "setStepComplete", payload: 0 });
+          const opBunnyContract = new Contract(
+            process.env.NEXT_PUBLIC_BUNNY_ADDRESS as string,
+            abi,
+            signer
+          );
+          formDispatch({
+            type: "setMintFormState",
+            payload: {
+              ...formState,
+              contract: opBunnyContract,
+              isOnOptimismChain: true,
+            },
+          });
+          setTimeout(() => {
+            formDispatch({ type: "stepOneComplete", payload: true });
+            stepperDispatch({ type: "setCurrentStep", payload: 1 });
+          }, 666);
+        } else {
+          alert(
+            "Oops, we have detected an invalid signature. Please refresh the page and try again."
+          );
+        }
+      }
     );
-    formDispatch({
-      type: "setMintFormState",
-      payload: {
-        ...formState,
-        contract: opBunnyContract,
-        isOnOptimismChain: true,
-      },
-    });
-    setTimeout(() => {
-      formDispatch({ type: "stepOneComplete", payload: true });
-      stepperDispatch({ type: "setCurrentStep", payload: 1 });
-    }, 666);
   };
 
   return (
