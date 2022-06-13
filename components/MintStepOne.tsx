@@ -33,7 +33,10 @@ export default function MintStepOne() {
     const txnDate = new Date().toString();
     sign(signer as ethers.Signer, `Optiland Minting: ${txnDate}`).then(
       (signature) => {
-        const result = ethers.utils.verifyMessage(txnDate, signature as string);
+        const result = ethers.utils.verifyMessage(
+          `Optiland Minting: ${txnDate}`,
+          signature as string
+        );
         if (result === account) {
           const abi: ContractInterface = BUNNIES_CONTRACT_ABI;
           stepperDispatch({ type: "setStepComplete", payload: 0 });
