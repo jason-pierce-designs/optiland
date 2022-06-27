@@ -11,7 +11,7 @@ export default function DarkHeroSectionClouds() {
   return (
     <div className="relative overflow-hidden">
       <main>
-        <div className="pt-10 bg-gray-900 sm:pt-16 lg:pt-8 lg:pb-14 lg:overflow-hidden">
+        <div className="pt-10 bg-gray-900 bg-gradient-to-bl from-transparent via-[#312e81a6] to-transparent sm:pt-16 lg:pt-8 lg:pb-14 lg:overflow-hidden">
           <div className="mx-auto max-w-7xl lg:px-8">
             <div className="lg:grid lg:grid-cols-2 lg:gap-8">
               <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 sm:text-center lg:px-0 lg:text-left lg:flex lg:items-center">
@@ -39,7 +39,7 @@ export default function DarkHeroSectionClouds() {
                       for a bright future
                     </span>
                   </h1>
-                  <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                  <p className="mt-3 text-base text-gray-50 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                     Optiland is a series of collections of Non Fungible Tokens
                     (NFT) on Ethereum Optimism network. Optimistic Bunnies is
                     the first NFT project to be deployed on the Optimism
