@@ -32,7 +32,7 @@ export default function PricingPlan() {
           <p className="mt-2 text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl">
             up to 10% goes to public goods
           </p>
-          <p className="mt-3 max-w-4xl mx-auto text-xl text-gray-300 sm:mt-5 sm:text-2xl">
+          <p className="mt-3 max-w-4xl mx-auto text-xl text-gray-300 sm:mt-5 sm:text-xl">
             We chose to release all our collections on Optimism because we want
             NFT holders to appreciate the art without spending an arm and a leg
             on fees. We also believe in supporting public goods funding to
