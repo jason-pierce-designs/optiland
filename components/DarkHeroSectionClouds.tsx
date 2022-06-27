@@ -11,7 +11,7 @@ export default function DarkHeroSectionClouds() {
   return (
     <div className="relative overflow-hidden">
       <main>
-        <div className="pt-10 bg-gray-900 sm:pt-16 lg:pt-8 lg:pb-14 lg:overflow-hidden">
+        <div className="pt-10 bg-gray-900 bg-gradient-to-bl from-transparent via-[#312e81a6] to-transparent sm:pt-16 lg:pt-8 lg:pb-14 lg:overflow-hidden">
           <div className="mx-auto max-w-7xl lg:px-8">
             <div className="lg:grid lg:grid-cols-2 lg:gap-8">
               <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 sm:text-center lg:px-0 lg:text-left lg:flex lg:items-center">
@@ -39,20 +39,15 @@ export default function DarkHeroSectionClouds() {
                       for a bright future
                     </span>
                   </h1>
-                  <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                  <p className="mt-3 text-base text-gray-50 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                     Optiland is a series of collections of Non Fungible Tokens
-                    on Optimism - a community of hopeful citizens from around OP
-                    City who want to live in the world of low gas fees
-                    we&apos;ve gotten used to.
-                  </p>
-                  <p className="hidden xl:block mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                    Optimistic Bunnies
-                  </p>
-                  <p className="hidden xl:block mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                    Pixelated Bunnies
-                  </p>
-                  <p className="hidden xl:block mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                    Optiland Citizens
+                    (NFT) on Ethereum Optimism network. Optimistic Bunnies is
+                    the first NFT project to be deployed on the Optimism
+                    network. It is a bunny themed NFT with proof of ownership
+                    stored on chain. NFT holders can receive exclusive benefits.
+                    Pixel Bunnies and Optiland Citizens are companion NFTs that
+                    are airdropped to all Optimistic Bunnies holders. Minting is
+                    live!
                   </p>
                   {/* <div className="mt-10 sm:mt-12">
                     <form action="#" className="sm:max-w-xl sm:mx-auto lg:mx-0">
