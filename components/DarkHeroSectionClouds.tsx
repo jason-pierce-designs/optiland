@@ -41,18 +41,13 @@ export default function DarkHeroSectionClouds() {
                   </h1>
                   <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                     Optiland is a series of collections of Non Fungible Tokens
-                    on Optimism - a community of hopeful citizens from around OP
-                    City who want to live in the world of low gas fees
-                    we&apos;ve gotten used to.
-                  </p>
-                  <p className="hidden xl:block mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                    Optimistic Bunnies
-                  </p>
-                  <p className="hidden xl:block mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                    Pixelated Bunnies
-                  </p>
-                  <p className="hidden xl:block mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                    Optiland Citizens
+                    (NFT) on Ethereum Optimism network. Optimistic Bunnies is
+                    the first NFT project to be deployed on the Optimism
+                    network. It is a bunny themed NFT with proof of ownership
+                    stored on chain. NFT holders can receive exclusive benefits.
+                    Pixel Bunnies and Optiland Citizens are companion NFTs that
+                    are airdropped to all Optimistic Bunnies holders. Minting is
+                    live!
                   </p>
                   {/* <div className="mt-10 sm:mt-12">
                     <form action="#" className="sm:max-w-xl sm:mx-auto lg:mx-0">

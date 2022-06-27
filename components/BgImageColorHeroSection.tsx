@@ -26,12 +26,6 @@ export default function BgImageColorHeroSection() {
               <span className="block text-indigo-200">only on Optimism...</span>
             </h1>
             <p className="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">
-              The feeback we&apos;ve received since the launch of Optimistic
-              Bunnies and Pixelated Bunnies has been tremendous and we intend to
-              maintain that momentum by building out an entire civilization of
-              NFT sets that are as diverse as our community.
-            </p>
-            <p className="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">
               For every Optimistic Bunny you mint, will also get a Pixelated
               Bunny airdropped to you for free within ~1-2 weeks. For each new
               BUNNY holder, one Optiland Citizen will be airdropped for free as
