@@ -164,7 +164,7 @@ export default function MintStepTwo() {
   };
 
   return (
-    <div className="bg-white overflow-hidden sm-rounded-b-lg pt-16">
+    <div className="bg-white overflow-hidden sm:rounded-b-lg pt-16">
       <Modal
         open={loading}
         setOpen={setLoading}
@@ -245,7 +245,7 @@ export default function MintStepTwo() {
               <div className="flex justify-between items-center border-t-2 mt-2 px-2 py-2">
                 <div>Cost per Token:</div>
                 <div className="flex">
-                  <span className="mt-1 mr-2 h-3 w-3">
+                  <span className="mr-2 h-3 w-3">
                     <FontAwesomeIcon icon={faEthereum} />
                   </span>{" "}
                   {parseBalance(costPerToken?.toString())}
@@ -254,7 +254,7 @@ export default function MintStepTwo() {
               <div className="flex justify-between items-center border-t-2 border-b-2 mt-2 mb-8 px-2 py-2">
                 <div>Total Base Price: </div>
                 <div className="flex">
-                  <span className="mt-1 mr-2 h-3 w-3">
+                  <span className="mr-2 h-3 w-3">
                     <FontAwesomeIcon icon={faEthereum} />
                   </span>{" "}
                   {parseBalance(

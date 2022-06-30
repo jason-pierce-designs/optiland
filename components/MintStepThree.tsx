@@ -33,7 +33,7 @@ export default function MintStepThree() {
 
   return (
     <div>
-      <div className="max-w-2xl mx-auto py-16 px-4 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 lg:py-32 lg:gap-x-8 xl:gap-x-24">
+      <div className="max-w-2xl sm:rounded-b-lg mx-auto py-16 px-4 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 lg:py-32 lg:gap-x-8 xl:gap-x-24">
         <div>
           <h1 className="text-sm font-medium text-indigo-600">
             Payment successful
@@ -216,53 +216,3 @@ export default function MintStepThree() {
     </div>
   );
 }
-
-/** {
-  "blockHash": "0x336207f81a1624b16586ba2e5b92913067531dd921623b530b2cffa2bee7cefd",
-  "blockNumber": 1802839,
-  "contractAddress": null,
-  "cumulativeGasUsed": 158193,
-  "from": "0x3ed9d38601748734e94ee8480077cc8d4c8ffb0c",
-  "gasUsed": 158193,
-  "l1Fee": "0xbf8b",
-  "l1FeeScalar": "1.5",
-  "l1GasPrice": "0x7",
-  "l1GasUsed": "0x123e",
-  "logsBloom": "0x00000000400000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000020400000000000020000800000000000000000000000010000000000200000000000001000000000000000000000000000000000000000000000000000000000008000000000040000000000000000000000000000000000000000000000002000000000000000000000008000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000",
-  "status": true,
-  "to": "0xb87b4f704401930c968a29328e33daa5f87e47c2",
-  "transactionHash": "0x72097bd53baaa9866eac9b611c8b7413605e43ab21ef7a38af89d52bd48143c1",
-  "transactionIndex": 0,
-  "events": {
-      "Transfer": {
-          "address": "0xb87b4F704401930C968a29328e33DAa5F87e47c2",
-          "blockHash": "0x336207f81a1624b16586ba2e5b92913067531dd921623b530b2cffa2bee7cefd",
-          "blockNumber": 1802839,
-          "logIndex": 0,
-          "removed": false,
-          "transactionHash": "0x72097bd53baaa9866eac9b611c8b7413605e43ab21ef7a38af89d52bd48143c1",
-          "transactionIndex": 0,
-          "id": "log_48080495",
-          "returnValues": {
-              "0": "0x0000000000000000000000000000000000000000",
-              "1": "0x3ED9d38601748734e94Ee8480077cc8D4C8ffb0C",
-              "2": "387",
-              "from": "0x0000000000000000000000000000000000000000",
-              "to": "0x3ED9d38601748734e94Ee8480077cc8D4C8ffb0C",
-              "tokenId": "387"
-          },
-          "event": "Transfer",
-          "signature": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-          "raw": {
-              "data": "0x",
-              "topics": [
-                  "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-                  "0x0000000000000000000000000000000000000000000000000000000000000000",
-                  "0x0000000000000000000000003ed9d38601748734e94ee8480077cc8d4c8ffb0c",
-                  "0x0000000000000000000000000000000000000000000000000000000000000183"
-              ]
-          }
-      }
-  }
-}
-*/

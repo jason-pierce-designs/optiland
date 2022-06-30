@@ -67,7 +67,7 @@ export default function MintStepOne() {
   };
 
   return (
-    <div className="bg-white overflow-hidden sm-rounded-b-lg pt-16">
+    <div className="bg-white overflow-hidden rounded-b-lg pt-16">
       <div className="px-4 py-5 sm:p-6 sm:mb-16">
         <div className="text-lg max-w-prose mx-auto">
           <h1>
@@ -122,7 +122,7 @@ export default function MintStepOne() {
       {provider &&
         account &&
         chainId === Number(process.env.NEXT_PUBLIC_CHAIN_ID) && (
-          <div className="flex justify-center bg-gray-50 px-4 py-4 sm:px-6">
+          <div className="flex justify-center rounded-b-lg bg-gray-50 px-4 py-4 sm:px-6">
             <div className="mx-8">
               <Button variant="secondary" onClick={() => toggleModalOpen(true)}>
                 More info
