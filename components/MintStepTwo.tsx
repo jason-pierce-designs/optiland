@@ -87,7 +87,7 @@ export default function MintStepTwo() {
     useContext(MintFormContext);
   const { dispatch: stepperDispatch } = useContext(StepperContext);
   const [costPerToken, setCostPerToken] = useState<BigNumber>(
-    BigNumber.from("2500000000000000")
+    BigNumber.from("0")
   );
   const [quantity, setQuantity] = useState<{ value: string }>({ value: "0" });
   const [isValid, setIsValid] = useState<boolean>(false);
@@ -234,7 +234,12 @@ export default function MintStepTwo() {
                   value={quantity.value}
                   type="range"
                   min="0"
-                  max="10"
+                  max={
+                    formState.contract?.address ===
+                    process.env.NEXT_PUBLIC_CITIZEN_ADDRESS
+                      ? "1"
+                      : "10"
+                  }
                   step="1"
                   onChange={numBunnyChangeHandler}
                 />

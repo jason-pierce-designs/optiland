@@ -3,6 +3,7 @@ import { useWeb3React } from "@web3-react/core";
 import { hooks } from "../lib/connectors/metaMask";
 
 import BUNNIES_CONTRACT_ABI from "../lib/contracts/bunny.json";
+import CITIZENS_CONTRACT_ABI from "../lib/contracts/citizens.json";
 import { connectToOptimism } from "../lib/helpers";
 import { MintFormContext } from "../lib/state/mintForm";
 import { StepperContext } from "../lib/state/stepper";
@@ -14,7 +15,11 @@ import { ethers } from "ethers";
 
 const { useProvider } = hooks;
 
-export default function MintStepOne() {
+export interface MintStepOneProps {
+  contractAddress?: string;
+}
+
+export default function MintStepOne({ contractAddress }: MintStepOneProps) {
   const { account, chainId } = useWeb3React();
   const provider = useProvider();
   const signer = provider?.getSigner(account);
@@ -29,6 +34,50 @@ export default function MintStepOne() {
   const { dispatch: stepperDispatch } = useContext(StepperContext);
   const [modalOpen, toggleModalOpen] = useState(false);
 
+  const setToMintSadBunny = () => {
+    const abi: ContractInterface = CITIZENS_CONTRACT_ABI;
+    stepperDispatch({ type: "setStepComplete", payload: 0 });
+    const sadBunnyContract = new Contract(
+      process.env.NEXT_PUBLIC_CITIZEN_ADDRESS as string,
+      abi,
+      signer
+    );
+    formDispatch({
+      type: "setMintFormState",
+      payload: {
+        ...formState,
+        contract: sadBunnyContract,
+        isOnOptimismChain: true,
+      },
+    });
+    setTimeout(() => {
+      formDispatch({ type: "stepOneComplete", payload: true });
+      stepperDispatch({ type: "setCurrentStep", payload: 1 });
+    }, 666);
+  };
+
+  const setToMintRegularBunny = () => {
+    const abi: ContractInterface = BUNNIES_CONTRACT_ABI;
+    stepperDispatch({ type: "setStepComplete", payload: 0 });
+    const opBunnyContract = new Contract(
+      process.env.NEXT_PUBLIC_BUNNY_ADDRESS as string,
+      abi,
+      signer
+    );
+    formDispatch({
+      type: "setMintFormState",
+      payload: {
+        ...formState,
+        contract: opBunnyContract,
+        isOnOptimismChain: true,
+      },
+    });
+    setTimeout(() => {
+      formDispatch({ type: "stepOneComplete", payload: true });
+      stepperDispatch({ type: "setCurrentStep", payload: 1 });
+    }, 666);
+  };
+
   const markStepOneComplete = () => {
     const txnDate = new Date().toString();
     sign(signer as ethers.Signer, `Optiland Minting: ${txnDate}`).then(
@@ -38,25 +87,14 @@ export default function MintStepOne() {
           signature as string
         );
         if (result === account) {
-          const abi: ContractInterface = BUNNIES_CONTRACT_ABI;
-          stepperDispatch({ type: "setStepComplete", payload: 0 });
-          const opBunnyContract = new Contract(
-            process.env.NEXT_PUBLIC_BUNNY_ADDRESS as string,
-            abi,
-            signer
-          );
-          formDispatch({
-            type: "setMintFormState",
-            payload: {
-              ...formState,
-              contract: opBunnyContract,
-              isOnOptimismChain: true,
-            },
-          });
-          setTimeout(() => {
-            formDispatch({ type: "stepOneComplete", payload: true });
-            stepperDispatch({ type: "setCurrentStep", payload: 1 });
-          }, 666);
+          if (
+            contractAddress &&
+            contractAddress === process.env.NEXT_PUBLIC_CITIZEN_ADDRESS
+          ) {
+            setToMintSadBunny();
+          } else {
+            setToMintRegularBunny();
+          }
         } else {
           alert(
             "Oops, we have detected an invalid signature. Please refresh the page and try again."

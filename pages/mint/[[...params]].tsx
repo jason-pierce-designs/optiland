@@ -11,20 +11,18 @@ import MintStepThree from "../../components/MintStepThree";
 import HeadMeta from "../../components/HeadMeta";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { params, variable } = context.query;
-  // console.log("collection is: ", params);
+  const { params } = context.query;
+  // console.log("mint from collection: ", params);
 
   return {
     props: removeUndefinedForNextJsSerializing({
       params,
-      variable,
     }),
   };
 };
 
 export default function MintDeepLink({
   params,
-  variable,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { state: formState } = useContext(MintFormContext);
 
@@ -38,7 +36,11 @@ export default function MintDeepLink({
       <DarkOverlapShell title="Mint">
         <div className="relative bg-white rounded-lg shadow">
           <Stepper />
-          {!formState.isReadyForStep2 && <MintStepOne />}
+          {!formState.isReadyForStep2 && params?.length > 0 && (
+            <MintStepOne contractAddress={params[0]} />
+          )}
+          {!formState.isReadyForStep2 && !params && <MintStepOne />}
+
           {formState.isReadyForStep2 && !formState.isReadyForStep3 && (
             <MintStepTwo />
           )}
